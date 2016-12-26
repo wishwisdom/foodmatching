@@ -7,10 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUser implements UserDetails{
 	private User user;
-	private boolean isAccountNonLocked;
-    private boolean isCredentialsNonExpired;
-    private boolean isEnabled;
-	private boolean isAccountNonExpired;
 	private Collection<? extends GrantedAuthority> authorities;
 	
 	
@@ -28,19 +24,19 @@ public class CustomUser implements UserDetails{
 	}
 
 	public void setAccountNonExpired(boolean isAccountNonExpired) {
-		this.isAccountNonExpired = isAccountNonExpired;
+		this.user.setAccountNonExpired( isAccountNonExpired);
 	}
 
 	public void setAccountNonLocked(boolean isAccountNonLocked) {
-		this.isAccountNonLocked = isAccountNonLocked;
+		this.user.setAccountNonLocked(isAccountNonLocked);
 	}
 
 	public void setCredentialsNonExpired(boolean isCredentialsNonExpired) {
-		this.isCredentialsNonExpired = isCredentialsNonExpired;
+		this.user.setCredentialsNonExpired(isCredentialsNonExpired);
 	}
 
 	public void setEnabled(boolean isEnabled) {
-		this.isEnabled = isEnabled;
+		this.user.setEnabled(isEnabled);
 	}
 
 	
@@ -60,31 +56,31 @@ public class CustomUser implements UserDetails{
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return null;
+		return user.getNickName();
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return user.isAccountNonExpired();
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return false;
+		return user.isAccountNonLocked();
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return user.isCredentialsNonExpired();
 	}
 
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return false;
+		return user.isEnabled();
 	}
 
 }

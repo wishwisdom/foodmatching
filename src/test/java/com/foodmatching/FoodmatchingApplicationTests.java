@@ -7,11 +7,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.foodmatching.dao.UserDao;
 import com.foodmatching.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -19,8 +17,6 @@ import com.foodmatching.service.UserService;
 @ActiveProfiles(profiles = "test")
 public class FoodmatchingApplicationTests {
 	@Autowired
-    @Qualifier("anotherDAO")
-    private UserDao userDao;
 
     @Resource(name = "anotherService")
     private UserService userService;
