@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>게시</title>
+</head>
+<body>
+	<h1 th:text="${ok}"></h1>
+	<form method="post" th:action="@{/upload}" th:object="${fileUpload}" enctype="multipart/form-data">
+
+		<p>Select files to upload. Press Add button to add more file
+			inputs.</p>
+
+		<table id="fileTable">
+			
+			<tr>
+				<td><input th:field="*{firstFoodName}" type="text" /></td>
+				<td><input th:field="*{files}" type="file" /></td>
+			</tr>
+			
+			<tr>
+				<td><input th:field="*{secondFoodName}" type="text" /></td>
+				<td><input th:field="*{files}" type="file" /></td>
+			</tr>
+			<tr><td>조합 정보 추가</td></tr>
+			<tr>
+				<td><label>조합 평가</label><input th:field="*{evalTaste}" type="text"/></td>
+				<td><label>조합 TAG</label><input th:field="*{tags}" type="text"/></td>
+				<td><label>조합 특성</label><input th:field="*{property}" type="text"/></td>
+			</tr>
+		</table>
+		<br />
+		<input type="submit" value="Upload" />
+		<input id="addFile" type="button" value="Add File" />
+	</form>
+</body>
+</html>
