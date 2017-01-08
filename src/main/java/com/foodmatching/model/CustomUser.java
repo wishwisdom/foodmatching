@@ -9,19 +9,19 @@ public class CustomUser implements UserDetails{
 	private User user;
 	private Collection<? extends GrantedAuthority> authorities;
 	
+	public CustomUser(User user){
+		this.user = user;
+	}
 	
+	public String getUserEmail(){
+		return user.getEmail();
+	}
 	
 	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
         this.authorities = authorities;
     }
 	
-    public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+    
 
 	public void setAccountNonExpired(boolean isAccountNonExpired) {
 		this.user.setAccountNonExpired( isAccountNonExpired);

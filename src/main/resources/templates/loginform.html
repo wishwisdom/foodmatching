@@ -2,11 +2,13 @@
 <html lang="en-US" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8"></meta>
-<title>insert OK</title>
+<title>Login</title>
 </head>
 <body>
-
-<form action="#" th:action="@{/register}" th:object="${user}" method="post">
+<div>
+	<h1 th:text="${test}"></h1>
+</div>
+<form action="#" th:action="@{/users}" th:object="${user}" method="post">
 	<table>
 	<tr>
 	    <td><label>email:</label><input type="text" th:field="*{email}" /></td>
@@ -18,32 +20,11 @@
 	    </td>
 	    <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
     </tr>
-    <tr>
-	    <td>
-	    	<input type="password" th:field="*{repassword}" />
-	    </td>
-	    <td th:if="${#fields.hasErrors('repassword')}" th:errors="*{repassword}">Name Error</td>
-    </tr>
-    <tr>
-	    <td>
-	    	<input type="text" th:field="*{nickName}" />
-	    </td>
-    </tr>
-    <tr>
-    	<td><input type="date" th:field="*{birth}" /></td>
-    </tr>
+   
     <tr>
     	<td><input type="submit" value="OK"/></td>
     </tr>
     </table>
 </form>
-
-<div>
-	<p th:text="${test}"></p>
-	<p th:text="${email}"></p>
-	<p th:text="${password}"></p>
-	<p th:text="${nickname}"></p>
-</div>
-
 </body>
 </html>

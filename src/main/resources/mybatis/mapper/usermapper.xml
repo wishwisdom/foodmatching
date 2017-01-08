@@ -9,7 +9,12 @@
 	<select id="readAuthority" parameterType="int" resultType="String">
 		SELECT authority_name FROM authority WHERE id = #{id}
 	</select>
-	<insert id="insertUser" parameterType="User" flushCache="true"
+	
+	<select id="findIdAndPassword" parameterType="User" resultType="User">
+		SELECT * FROM users WHERE id=#{id} AND password=#{password}
+	</select>
+	
+	<insert id="insertUser" parameterType="UserForm" flushCache="true"
 		statementType="PREPARED" useGeneratedKeys="false" timeout="20">
 		INSERT INTO
 		users(email,nickname,password,birth,join_day)

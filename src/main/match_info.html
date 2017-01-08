@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+  	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+	<title>세부 조합 정보</title>
+	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+ 		<!--[if lt IE 9]>
+  		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  		<![endif]-->
+  	<link rel="stylesheet" href="/css/commons.css"></link>	
+	<link rel="stylesheet" href="/css/match_info.css"></link>
+</head>
+<body>
+	<div id="header" class="fm-head">
+		<div class="fm-head-left"><div class="btn-on"><a class="link">푸드매칭</a></div></div>
+		<div class="fm-head-left"><a class="link">조합 공유</a></div>
+		<div class="fm-head-left"><a class="link">조합 원정대</a></div>
+		<div class="fm-head-search"><div class="icon"><img src="./resources/search_m.svg"></div></div>
+		<div class="fm-head-right"><a class="link">로그인</a></div>
+		<div class="fm-head-right"><div class="btn-on"><a class="link">회원가입</a></div></div>
+	</div>
+	<section class="fm-main-container container">
+		<div>
+			<div class="explain col-md-12"></div>
+			<div class="fm-ct-container col-md-12">
+				<div class="each-box summary">
+					<div class="col-md-4">
+						<div class="summary-ct-info">
+							<div class="title">계란 볶음밥 &<br>연어 칠리 구이</div>
+							<div>
+								<div class="writer-photo"><img id="user-photo" src="./resources/profile_icon.png"></div>
+								<div class="writer-name">by 구슬씨</div>
+							</div>
+							<div class="point">"입에 착착 감기는 매콤 고소한 맛이에요"</div>
+							<div class="posts-ct-info">
+								<div class="each-info"><img src="./resources/heart.svg"> 721</div>
+								<div class="each-info"><img src="./resources/scrap.png"> 스크랩</div>
+								<div class="each-info-last"><img src="./resources/share.png"> 공유하기</div>
+							</div>
+						</div>
+					</div>
+					<div class="summary-photo-container col-md-8">
+						<div class="inner">
+							<div class="sum-food1" id="sum-food1">
+								<div class="inner">
+									<div class="sum-food-taste">
+										<div>
+											<div>부드럽고 달콤한<br>계란볶음밥</div>
+											<div class="icon-container"><img src="./resources/spicy.png">
+											<img src="./resources/spicy.png"></div>
+										</div>
+									</div>
+								</div>
+							</div>			
+							<div class="sum-food2" id="sum-food2">
+								<div class="inner">
+									<div class="sum-food-taste">
+										<div>
+											<div>매콤하고 짭조름한<br>연어 칠리 구이</div>
+											<div class="icon-container"><img src="./resources/spicy.png">
+											<img src="./resources/spicy.png"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>						
+					</div>
+				</div>
+			</div>
+			<div class="explain col-md-12">태그</div>
+			<div class="fm-ct-container col-md-12">
+				<div class="each-box">
+					<div class="tag">
+						<div>#이태원, #계란, #연어, #칠리소스, #매콤한</div>
+					</div>
+				</div>
+			</div>
+			<div class="explain col-md-12">맛 정보</div>
+			<div class="fm-ct-container col-md-12">
+				<div class="each-box">
+					<table>
+						<tr>
+							<td class="taste-icons">
+							<img src="./resources/spicy.png"> &
+							<img src="./resources/spicy.png">
+							</td>
+							<td>
+							<p class="taste-name">부드러운 맛 & 매콤한 맛</p>
+							<p class="taste-explain">"부드러운 맛은 매운 맛이 입안에서 은은하게 퍼지게 해 줘요"</p>
+							</td>
+						</tr>
+						<tr class="tr-with-hr">
+							<td class="taste-icons">
+							<img src="./resources/spicy.png"> &
+							<img src="./resources/spicy.png">
+							</td>
+							<td>
+							<p class="taste-name">달콤한 맛 & 짭조름한 맛</p>
+							<p class="taste-explain">"짭조름한 맛이 단맛을 더 깊고 조화롭게 만들어 줘요"</p>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			
+			<div class="explain col-md-12">비슷한 음식 조합</div>
+			<div class="fm-ct-container col-md-12">
+				<div>
+					<div class="container-padding1 col-md-6">
+						<div class="half-box">
+							<div class="fm-name">계란 볶음밥</div>
+							<div class="fm-food" id="fm-food1">
+							</div>
+							<div class="sug-taste1"><img src="./resources/spicy-black.png"></div>
+							<div class="sug-name1">매운 핫 치킨</div>
+							<div class="sug-food1" id="sug-food1"></div>
+							<div class="sug-line1"></div>
+							<div class="sug-taste2"><img src="./resources/spicy-black.png"></div>
+							<div class="sug-name2">포테이토 후라이</div>
+							<div class="sug-food2" id="sug-food2"></div>
+							<div class="sug-line2"></div>
+						</div>
+					</div>
+					<div class="container-padding2 col-md-6">
+						<div class="half-box">
+							<div class="fm-name">연어 칠리 구이</div>
+							<div class="fm-food" id="fm-food2">
+							</div>
+							<div class="sug-taste1"><img src="./resources/spicy-black.png"></div>
+							<div class="sug-name1">탕수육</div>
+							<div class="sug-food1" id="sug-food3"></div>
+							<div class="sug-line1"></div>
+							<div class="sug-taste2"><img src="./resources/spicy-black.png"></div>
+							<div class="sug-name2">치즈 스프 브레드</div>
+							<div class="sug-food2" id="sug-food4"></div>	
+							<div class="sug-line2"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="explain col-md-12">댓글</div>
+			<div class="fm-ct-container col-md-12">
+				<div class="each-box">
+					<div class="write-container">
+						<div class="profile"><img src="./resources/profile.png"></div>
+						<div class="text">
+							<div class="form-group">
+  								<textarea class="form-control non-login" rows="3" id="comment" placeholder="로그인이 필요합니다" disabled></textarea>
+							</div>
+						</div>
+						<div class="send"><button type="button" class="btn btn-send">등록</button></div>
+					</div>
+					<div class="comment-container">
+						<div class="profile"><img src="./resources/reviewer.png"></div>
+						<div class="comment-view">
+							<div class="comm-report">신고</div>
+							<div class="comm-name">Lisa</div>
+							<div class="comm-contents">평소에 계란 요리 좋아하는데 매콤한 음식이랑 먹으면 잘 어울릴 듯 하네요 ㅎㅎ</div>
+							<div class="comm-time">3일전</div>
+							<div class="comm-inner1"><button type="button" class="btn btn-default" id="reply1">답글 1</button></div>
+							<div class="comm-inner2"><button type="button" class="btn btn-default"><img class="heart" src="./resources/heart.svg"> 177</button></div>
+							<div class="reply-container">
+								<div class="reply-box">	
+									<div class="reply-inner">
+										<div class="profile"><img src='./resources/profile.png'></div>
+										<div class="comment">
+											<div class="form-group">
+  												<textarea class="form-control non-login" rows="4" id="comment" placeholder="로그인이 필요합니다" disabled></textarea>
+												<button type="button" class="btn">등록</button>
+											</div>
+										</div>
+									</div>
+									<hr>
+									<div class="reply-inner">	
+										<div class="profile"><img src='./resources/profile.png'></div>
+										<div class="comment">
+											<div class="comm-report">신고</div>
+											<div class="comm-name">Alwayscooking</div>
+											<div class="comm-contents">나도 계란 요리 좋아하는데 내 생각도 그래요 ㅎㅎ</div>
+											<div class="comm-time">3일전</div>
+										</div>
+									</div>
+								</div>
+							</div>		
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer class="container fm-foot">
+			<div class="fm-foot-container">
+				<hr class="line">
+				<div class="fm-foot-contents">
+				<div class="fm-foot-link">
+					<ul>
+						<li>회사소개</li>
+						<li>미디어</li>
+						<li>제휴 제안</li>
+						<li>이용약관</li>
+						<li>개인정보처리방침</li>
+						<li>고객센터</li>
+					</ul>
+				</div>
+				<div class="fm-foot-ci">© Foodmatching</div>
+				</div>
+			</div>
+	</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script>
+$('#sum-food1').css("background-image", "url(./resources/food1-full.png)");
+$('#sum-food2').css("background-image", "url(./resources/food2-full.png)");
+$('#fm-food1').css("background-image", "url(./resources/food1-full.png)");
+$('#fm-food2').css("background-image", "url(./resources/food2-full.png)");
+
+$('#sug-food1').css("background-image", "url(./resources/f1.png)");
+$('#sug-food2').css("background-image", "url(./resources/f2.png)");
+$('#sug-food3').css("background-image", "url(./resources/f3.png)");
+$('#sug-food4').css("background-image", "url(./resources/f4.png)");
+
+$(document).ready(function(){
+	$('#reply1').click(function(){
+		$('.reply-container').toggle();
+	});
+});
+</script>
+</body>
+</html>
