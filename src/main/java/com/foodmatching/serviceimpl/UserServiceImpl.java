@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.assertj.core.internal.Lists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.foodmatching.mapper.UserMapper;
@@ -20,35 +22,35 @@ import com.foodmatching.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService{
-	
+	private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	@Autowired
-	private UserMapper userMapper;
+	UserMapper userMapper;
 	
 	@Override
-	public UserDetails loadUserByUsername(String nickName) throws UsernameNotFoundException {
-		User user = userMapper.getUser(nickName);
-		CustomUser customUser = new CustomUser();
-		customUser.setUser(user);
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		logger.info("loadUserByUsername : "+email);
+		User user = null;
+		try{
+			user = userMapper.getUserByEmail(email);
+		}catch(Exception e){
+			logger.info("loadUserByUsername\n"+e.getClass());
+		}
 		
-		return customUser;
+		
+		if(user == null){
+			throw new UsernameNotFoundException("Login Failed");
+		}
+				
+		return new CustomUser(user);
 	}
 
-	@Override
-	public Collection<GrantedAuthority> getAuthorities(String nickName) {
-		User user = userMapper.getUser(nickName);
-		
-		List<String> string_authorities = userMapper.readAuthority(user.getId());
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        for (String authority : string_authorities) {
-             authorities.add(new SimpleGrantedAuthority(authority));
-        }
-        return authorities;
-	}
+	
 
 	@Override
-	public User readUser(String nickName) {
+	public User readUserByEmail(String email) {
 		// TODO Auto-generated method stub
-		return null;
+		User user = userMapper.getUserByEmail(email);
+		return user;
 	}
 
 	@Override
@@ -57,6 +59,7 @@ public class UserServiceImpl implements UserService{
         String encodedPassword = new BCryptPasswordEncoder().encode(rawPassword);
 		
         user.setPassword(encodedPassword);
+        
 		userMapper.insertUser(user);
 	}
 
@@ -66,9 +69,11 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public PasswordEncoder passwordEncoder() {
+	public User getUserById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		User user = userMapper.getUserById(id);
+		return user;
 	}
 
+	
 }

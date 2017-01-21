@@ -7,13 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUser implements UserDetails{
 	private User user;
-	private Collection<? extends GrantedAuthority> authorities;
 	
-	
-	
-	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-        this.authorities = authorities;
-    }
+	public CustomUser(User user){
+		this.user = user;
+	}
 	
     public User getUser() {
 		return user;
@@ -41,16 +38,12 @@ public class CustomUser implements UserDetails{
 
 	
 	
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return authorities;
-	}
+	
 
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.user.getPassword();
 	}
 
 	@Override
@@ -81,6 +74,14 @@ public class CustomUser implements UserDetails{
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return user.isEnabled();
+	}
+
+	
+	// imsi
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -40,30 +40,7 @@ public class MainController extends WebMvcConfigurerAdapter{
 		return "main";
 	}
 	
-	@PostMapping("/register")
-	public ModelAndView registerUser(@ModelAttribute(value = "user") @Valid User user, BindingResult bindingResult) {
-		// email,nickname,password,birth,joinDay
-
-		ModelAndView mav = new ModelAndView("insertOK");
-
-		// userMapper.insertUser(user);
-
-		mav.addObject("test", "TestOK");
-
-		return mav;
-	}
-
-	@GetMapping("/register")
-	public String registerGet(Model model) {
-		// email,nickname,password,birth,joinDay
-
-		User user = new User();
-
-		model.addAttribute("user", user);
-		model.addAttribute("test", "OK");
-
-		return "insertOK";
-	}
+	
 
 	
 }
