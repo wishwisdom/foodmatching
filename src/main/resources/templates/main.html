@@ -10,53 +10,21 @@
   		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   		<![endif]-->
-<<<<<<< HEAD:src/main/resources/templates/main.html
-	<link rel="stylesheet" href="/css/main.css"></link>
-</head>
-<body>
-	<div id="header" class="foodmatching-header">
-		<div class="header-symbol"></div>
-		<div class="header-menu center"><div class="selected center"><a class="menu-link">푸드매칭</a></div></div>
-		<div class="header-menu center"><a class="menu-link">조합 공유</a></div>
-		<div class="header-menu center"><a class="menu-link">조합 원정대</a></div>
-		<div class="header-small-menu center"><div class="icon-menu"><img th:src="@{/images/search_m.svg}"/></div></div>
-		<div class="header-right-menu center mrg-right"><a class="menu-link">로그인</a></div>
-		<div class="header-right-menu center"><div class="selected-join center"><a class="menu-link">회원가입</a></div></div>
-	</div>
-	<div class="service-intro">
-		<img class="intro-img" th:src="@{/images/intro.png}"/>
-		<div class="intro-msg-big center">음식은 더할수록 행복해진다</div>
-		<div class="intro-msg-small center">풍미를 높여 주는 음식 조합을 찾아, 소중한 사람들과 함께 나누세요.</div></div>
-	<div class="searchbar"></div>
-	<div class="contents-background">
-		<div class="contents-container">
-			<div class="highlights">
-				<div class="month-hl col-md-4">
-					<div class="subject-hl">이달의 푸드매칭</div>
-					<div class="month-hl-img">
-						<div class="in-subject-hl middle"><div class="month-title">▲ 요즘 한강에서 핫한 조합은?</div></div>
-					</div>
-				</div>
-				<div class="best-hl col-md-8">
-					<div class="subject-hl">베스트 푸드매칭</div>
-					<div class="best-hl-img">
-						<div class="best-title">매콤한 토마토 수프 <br/>고소한 콥샐러드</div>
-						<div class="best-contents-info">
-=======
-  	<link rel="stylesheet" href="/css/commons.css"></link>
-	<link rel="stylesheet" href="/css/main.css"></link>
+
+  	<link rel="stylesheet" href="@{/css/commons.css}"></link>
+	<link rel="stylesheet" href="@{/css/main.css}"></link>
 </head>
 <body>
 	<div id="header" class="fm-head">
 		<div class="fm-head-left"><div class="btn-on"><a class="link">푸드매칭</a></div></div>
 		<div class="fm-head-left"><a class="link">조합 공유</a></div>
 		<div class="fm-head-left"><a class="link">조합 원정대</a></div>
-		<div class="fm-head-search"><div class="icon"><img src="./resources/search_m.svg"></div></div>
+		<div class="fm-head-search"><div class="icon"><img src="@{/images/search_m.svg}" /></div></div>
 		<div class="fm-head-right"><a class="link">로그인</a></div>
 		<div class="fm-head-right"><div class="btn-on"><a class="link">회원가입</a></div></div>
 	</div>
 	<section class="fm-intro">
-		<img src="./resources/intro.png">
+		<img src="@{/images/intro.png}" />
 		<div class="title">음식은 더할수록 행복해진다</div>
 		<div class="sub-title">풍미를 높여 주는 음식 조합을 찾아, 소중한 사람들과 함께 나누세요.</div>
 	</section>
@@ -72,11 +40,10 @@
 				<div class="best col-md-8">
 					<div class="explain">베스트 푸드매칭</div>
 					<div class="inner">
-						<div class="best-title">매콤한 토마토 수프 &<br>고소한 콥샐러드</div>
+						<div class="best-title">매콤한 토마토 수프 <br/>고소한 콥샐러드</div>
 						<div class="best-ct-info">
->>>>>>> f40d7435f0592a4c905019acf69c4aa1f44bd40d:src/main/main.html
 							<div>foodlove님의 푸드매칭</div>
-							<div class="heart-container"><img class="heart" src="./resources/heart_white.svg">927</div>
+							<div class="heart-container"><img class="heart" src="@{/heart_white.svg}" />927</div>
 						</div>
 					</div>
 				</div>
@@ -89,17 +56,10 @@
 					</div>
 					<div class="each-post matching">
 						<div class="posts-up">
-<<<<<<< HEAD:src/main/resources/templates/main.html
 							<div class="posts-title center">라멘, 돈카츠 <br/>캘리포니아 롤</div>
 							<div class="posts-writer">구슬씨</div>
 							<div class="posts-time">1시간 전</div>
 							<div class="posts-like middle">927<img class="heart" th:src="@{/images/heart.svg}"/></div>
-=======
-							<div class="posts-title">라멘, 돈카츠 &<br>캘리포니아 롤</div>
-							<div class="posts-writer">구슬씨</div>
-							<div class="posts-time">1시간 전</div>
-							<div class="posts-like">927<img class="posts-heart" src="./resources/heart.svg"></div>
->>>>>>> f40d7435f0592a4c905019acf69c4aa1f44bd40d:src/main/main.html
 						</div>
 						<div class="posts-down">
 							<div id="ramen" class="third-img-fir"></div>
@@ -109,10 +69,10 @@
 					</div>
 					<div class="each-post matching">
 						<div class="posts-up">
-							<div class="posts-title">오므라이스 &<br>크림 스파게티</div>
+							<div class="posts-title">오므라이스 <br/>크림 스파게티</div>
 							<div class="posts-writer">구슬씨</div>
 							<div class="posts-time">1시간 전</div>
-							<div class="posts-like">927<img class="posts-heart" src="./resources/heart.svg"></div>
+							<div class="posts-like">927<img class="posts-heart" src="@{/images/heart.svg}" /></div>
 						</div>
 						<div class="posts-down">
 							<div id="omu" class="half-img-fir"></div>
@@ -131,17 +91,10 @@
 					</div>
 					<div class="each-post matching">
 						<div class="posts-up">
-<<<<<<< HEAD:src/main/resources/templates/main.html
 							<div class="posts-title center">라멘, 돈카츠 <br/>캘리포니아 롤</div>
 							<div class="posts-writer">구슬씨</div>
 							<div class="posts-time">1시간 전</div>
 							<div class="posts-like middle">927<img class="heart" th:src="@{/images/heart.svg}" /></div>
-=======
-							<div class="posts-title">라멘, 돈카츠 &<br>캘리포니아 롤</div>
-							<div class="posts-writer">구슬씨</div>
-							<div class="posts-time">1시간 전</div>
-							<div class="posts-like">927<img class="posts-heart" src="./resources/heart.svg"></div>
->>>>>>> f40d7435f0592a4c905019acf69c4aa1f44bd40d:src/main/main.html
 						</div>
 						<div class="posts-down">
 							<div id="ramen2" class="third-img-fir"></div>
@@ -151,17 +104,10 @@
 					</div>
 					<div class="each-post matching">
 						<div class="posts-up">
-<<<<<<< HEAD:src/main/resources/templates/main.html
 							<div class="posts-title center">오므라이스 <br/>크림 스파게티</div>
 							<div class="posts-writer">구슬씨</div>
 							<div class="posts-time">1시간 전</div>
 							<div class="posts-like middle">927<img class="heart" th:src="@{/images/heart.svg}" /></div>
-=======
-							<div class="posts-title">오므라이스 &<br>크림 스파게티</div>
-							<div class="posts-writer">구슬씨</div>
-							<div class="posts-time">1시간 전</div>
-							<div class="posts-like">927<img class="posts-heart" src="./resources/heart.svg"></div>
->>>>>>> f40d7435f0592a4c905019acf69c4aa1f44bd40d:src/main/main.html
 						</div>
 						<div class="posts-down">
 							<div id="omu2" class="half-img-fir">
@@ -176,29 +122,11 @@
 				</div>
 			</div>
 		</div>
-<<<<<<< HEAD:src/main/resources/templates/main.html
-	</div>
-	<footer class="footer">
-		<div class="container">
-			<div class="footer-inner">
-				<hr class="footer-line"/>
-				<div class="footer-contents">
-				<div class="list-container">
-					<ul>
-						<li>회사소개</li>
-						<li>미디어</li>
-						<li>제휴 제안</li>
-						<li>이용약관</li>
-						<li>개인정보처리방침</li>
-						<li>고객센터</li>
-					</ul>
-				</div>
-				<div class="company-ci">©Foodmatching</div>
-=======
+
 	</section>
 	<footer class="container fm-foot">
 			<div class="fm-foot-container">
-				<hr class="line">
+				<hr class="line" />
 				<div class="fm-foot-contents">
 					<div class="fm-foot-link">
 						<ul>
@@ -211,33 +139,29 @@
 						</ul>
 					</div>
 				<div class="fm-foot-ci">© Foodmatching</div>
->>>>>>> f40d7435f0592a4c905019acf69c4aa1f44bd40d:src/main/main.html
 				</div>
 			</div>
 	</footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="@{/bootstrap/js/bootstrap.min.js}"></script>
 <script>
-$('#random').css("background-image", "url(/images/mario_img.png)");
+$('#random').css("background-image", "url(@{/images/mario_img.png})");
 
-$('#ramen').css("background-image", "url(/images/ramen.png)");
-$('#cutlet').css("background-image", "url(/images/cutlet.png)");
-$('#sushi').css("background-image", "url(/images/sushi.png)");
+$('#ramen').css("background-image", "url(@{/images/ramen.png)}");
+$('#cutlet').css("background-image", "url(@{/images/cutlet.png})");
+$('#sushi').css("background-image", "url(@{/images/sushi.png)}");
 
-$('#ramen2').css("background-image", "url(/images/ramen.png)");
-$('#cutlet2').css("background-image", "url(/images/cutlet.png)");
-$('#sushi2').css("background-image", "url(/images/sushi.png)");
+$('#ramen2').css("background-image", "url(@{/images/ramen.png})");
+$('#cutlet2').css("background-image", "url(@{/images/cutlet.png})");
+$('#sushi2').css("background-image", "url(@{/images/sushi.png})");
 
-<<<<<<< HEAD:src/main/resources/templates/main.html
-$('#omu').css("background-image", "url(/images/om.png)");
-$('#spa').css("background-image", "url(/images/spa.png)");
-=======
-$('#omu').css("background-image", "url(./resources/om.png)");
-$('#spa').css("background-image", "url(./resources/spa.png)");
 
-$('#omu2').css("background-image", "url(./resources/om.png)");
-$('#spa2').css("background-image", "url(./resources/spa.png)");
->>>>>>> f40d7435f0592a4c905019acf69c4aa1f44bd40d:src/main/main.html
+$('#omu').css("background-image", "url(@{/images/om.png})");
+$('#spa').css("background-image", "url(@{/images/spa.png})");
+
+$('#omu2').css("background-image", "url(@{/images/om.png})");
+$('#spa2').css("background-image", "url(@{/images/spa.png})");
+
 </script>
 </body>
 </html>

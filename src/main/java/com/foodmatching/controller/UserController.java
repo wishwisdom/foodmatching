@@ -91,7 +91,7 @@ public class UserController {
 		model.addAttribute("test", "start");
 		
 		
-		return "loginform";
+		return "login";
 	}
 	
 	

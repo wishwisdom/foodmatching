@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,25 +22,26 @@ import com.foodmatching.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
-	
+	Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	@Autowired
 	private UserMapper userMapper;
 	
 	@Override
-	public UserDetails loadUserByUsername(String nickName) throws UsernameNotFoundException {
-		User user = userMapper.findByNickName(nickName);
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		User user = userMapper.findByEmail(email);
 		
 		if(user == null){
-			throw new UsernameNotFoundException(nickName);
+			throw new UsernameNotFoundException(email);
 		}
 		CustomUser customUser = new CustomUser(user);
-
+		
+		logger.info("loadUserByUsername"+customUser.getUserEmail());
 		
 		return customUser;
 	}
 	@Override
-	public Collection<GrantedAuthority> getAuthorities(String nickName) {
-		User user = userMapper.findByNickName(nickName);
+	public Collection<GrantedAuthority> getAuthorities(String email) {
+		User user = userMapper.findByEmail(email);
 		
 		List<String> string_authorities = userMapper.readAuthority(user.getId());
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();

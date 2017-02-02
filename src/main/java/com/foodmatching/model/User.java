@@ -7,7 +7,6 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class User {
 	private int id;
@@ -53,7 +52,7 @@ public class User {
 		return password;
 	}
 	public void setPassword(String password) {
-		this.password = passwordEncoder(password);
+		this.password = password;
 	}
 	public Date getBirth() {
 		return birth;
@@ -92,9 +91,5 @@ public class User {
 		this.isEnabled = isEnabled;
 	}
 	
-	// Encoding a password
-	private String passwordEncoder(String rawPassword) {
-		// TODO Auto-generated method stub
-		return new BCryptPasswordEncoder().encode(rawPassword);
-	}
+	
 }

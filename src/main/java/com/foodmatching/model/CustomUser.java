@@ -2,10 +2,13 @@ package com.foodmatching.model;
 
 import java.util.Collection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUser implements UserDetails{
+	private Logger logger = LoggerFactory.getLogger(CustomUser.class);
 	private User user;
 	private Collection<? extends GrantedAuthority> authorities;
 	
@@ -50,7 +53,8 @@ public class CustomUser implements UserDetails{
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return null;
+		logger.info("Password : "+this.user.getPassword());
+		return this.user.getPassword();
 	}
 
 	@Override
