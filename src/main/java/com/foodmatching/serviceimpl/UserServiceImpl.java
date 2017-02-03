@@ -1,27 +1,25 @@
 package com.foodmatching.serviceimpl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.assertj.core.internal.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.foodmatching.mapper.UserMapper;
 import com.foodmatching.model.CustomUser;
 import com.foodmatching.model.User;
+import com.foodmatching.model.UserForm;
 import com.foodmatching.service.UserService;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService, UserDetailsService{
 	private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	@Autowired
 	UserMapper userMapper;
@@ -31,11 +29,10 @@ public class UserServiceImpl implements UserService{
 		logger.info("loadUserByUsername : "+email);
 		User user = null;
 		try{
-			user = userMapper.getUserByEmail(email);
+			user = userMapper.findUserByEmail(email);
 		}catch(Exception e){
 			logger.info("loadUserByUsername\n"+e.getClass());
 		}
-		
 		
 		if(user == null){
 			throw new UsernameNotFoundException("Login Failed");
@@ -43,36 +40,86 @@ public class UserServiceImpl implements UserService{
 				
 		return new CustomUser(user);
 	}
+	
+	@Override
+	public User findUserByIdAndPassword(User user) {
+		// TODO Auto-generated method stub
+		
+		
+		return userMapper.findIdAndPassword(user);
+	}
+
+	
 
 	
 
 	@Override
-	public User readUserByEmail(String email) {
+
+	public User find(String id) {
 		// TODO Auto-generated method stub
-		User user = userMapper.getUserByEmail(email);
-		return user;
+		return userMapper.findUserByEmail(id);
+	}
+
+	
+
+	@Override
+	public int save(UserForm form) {
+		return userMapper.insertUser(form);
 	}
 
 	@Override
-	public void createUser(User user) {
-		String rawPassword = user.getPassword();
-        String encodedPassword = new BCryptPasswordEncoder().encode(rawPassword);
-		
-        user.setPassword(encodedPassword);
-        
-		userMapper.insertUser(user);
-	}
-
-	@Override
-	public void deleteUser(User user) {
-		userMapper.deleteUser(user);
+	public int saveAll(List<User> list) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
 	public User getUserById(int id) {
 		// TODO Auto-generated method stub
-		User user = userMapper.getUserById(id);
+		User user = userMapper.findUserById(id);
 		return user;
+	}
+
+	@Override
+	public int save(User t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int delete(User t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteAll(List<User> list) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Collection<GrantedAuthority> getAuthorities(String nickName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User readUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void createUser(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteUser(User user) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

@@ -3,14 +3,19 @@ package com.foodmatching.service;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.foodmatching.model.User;
+import com.foodmatching.model.UserForm;
 
-public interface UserService extends UserDetailsService{
 	//Collection<GrantedAuthority> getAuthorities(String nickName);
-	public User readUserByEmail(String email);
+	
+public interface UserService extends Service<User>{
+	Collection<GrantedAuthority> getAuthorities(String nickName);
+    
+    public User findUserByIdAndPassword(User user);
+    public User readUserByEmail(String email);
 	public User getUserById(int email);
     public void createUser(User user);
     public void deleteUser(User user);
+    public int save(UserForm form);
 }

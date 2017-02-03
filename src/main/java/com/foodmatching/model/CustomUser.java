@@ -2,23 +2,29 @@ package com.foodmatching.model;
 
 import java.util.Collection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUser implements UserDetails{
+	private Logger logger = LoggerFactory.getLogger(CustomUser.class);
 	private User user;
 	
 	public CustomUser(User user){
 		this.user = user;
 	}
-	
-    public User getUser() {
-		return user;
-	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public String getUserEmail(){
+		return user.getEmail();
 	}
+	
+	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        //this.authorities = authorities;
+    }
+
+	
+    
 
 	public void setAccountNonExpired(boolean isAccountNonExpired) {
 		this.user.setAccountNonExpired( isAccountNonExpired);

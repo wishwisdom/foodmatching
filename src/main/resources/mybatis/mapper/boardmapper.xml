@@ -2,18 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.foodmatching.mapper.BoardMapper">
-	<select id="getUser" parameterType="String" resultType="User">
+	<select id="getBoards" parameterType="String" resultType="Board">
+		SELECT *
+		FROM users WHERE nickname =#{nickname}
+	</select>
+	<select id="getBoard" parameterType="String" resultType="Board">
 		SELECT *
 		FROM users WHERE nickname =#{nickname}
 	</select>
 	
-	<insert id="insertUser" parameterType="User" flushCache="true"
+	<insert id="insertBoard" parameterType="Board" flushCache="true"
 		statementType="PREPARED" useGeneratedKeys="false" timeout="20">
 		INSERT INTO
-		users(email,nickname,password,birth,join_day)
+		boards(  )
 		VALUES(#{email},#{nickName},#{password},#{birth},now())
 	</insert>
-	<delete id="deleteUser" parameterType="User">
+	
+	<delete id="deleteBoard" parameterType="Board">
 		DELETE FROM users where id = #{id}
 	</delete>
 </mapper>

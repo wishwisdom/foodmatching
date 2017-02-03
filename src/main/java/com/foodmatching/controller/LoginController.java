@@ -33,11 +33,5 @@ public class LoginController {
 		return "login";
 	}
 	
-	@PostMapping("/login")
-	public String postLogin(User user){
-		
-		
-		
-		return "redirect:/";
-	}
+	
 }
