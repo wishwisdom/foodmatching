@@ -23,12 +23,7 @@ public class LoginController {
 		
 		model.addAttribute("user",user);
 		
-		//UserServiceImpl userService = new UserServiceImpl();
-		
-		//User us = userService.readUserByEmail("test");
-		
-		//LOGGER.info("ID : "+userMapper.getUserByEmail("test").getEmail());
-		
+	
 		
 		return "login";
 	}

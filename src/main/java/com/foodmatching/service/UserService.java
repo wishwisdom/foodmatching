@@ -15,7 +15,6 @@ public interface UserService extends Service<User>{
     public User findUserByIdAndPassword(User user);
     public User readUserByEmail(String email);
 	public User getUserById(int email);
-    public void createUser(User user);
-    public void deleteUser(User user);
+    public void createUser(UserForm user);
     public int save(UserForm form);
 }

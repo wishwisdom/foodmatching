@@ -111,16 +111,10 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	}
 
 	@Override
-	public void createUser(User user) {
+	public void createUser(UserForm user) {
 		// TODO Auto-generated method stub
-		
+		userMapper.insertUser(user);
 	}
-
-	@Override
-	public void deleteUser(User user) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	
 }

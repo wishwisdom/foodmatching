@@ -18,7 +18,7 @@ public interface UserMapper {
 	public User findUserById(int id);
 	public User findIdAndPassword(User user);
 	public List<String> readAuthority(int id);
-	public int insertUser(UserForm userForm);
+	public int insertUser(UserForm user);
 	public int deleteUser(User user);
 
 }
