@@ -5,14 +5,14 @@
   	<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
   	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 	<title>Foodmatching</title>
-	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+	<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
  		<!--[if lt IE 9]>
   		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   		<![endif]-->
 
-  	<link rel="stylesheet" href="@{/css/commons.css}"></link>
-	<link rel="stylesheet" href="@{/css/main.css}"></link>
+  	<link rel="stylesheet" th:href="@{/css/commons.css}"></link>
+	<link rel="stylesheet" th:href="@{/css/main.css}"></link>
 </head>
 <body>
 
@@ -20,12 +20,12 @@
 		<div class="fm-head-left"><div class="btn-on"><a class="link">푸드매칭</a></div></div>
 		<div class="fm-head-left"><a class="link">조합 공유</a></div>
 		<div class="fm-head-left"><a class="link">조합 원정대</a></div>
-		<div class="fm-head-search"><div class="icon"><img src="@{/images/search_m.svg}" /></div></div>
+		<div class="fm-head-search"><div class="icon"><img th:src="@{/images/search_m.svg}" /></div></div>
 		<div class="fm-head-right"><a class="link">로그인</a></div>
 		<div class="fm-head-right"><div class="btn-on"><a class="link">회원가입</a></div></div>
 	</div>
 	<section class="fm-intro">
-		<img src="@{/images/intro.png}" />
+		<img th:src="@{/images/intro.png}" />
 		<div class="title">음식은 더할수록 행복해진다</div>
 		<div class="sub-title">풍미를 높여 주는 음식 조합을 찾아, 소중한 사람들과 함께 나누세요.</div>
 	</section>
@@ -143,8 +143,8 @@
 				</div>
 			</div>
 	</footer>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<script  type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script  type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <script>
 $('#random').css("background-image", "url(@{/images/mario_img.png})");
 
