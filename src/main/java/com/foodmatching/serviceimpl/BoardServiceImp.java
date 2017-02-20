@@ -2,10 +2,15 @@ package com.foodmatching.serviceimpl;
 
 import java.util.List;
 
-import com.foodmatching.model.Board;
-import com.foodmatching.service.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class BoardServiceImp implements Service<Board>{
+import com.foodmatching.mapper.BoardMapper;
+import com.foodmatching.model.Board;
+import com.foodmatching.service.BoardService;
+
+@Service
+public class BoardServiceImp implements BoardService{
 
 	/*
 	 * (non-Javadoc)
@@ -14,6 +19,10 @@ public class BoardServiceImp implements Service<Board>{
 	 * 	 하나의 게시물을 보는 것.
 	 * 	 ->구체적인 사진이나 내용들이 보여줘야 한다. 
 	 */
+	@Autowired
+	private BoardMapper boardMapper;
+	
+	
 	@Override
 	public Board find(String id) {
 		
@@ -22,10 +31,11 @@ public class BoardServiceImp implements Service<Board>{
 			// 연관된 댓글
 			// 연관된 음식...
 		
+		Board b = boardMapper.findBoard(Integer.parseInt(id));
 		
 		
 		
-		return null;
+		return b;
 	}
 	/*
 	 * 
@@ -41,8 +51,10 @@ public class BoardServiceImp implements Service<Board>{
 //	}
 
 	@Override
-	public int save(Board t) {
+	public int save(Board b) {
 		// TODO Auto-generated method stub
+		
+		boardMapper.insertBoard(b);
 		return 0;
 	}
 

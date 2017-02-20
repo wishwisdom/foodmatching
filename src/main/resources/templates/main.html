@@ -20,8 +20,8 @@
 		<div class="fm-head-left"><a class="link">조합 공유</a></div>
 		<div class="fm-head-left"><a class="link">조합 원정대</a></div>
 		<div class="fm-head-search"><div class="icon"><img th:src="@{/images/search_m.svg}" /></div></div>
-		<div class="fm-head-right"><a class="link">로그인</a></div>
-		<div class="fm-head-right"><div class="btn-on"><a class="link">회원가입</a></div></div>
+		<div class="fm-head-right"><a class="link" th:href="@{/login}">로그인</a></div>
+		<div class="fm-head-right"><div class="btn-on"><a class="link" >회원가입</a></div></div>
 	</div>
 	<section class="fm-intro">
 		<img th:src="@{/images/intro.png}" />
@@ -43,7 +43,7 @@
 						<div class="best-title">매콤한 토마토 수프 <br/>고소한 콥샐러드</div>
 						<div class="best-ct-info">
 							<div>foodlove님의 푸드매칭</div>
-							<div class="heart-container"><img class="heart" src="@{/heart_white.svg}" />927</div>
+							<div class="heart-container"><img class="heart" rh:src="@{/heart_white.svg}" />927</div>
 						</div>
 					</div>
 				</div>
@@ -72,7 +72,7 @@
 							<div class="posts-title">오므라이스 <br/>크림 스파게티</div>
 							<div class="posts-writer">구슬씨</div>
 							<div class="posts-time">1시간 전</div>
-							<div class="posts-like">927<img class="posts-heart" src="@{/images/heart.svg}" /></div>
+							<div class="posts-like">927<img class="posts-heart" th:src="@{/images/heart.svg}" /></div>
 						</div>
 						<div class="posts-down">
 							<div id="omu" class="half-img-fir"></div>
@@ -94,7 +94,7 @@
 							<div class="posts-title">라멘, 돈카츠 &#38;<br/>캘리포니아 롤</div>
 							<div class="posts-writer">구슬씨</div>
 							<div class="posts-time">1시간 전</div>
-							<div class="posts-like">927<img class="posts-heart" src="@{/images/heart.svg}" /></div>
+							<div class="posts-like">927<img class="posts-heart" th:src="@{/images/heart.svg}" /></div>
 						</div>
 						<div class="posts-down">
 							<div id="ramen2" class="third-img-fir"></div>
@@ -107,7 +107,7 @@
 							<div class="posts-title">오므라이스 &#38;<br/>크림 스파게티</div>
 							<div class="posts-writer">구슬씨</div>
 							<div class="posts-time">1시간 전</div>
-							<div class="posts-like">927<img class="posts-heart" src="@{/images/heart.svg}"/></div>
+							<div class="posts-like">927<img class="posts-heart" th:src="@{/images/heart.svg}"/></div>
 						</div>
 						<div class="posts-down">
 							<div id="omu2" class="half-img-fir">

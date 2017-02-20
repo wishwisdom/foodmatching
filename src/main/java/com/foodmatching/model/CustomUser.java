@@ -1,10 +1,13 @@
 package com.foodmatching.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUser implements UserDetails{
@@ -19,11 +22,7 @@ public class CustomUser implements UserDetails{
 		return user.getEmail();
 	}
 	
-	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-        //this.authorities = authorities;
-    }
-
-	
+		
     
 
 	public void setAccountNonExpired(boolean isAccountNonExpired) {
@@ -87,7 +86,9 @@ public class CustomUser implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return null;
+		List<GrantedAuthority> auth = new ArrayList<>();
+		auth.add(new SimpleGrantedAuthority(this.user.getRole()));
+		return auth;
 	}
 
 }

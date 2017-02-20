@@ -24,6 +24,12 @@ public class User {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;
 	private Date joinDay;
+	
+	private String role;
+	
+	public void setRole(String role) {
+		this.role = role;
+	}
 	private boolean isAccountNonExpired;
 	private boolean isAccountNonLocked;
 	private boolean isCredentialsNonExpired;
@@ -91,5 +97,8 @@ public class User {
 		this.isEnabled = isEnabled;
 	}
 	
+	public String getRole() {
+		return role;
+	}
 	
 }

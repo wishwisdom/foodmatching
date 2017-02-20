@@ -6,10 +6,9 @@ public class Board {
 	private Long id;
 	
 	@NotNull
-	private String writer;
+	private String nickname;
 	
-	private Long good;
-	private String content;
+	private String title;
 	
 	public Long getId() {
 		return id;
@@ -17,22 +16,17 @@ public class Board {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getWriter() {
-		return writer;
+	public String getNickname() {
+		return nickname;
 	}
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
-	public Long getGood() {
-		return good;
+	public String getTitle() {
+		return title;
 	}
-	public void setGood(Long good) {
-		this.good = good;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
-	}
+	
 }

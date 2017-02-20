@@ -22,9 +22,7 @@ public class LoginController {
 		User user = new User();
 		
 		model.addAttribute("user",user);
-		
-	
-		
+			
 		return "login";
 	}
 	

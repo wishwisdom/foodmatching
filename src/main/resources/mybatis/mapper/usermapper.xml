@@ -3,8 +3,12 @@
 
 <mapper namespace="com.foodmatching.mapper.UserMapper">
 	<select id="findUserByEmail" parameterType="String" resultType="User">
-		SELECT *
-		FROM users WHERE email =#{email}
+		SELECT 
+		u.*,
+		a.authority as "role"
+		FROM users as u INNER JOIN authority as a 
+			ON u.email = a.user_id
+		WHERE u.email =#{email}
 	</select>
 	<select id="readAuthority" parameterType="int" resultType="String">
 		SELECT authority_name FROM authority WHERE id = #{id}

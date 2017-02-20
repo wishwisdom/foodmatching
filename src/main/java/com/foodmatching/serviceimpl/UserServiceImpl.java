@@ -1,12 +1,10 @@
 package com.foodmatching.serviceimpl;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -37,7 +35,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		if(user == null){
 			throw new UsernameNotFoundException("Login Failed");
 		}
-				
+		logger.info("ROLE : "+user.getRole());
 		return new CustomUser(user);
 	}
 	
@@ -98,11 +96,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		return 0;
 	}
 
-	@Override
-	public Collection<GrantedAuthority> getAuthorities(String nickName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public User readUserByEmail(String email) {
