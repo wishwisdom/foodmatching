@@ -1,20 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
 <mapper namespace="com.foodmatching.mapper.BoardMapper">
+	<resultMap id="boardDetail" type="BoardDetail">
+		<id property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="owner" column="owner" />
+		<result property="createdDate" column="createdDate" />
+		
+		<collection property="foodList" column="food_id" ofType="Food" >
+			<id property="foodId" column="food_id" />
+			<result property="boardId" column="board_id" />
+			<result property="foodName" column="food_name" />
+			<result property="foodImage" column="food_image" />
+			<result property="location" column="location" />
+		</collection>
+		
+		
+	</resultMap>
 	
-	<insert id="insertBoard" parameterType="Board" flushCache="true"
-		statementType="PREPARED" useGeneratedKeys="false" timeout="20">
+	<select id="findById" parameterType="int" resultMap="boardDetail">
+		SELECT
+			b.id as id,
+			b.title as title,
+			b.owner as owner,
+			b.createdDate as createdDate,
+			f.food_id as food_id,
+			f.board_id as board_id,
+			f.food_name as bood_name,
+			f.food_image as food_image,
+			f.location as location
+		FROM boards as b
+		INNER JOIN foods as f
+			ON b.id=f.board_id
+		WHERE b.id=#{id} 
+	</select>
+	<select id="find" parameterType="int" resultMap="boardDetail">
+		SELECT
+		*
+		FROM boards
+		WHERE board.id=#{id}
+	</select>
+	<select id="findAll" parameterType="map" resultType="Board">
+		SELECT * FROM boards 
+		limit #{startNum}, #{offset}
+	</select>
+
+	<insert id="save" parameterType="Board" flushCache="true"
+		statementType="PREPARED" useGeneratedKeys="true" keyProperty="id"
+		timeout="20">
 		INSERT INTO
-		boards( title, nickname ) 
-		VALUES(#{title},#{nickname})
+		boards( title, owner )
+		VALUES(#{title},#{owner})
+		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+
 	</insert>
-	
-	<delete id="deleteBoard" parameterType="Board">
-		DELETE FROM users where id = #{id}
+
+	<delete id="delete" parameterType="Board">
+		DELETE
+			FROM users
+		WHERE id = #{id}
 	</delete>
 	
-	<select id="findBoard" parameterType="int" resultType="Board">
-		SELECT * FROM boards WHERE id=#{id}
+	<select id="countTotalRow" resultType="int">
+		SELECT count(*)
+		from boards;
 	</select>
+
 </mapper>

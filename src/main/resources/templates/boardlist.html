@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>board list</title>
+</head>
+<body>
+<table border = "1" width = "700" cellpadding = "0" cellspacing = "0" align = "center">
+	<tr height = "30" >
+	      <td align = "center" width = "50">번 호</td>
+	      <td align = "center" width = "250">제 목</td>
+	      <td align = "center" width = "100">작성자</td>
+	</tr>
+	<tr th:each="board,iterationStatus  : ${boardlist}">
+        <td ><a th:href="@{/boards/}+${board.id}" th:text="${board.id}"></a></td>
+        <td th:text="${board.title}">Name</td>
+        <td th:text="${board.nickname}">City</td>
+      </tr>
+
+</table>
+
+</body>
+</html>

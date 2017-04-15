@@ -1,26 +1,18 @@
 package com.foodmatching.model;
 
-import javax.validation.constraints.NotNull;
+import java.sql.Date;
 
 public class Board {
-	private Long id;
-	
-	@NotNull
-	private String nickname;
-	
+	private int id;
 	private String title;
+	private String owner;
+	private Date createdDate;
 	
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
-	}
-	public String getNickname() {
-		return nickname;
-	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
 	}
 	public String getTitle() {
 		return title;
@@ -28,5 +20,18 @@ public class Board {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	public String getOwner() {
+		return owner;
+	}
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+	
 	
 }

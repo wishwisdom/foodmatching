@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.foodmatching.mapper.ReplyMapper">
+	<select id="find" parameterType="String" resultType="Reply">
+		SELECT 
+			re_id as id,
+			board_id as boardId,
+			replyer,
+			regdate,
+			updatedate
+		FROM reply
+		WHERE re_id =#{id}
+	</select>
+	
+	<select id="findReply" parameterType="int" resultType="Reply">
+		SELECT
+			re_id as reId,
+			board_id as boardId,
+			comment,
+			replyer,
+			regdate,
+			updatedate,
+			parent_Id as parentId
+		FROM reply
+		WHERE board_id = #{boardId}
+	</select>
+	<select id="findChildren" parameterType="int" resultType="Reply">
+		SELECT
+			re_id as reId,
+			board_id as boardId,
+			comment,
+			replyer,
+			regdate,
+			updatedate,
+			parent_Id as parentId
+		FROM reply
+		WHERE parent_Id = #{parentId}
+	</select>
+	
+	<insert id="save" parameterType="Reply" flushCache="true"
+		statementType="PREPARED" useGeneratedKeys="false" timeout="20">
+		INSERT INTO
+		reply(board_id, comment, replyer, parent_id)
+		VALUES(#{boardId},#{comment},#{replyer}, #{parentId})
+	</insert>
+	<delete id="delete" parameterType="int">
+		DELETE FROM reply where id = #{id}
+	</delete>
+	
+	<update id="update" parameterType="Reply">
+		UPDATE
+		reply
+		set comment = #{comment},
+			updatedate = now()
+		WHERE re_id = #{id}
+	</update>
+</mapper>

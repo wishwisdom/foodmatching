@@ -1,0 +1,34 @@
+<div class="comment-container">
+						<div class="profile"><img th:src="@{/images/reviewer.png}" /></div>
+						<div class="comment-view">
+							<div class="comm-report">신고</div>
+							<div class="comm-name">test</div>
+							<div class="comm-contents" th:text="${comment.comment}"></div>
+							<div class="comm-time">3일전</div>
+							<div class="comm-inner1"><button type="button" class="btn btn-default" id="reply1">답글 1</button></div>
+							<div class="comm-inner2"><button type="button" class="btn btn-default"><img class="heart" th:src="@{/images/heart.svg}" /> 177</button></div>
+							<div class="reply-container">
+								<div class="reply-box">	
+									<div class="reply-inner">
+										<div class="profile"><img th:src="@{/images/profile.png}" /></div>
+										<div class="comment">
+											<div class="form-group">
+  												<textarea class="form-control non-login" rows="4" id="comment" name="comment" placeholder="로그인이 필요합니다" ></textarea>
+												<button type="button" class="btn">등록</button>
+											</div>
+										</div>
+									</div>
+									<hr/>
+									<div class="reply-inner">	
+										<div class="profile"><img th:src="@{/images/profile.png}" /></div>
+										<div class="comment">
+											<div class="comm-report">신고</div>
+											<div class="comm-name">Alwayscooking</div>
+											<div class="comm-contents">나도 계란 요리 좋아하는데 내 생각도 그래요 ㅎㅎ</div>
+											<div class="comm-time">3일전</div>
+										</div>
+									</div>
+								</div>
+							</div>		
+						</div>
+					</div>

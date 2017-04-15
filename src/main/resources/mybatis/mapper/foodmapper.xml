@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.foodmatching.mapper.FoodMapper">
+	<insert id="save" parameterType="Food" flushCache="true"
+		statementType="PREPARED"  timeout="20">
+		INSERT INTO foods(board_id,food_name,food_image,location)
+			VALUES(#{boardId},#{foodName},#{foodImage}, #{location})
+		
+	</insert>
+	
+	<delete id="delete" parameterType="Food">
+		DELETE FROM foods where id = #{id}
+	</delete>
+	
+	<select id="find" parameterType="int" resultType="Food">
+		SELECT food_id as foodId, board_id as boardId, food_name as foodname, food_image as foodimage, location FROM foods WHERE id=#{id}
+	</select>
+	<select id="findAll" resultType="Food">
+		SELECT food_id as foodId, board_id as boardId, food_name as foodname, food_image as foodimage, location FROM foods
+		WHERE id IN
+		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+    		#{item.value}
+		</foreach>
+	</select>
+
+</mapper>

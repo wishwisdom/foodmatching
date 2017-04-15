@@ -10,8 +10,8 @@
 .fm-ct-highlight { display: inline-block; width: 100%; height: 275px; margin-top: 45px }
 .fm-ct-highlight > .month { padding-right: 0px }
 .fm-ct-highlight > .month > .explain, .fm-ct-highlight > .best > .explain { color: #251e50; font-weight: bold }
-.fm-ct-highlight > .month > .inner { width: 100%; height: 245px; margin-top: 5px; background-image: url("../resources/monthly_img.png") }
-.fm-ct-highlight > .best > .inner { height: 245px; margin-top: 5px; background-image: url("../resources/best_img.jpg");
+.fm-ct-highlight > .month > .inner { width: 100%; height: 245px; margin-top: 5px; background-image: url("/images/monthly_img.png") }
+.fm-ct-highlight > .best > .inner { height: 245px; margin-top: 5px; background-image: url("/images/best_img.jpg");
 background-repeat: no-repeat; background-size: cover }
 .fm-ct-highlight > .month > .inner > .head { position: absolute; width: 329px; height: 45px; bottom: 0px; justify-content: space-between; 
 color: #ffffff; background-color: rgba(30,30,80,0.8); display: flex; align-items: center }

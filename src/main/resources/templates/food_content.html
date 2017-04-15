@@ -1,0 +1,18 @@
+
+<div class="each-post matching" th:each="board,iterationStatus  : ${boardList}">
+	<div class="posts-up">
+		<div class="posts-title" th:text="${board.title}">
+			라멘, 돈카츠 &#38;<br />캘리포니아 롤
+		</div>
+		<div class="posts-writer" th:text="${startNum+iterationStatus.index}">구슬씨</div>
+		<div class="posts-time">1시간 전</div>
+		<div class="posts-like">
+			927<img class="posts-heart" th:src="@{/images/heart.svg}" />
+		</div>
+	</div>
+	<div class="posts-down">
+		<div id="ramen" class="third-img-fir"></div>
+		<div id="cutlet" class="third-img-sec"></div>
+		<div id="sushi" class="third-img-thr"></div>
+	</div>
+</div>

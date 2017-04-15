@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
   	<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
@@ -12,6 +12,30 @@
   		<![endif]-->
   	<link rel="stylesheet" th:href="@{/css/commons.css}"></link>
 	<link rel="stylesheet" th:href="@{/css/main.css}"></link>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+	            type : "GET",
+	            url : "/matches",
+	            data : {
+	            	startNum:0,
+	            	offset:3
+	            },
+	            error : function(){
+	                alert('통신실패!!');
+	            },
+	            success : function(data){
+	                /* alert("통신데이터 값 : " + data.comment) ; */
+	                $('.fm-ct-posts').append(data)
+	                console.log(data+"test")
+	            }
+	             
+	     });
+	 })
+	
+	</script>
 </head>
 <body>
 
@@ -20,7 +44,10 @@
 		<div class="fm-head-left"><a class="link">조합 공유</a></div>
 		<div class="fm-head-left"><a class="link">조합 원정대</a></div>
 		<div class="fm-head-search"><div class="icon"><img th:src="@{/images/search_m.svg}" /></div></div>
-		<div class="fm-head-right"><a class="link" th:href="@{/login}">로그인</a></div>
+		<div class="fm-head-right">
+			<a class="link" th:href="@{/login}" sec:authorize="isAnonymous()">로그인</a>
+			<a class="link" th:href="@{/logout}" sec:authorize="isAuthenticated()">환영해</a>
+		</div>
 		<div class="fm-head-right"><div class="btn-on"><a class="link" >회원가입</a></div></div>
 	</div>
 	<section class="fm-intro">
@@ -43,7 +70,7 @@
 						<div class="best-title">매콤한 토마토 수프 <br/>고소한 콥샐러드</div>
 						<div class="best-ct-info">
 							<div>foodlove님의 푸드매칭</div>
-							<div class="heart-container"><img class="heart" rh:src="@{/heart_white.svg}" />927</div>
+							<div class="heart-container"><img class="heart" th:src="@{/heart_white.svg}" />927</div>
 						</div>
 					</div>
 				</div>
@@ -141,26 +168,25 @@
 				</div>
 			</div>
 	</footer>
-
 <script  type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script  type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script  type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
 <script>
-$('#random').css("background-image", "url(@{/images/mario_img.png})");
+$('#random').css("background-image", "url(/images/mario_img.png)");
 
-$('#ramen').css("background-image", "url(@{/images/ramen.png)}");
-$('#cutlet').css("background-image", "url(@{/images/cutlet.png})");
-$('#sushi').css("background-image", "url(@{/images/sushi.png)}");
+$('#ramen').css("background-image", "url(/images/ramen.png)");
+$('#cutlet').css("background-image", "url(/images/cutlet.png)");
+$('#sushi').css("background-image", "url(/images/sushi.png)");
 
-$('#ramen2').css("background-image", "url(@{/images/ramen.png})");
-$('#cutlet2').css("background-image", "url(@{/images/cutlet.png})");
-$('#sushi2').css("background-image", "url(@{/images/sushi.png})");
+$('#ramen2').css("background-image", "url(/images/ramen.png)");
+$('#cutlet2').css("background-image", "url(/images/cutlet.png)");
+$('#sushi2').css("background-image", "url(/images/sushi.png)");
 
 
-$('#omu').css("background-image", "url(@{/images/om.png})");
-$('#spa').css("background-image", "url(@{/images/spa.png})");
+$('#omu').css("background-image", "url(/images/om.png)");
+$('#spa').css("background-image", "url(/images/spa.png)");
 
-$('#omu2').css("background-image", "url(@{/images/om.png})");
-$('#spa2').css("background-image", "url(@{/images/spa.png})");
+$('#omu2').css("background-image", "url(/images/om.png)");
+$('#spa2').css("background-image", "url(/images/spa.png)");
 
 
 </script>

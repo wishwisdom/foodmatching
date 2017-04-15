@@ -41,8 +41,9 @@ public class CustomUser implements UserDetails{
 		this.user.setEnabled(isEnabled);
 	}
 
-	
-	
+	public String getNickName(){
+		return this.user.getNickName();
+	}
 	
 
 	@Override

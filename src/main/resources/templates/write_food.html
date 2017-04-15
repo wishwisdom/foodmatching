@@ -3,6 +3,16 @@
 <head>
 <meta charset="UTF-8"></meta>
 <title>게시</title>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$( "#addFile" ).click(function() {
+		console.log('test')
+		  $( "#fileTable" ).append('<tr><td><input name="foodList" id="foodList" type="text" /></td><td><input name="files" id="files" type="file" /></td></tr>');
+	});	
+})
+
+</script>
 </head>
 <body>
 	<h1 th:text="${ok}"></h1>
@@ -14,12 +24,12 @@
 		<table id="fileTable">
 			
 			<tr>
-				<td><input th:field="*{firstFoodName}" type="text" /></td>
+				<td><input th:field="*{foodList}" type="text" /></td>
 				<td><input th:field="*{files}" type="file" /></td>
 			</tr>
 			
 			<tr>
-				<td><input th:field="*{secondFoodName}" type="text" /></td>
+				<td><input th:field="*{foodList}" type="text" /></td>
 				<td><input th:field="*{files}" type="file" /></td>
 			</tr>
 			<tr><td>조합 정보 추가</td></tr>
