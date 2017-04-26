@@ -14,7 +14,7 @@
 	</delete>
 	
 	<select id="find" parameterType="int" resultType="Food">
-		SELECT food_id as foodId, board_id as boardId, food_name as foodname, food_image as foodimage, location FROM foods WHERE id=#{id}
+		SELECT food_id as foodId, board_id as boardId, food_name as foodname, food_image as foodimage, location FROM foods WHERE board_Id=#{id}
 	</select>
 	<select id="findAll" resultType="Food">
 		SELECT food_id as foodId, board_id as boardId, food_name as foodname, food_image as foodimage, location FROM foods

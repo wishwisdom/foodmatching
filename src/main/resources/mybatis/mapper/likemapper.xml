@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.foodmatching.mapper.LikeMapper">
+	
+	<select id="find" parameterType="like" resultType="Like">
+		SELECT 
+			id,
+			email
+		FROM likes
+		WHERE id = #{id} AND email = #{email}
+	</select>
+
+	<insert id="save" parameterType="like" flushCache="true"
+		statementType="PREPARED"  timeout="20">
+		INSERT INTO likes(id,email)
+			VALUES(#{id},#{email})
+		
+	</insert>
+	
+	<delete id="delete" parameterType="like">
+		DELETE FROM likes where id = #{id} AND email=#{email}
+	</delete>
+	
+</mapper>

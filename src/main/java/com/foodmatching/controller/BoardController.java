@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,11 +23,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.foodmatching.mapper.LikeMapper;
 import com.foodmatching.model.Board;
 import com.foodmatching.model.BoardDetail;
 import com.foodmatching.model.CustomUser;
 import com.foodmatching.model.FileUploadForm;
+import com.foodmatching.model.Like;
 import com.foodmatching.model.Reply;
+import com.foodmatching.model.ThumbNail;
 import com.foodmatching.serviceimpl.BoardServiceImpl;
 import com.foodmatching.utils.FileUtil;
 
@@ -36,6 +40,9 @@ public class BoardController {
 	private int pageOffset = 6;
 	@Autowired
 	private BoardServiceImpl boardService;
+	
+	@Autowired
+	private LikeMapper likeMapper;
 
 	
 	/**
@@ -98,7 +105,8 @@ public class BoardController {
 	 * @return List<Board>	Return board list by json form  
 	 */
 	@GetMapping("/matches")
-	public String matchList(Model model,@RequestParam("startNum") int startNum,@RequestParam("offset") int offset) {
+	public String matchList(Model model,@RequestParam(value="startNum",required = false, defaultValue="0") Integer startNum,
+			@RequestParam(value="offset",required = false, defaultValue="3") int offset) {
 		logger.info("startNum :" +startNum);
 		logger.info("offset :"+offset);
 		
@@ -116,11 +124,11 @@ public class BoardController {
 		if(total > start){
 			//model.addAttribute("boardlist", boardList);
 			logger.info("StartNum : "+startNum);
-			List<Board> boardList = boardService.findAll(start,offset);
+			List<ThumbNail> thumbNailList = boardService.findAll(start,offset);
 
-			logger.info("board num : "+boardList.size());
+			logger.info("board num : "+thumbNailList.size());
 			model.addAttribute("startNum",startNum+offset);
-			model.addAttribute("boardList",boardList);
+			model.addAttribute("thumbNailList",thumbNailList);
 		}
 		
 		
@@ -183,6 +191,28 @@ public class BoardController {
 		
 		
 	}
+	
+	/**
+	 * Save 'like' if not exists in a table or delete it.
+	 * 
+	 * @param id board id for user's like or unlike
+	 * @param currentUser login user 
+	 * 
+	 * @return total like number of the board {id}
+	 */
+	@GetMapping(value = "/matches/like/{id}")
+	@ResponseBody
+	public int updateLike(@PathVariable("id") Integer id, @ModelAttribute("customUser") CustomUser user){
+		
+		Like like = new Like(id,user.getUserEmail());
+		
+		Like isLike = likeMapper.find(like);
+		
+		logger.info("like test :" + (isLike==null));
+		
+		return isLike == null ? likeMapper.save(like) : -likeMapper.delete(like);
+	}
+	
 	
 	
 	/**

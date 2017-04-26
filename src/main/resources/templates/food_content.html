@@ -1,13 +1,20 @@
 
-<div class="each-post matching" th:each="board,iterationStatus  : ${boardList}">
+<div class="each-post matching" th:each="thumbNail,iterationStatus  : ${thumbNailList}">
 	<div class="posts-up">
-		<div class="posts-title" th:text="${board.title}">
+		<div class="posts-title" th:text="${thumbNail.board.title}">
 			라멘, 돈카츠 &#38;<br />캘리포니아 롤
 		</div>
 		<div class="posts-writer" th:text="${startNum+iterationStatus.index}">구슬씨</div>
-		<div class="posts-time">1시간 전</div>
+		<div class="posts-time" th:text="${thumbNail.board.createdDate}">1시간 전</div>
 		<div class="posts-like">
 			927<img class="posts-heart" th:src="@{/images/heart.svg}" />
+		</div>
+		<div >
+			<a th:href="@{'/matches/' + ${thumbNail.board.id}}" th:text="${thumbNail.board.title}" >board</a>
+			<div th:each="food,iterationStatus : ${thumbNail.food}" >
+				<img th:src="@{'/img/' +${food.foodImage}}" />
+			</div>
+			
 		</div>
 	</div>
 	<div class="posts-down">

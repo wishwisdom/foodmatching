@@ -18,6 +18,8 @@ public interface BoardMapper {
 	public BoardDetail findById(int id);
 	public List<Board> findAll(@Param("startNum") int startNum, @Param("offset") int offset);
 	
+	public int updateLike(int boardId);
+	
 	public int countTotalRow();
 
 }

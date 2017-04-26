@@ -21,6 +21,7 @@ import com.foodmatching.model.Comment;
 import com.foodmatching.model.FileUploadForm;
 import com.foodmatching.model.Food;
 import com.foodmatching.model.Reply;
+import com.foodmatching.model.ThumbNail;
 import com.foodmatching.service.BoardService;
 import com.foodmatching.utils.FileUtil;
 
@@ -80,23 +81,32 @@ public class BoardServiceImpl implements BoardService{
 	 * 
 	 * @param startNum	start board number
 	 * @param offset	how many get pages
-	 * @return List<Board> return boards between startNum and startNum+offset
+	 * @return List<ThumbNail> return boards between startNum and startNum+offset
 	 * 
 	 */
-	public List<Board> findAll(Integer startNum, int offset) {
+	public List<ThumbNail> findAll(Integer startNum, int offset) {
 		// TODO Auto-generated method stub
 		List<Board> list = null;
+		List<ThumbNail> thumNailList = new ArrayList<>();
 		// total number 가져오기
 		int totalNum = boardMapper.countTotalRow();
 		// 페이징 처리하기
 		if(startNum < totalNum){
 			
 			 list = boardMapper.findAll(startNum,offset);
+			 
+			 // DB접근이 2번이상 발생함.향후 SQL 수정이 불가피함.
+			 
+			 list.forEach(b->{
+				 ThumbNail t = new ThumbNail(b);
+				 t.setFood(foodMapper.find(b.getId()));
+				 
+				 thumNailList.add(t);
+			 });
 			
-		}else
-			list = new ArrayList<Board>();
-				
-		return list;
+		}
+		
+		return thumNailList;
 	}
 	
 	/**

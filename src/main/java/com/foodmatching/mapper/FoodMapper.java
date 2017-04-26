@@ -12,7 +12,7 @@ public interface FoodMapper {
 	int save(Food f);
 	
 	// Get a food image
-	Food find(int id);
+	List<Food> find(int id);
 	
 	// Get food images from food's id
 	List<Food> findAll(List<Integer> foodList);
