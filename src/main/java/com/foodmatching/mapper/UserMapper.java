@@ -20,5 +20,4 @@ public interface UserMapper {
 	public List<String> readAuthority(int id);
 	public int insertUser(UserForm user);
 	public int deleteUser(User user);
-
 }

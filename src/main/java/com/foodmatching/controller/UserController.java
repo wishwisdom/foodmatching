@@ -47,7 +47,7 @@ public class UserController {
 	}
 	
 
-	@GetMapping("/user/create")
+	@GetMapping("/register")
 	public String registerGet(Model model) {
 		// email,nickname,password,birth,joinDay
 
@@ -59,7 +59,8 @@ public class UserController {
 		return "insertOK";
 	}
 	
-	@PostMapping("/user/create")
+	
+	@PostMapping("/register")
 	public String registerUser(@Valid @ModelAttribute(value = "user")  UserForm userForm, BindingResult bindingResult) {
 		// email,nickname,password,birth,joinDay
 		
