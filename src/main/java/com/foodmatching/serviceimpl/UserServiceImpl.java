@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.foodmatching.mapper.UserMapper;
@@ -62,6 +63,8 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
 	@Override
 	public int save(UserForm form) {
+		String passwd = (new BCryptPasswordEncoder().encode(form.getPassword()));
+		form.setPassword(passwd);
 		return userMapper.insertUser(form);
 	}
 

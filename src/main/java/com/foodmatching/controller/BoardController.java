@@ -53,7 +53,7 @@ public class BoardController {
 	 * @return string  Return a view page title excluding '.html'.     
 	 */
 	@PreAuthorize("hasAuthority('ROLE_ADMIN') AND hasAuthority('ROLE_USER')")
-	@GetMapping("/upload")
+	@GetMapping("/matches/upload")
 	public String uploadFile(Model model) {
 
 		FileUploadForm fuf = new FileUploadForm();

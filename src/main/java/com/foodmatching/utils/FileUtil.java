@@ -19,7 +19,7 @@ import com.foodmatching.serviceimpl.BoardServiceImpl;
 
 public class FileUtil {
 	private final static Logger logger = LoggerFactory.getLogger(BoardServiceImpl.class);
-	private final static String SAVE_PATH= "/Users/shin/Documents/workspace-sts-3.8.2.RELEASE/foodmatching/src/main/resources/static/img";
+	private final static String SAVE_PATH= "C:\\Users\\calina\\git\\foodmatching\\src\\main\\resources\\static\\img";
 	private final static int RANDOM_NAME_LENGTH = 32;
 	
 	public static String extractDestinationFileName(MultipartFile m){
