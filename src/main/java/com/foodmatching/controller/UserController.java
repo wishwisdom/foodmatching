@@ -41,7 +41,7 @@ public class UserController {
 		this.userFormValidator = userFormValidator;
 	}
 	
-	@InitBinder("form")
+	@InitBinder("user")
 	public void initBinder(WebDataBinder binder){
 		binder.addValidators(userFormValidator);
 	}
@@ -60,7 +60,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/user/create")
-	public String registerUser(@Valid @ModelAttribute(value = "form")  UserForm userForm, BindingResult bindingResult) {
+	public String registerUser(@Valid @ModelAttribute(value = "user")  UserForm userForm, BindingResult bindingResult) {
 		// email,nickname,password,birth,joinDay
 		
 		if(bindingResult.hasErrors()){

@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form action="#" th:action="@{/register}" th:object="${user}" method="post">
+<form action="#" th:action="@{/user/create}" th:object="${user}" method="post">
 	<table>
 	<tr>
 	    <td><label>email:</label><input type="text" th:field="*{email}" /></td>

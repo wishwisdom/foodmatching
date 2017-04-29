@@ -9,4 +9,5 @@ public interface LikeMapper {
 	int save(Like like);
 	int delete(Like like);
 	Like find(Like like);
+	int countAll(int id);
 }
