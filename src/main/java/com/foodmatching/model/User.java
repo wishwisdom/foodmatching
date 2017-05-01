@@ -1,6 +1,7 @@
 package com.foodmatching.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.validation.constraints.Size;
 
@@ -23,13 +24,14 @@ public class User {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;
+	
 	private Date joinDay;
 	
-	private String role;
+	private Set<String> roles;
 	
-	public void setRole(String role) {
-		this.role = role;
-	}
+	private String picture;
+	
+	
 	private boolean isAccountNonExpired;
 	private boolean isAccountNonLocked;
 	private boolean isCredentialsNonExpired;
@@ -54,6 +56,13 @@ public class User {
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
+	public String getPicture() {
+		return picture;
+	}
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+	
 	public String getPassword() {
 		return password;
 	}
@@ -96,9 +105,12 @@ public class User {
 	public void setEnabled(boolean isEnabled) {
 		this.isEnabled = isEnabled;
 	}
-	
-	public String getRole() {
-		return role;
+	public Set<String> getRoles() {
+		return roles;
 	}
+	public void setRoles(Set<String> roles) {
+		this.roles = roles;
+	}
+	
 	
 }

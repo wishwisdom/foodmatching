@@ -88,7 +88,10 @@ public class CustomUser implements UserDetails{
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		List<GrantedAuthority> auth = new ArrayList<>();
-		auth.add(new SimpleGrantedAuthority(this.user.getRole()));
+		this.user.getRoles().forEach(a->{
+			auth.add(new SimpleGrantedAuthority(a));
+		});;
+		
 		return auth;
 	}
 

@@ -207,7 +207,7 @@ public class BoardController {
 		
 		Like isLike = likeMapper.find(like);
 		
-		logger.debug("like test :" + (isLike==null));
+		logger.info("like test :" + (isLike==null));
 		
 		if(isLike == null){
 			likeMapper.save(like);

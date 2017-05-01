@@ -1,6 +1,7 @@
 package com.foodmatching.serviceimpl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		logger.info("loadUserByUsername : "+email);
 		User user = null;
 		try{
-			user = userMapper.findUserByEmail(email);
+			user = this.find(email);
 		}catch(Exception e){
 			logger.info("loadUserByUsername\n"+e.getClass());
 		}
@@ -36,7 +37,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		if(user == null){
 			throw new UsernameNotFoundException("Login Failed");
 		}
-		logger.info("ROLE : "+user.getRole());
+		//logger.info("ROLE : "+user.getRoles().size());
 		return new CustomUser(user);
 	}
 	
@@ -56,7 +57,15 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
 	public User find(String id) {
 		// TODO Auto-generated method stub
-		return userMapper.findUserByEmail(id);
+		User user = userMapper.findUserByEmail(id);
+		
+		if(user != null){
+			Set<String> roles = userMapper.findAutorities(id);
+			logger.info("authotiry : " +roles.size());
+			user.setRoles(roles);
+		}
+		
+		return user;
 	}
 
 	
@@ -65,6 +74,10 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	public int save(UserForm form) {
 		String passwd = (new BCryptPasswordEncoder().encode(form.getPassword()));
 		form.setPassword(passwd);
+		
+		// If file uploaded, then insert user
+		
+		
 		return userMapper.insertUser(form);
 	}
 
