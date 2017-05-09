@@ -5,7 +5,7 @@
 <mapper namespace="com.foodmatching.mapper.BoardMapper">
 	<resultMap id="boardDetail" type="BoardDetail">
 		<id property="id" column="id" />
-		<result property="title" column="title" />
+		<result property="summary" column="summary" />
 		<result property="owner" column="owner" />
 		<result property="createdDate" column="createdDate" />
 		
@@ -23,7 +23,7 @@
 	<select id="findById" parameterType="int" resultMap="boardDetail">
 		SELECT
 			b.id as id,
-			b.title as title,
+			b.summary as summary,
 			b.owner as owner,
 			b.createdDate as createdDate,
 			f.food_id as food_id,
@@ -51,8 +51,8 @@
 		statementType="PREPARED" useGeneratedKeys="true" keyProperty="id"
 		timeout="20">
 		INSERT INTO
-		boards( title, owner )
-		VALUES(#{title},#{owner})
+		boards( summary, owner )
+		VALUES(#{summary},#{owner})
 		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>

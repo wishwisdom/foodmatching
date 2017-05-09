@@ -30,6 +30,8 @@ public class User {
 	private Set<String> roles;
 	
 	private String picture;
+	private String pictureName;
+	
 	
 	
 	private boolean isAccountNonExpired;
@@ -110,6 +112,13 @@ public class User {
 	}
 	public void setRoles(Set<String> roles) {
 		this.roles = roles;
+	}
+	
+	public String getPictureName() {
+		return pictureName;
+	}
+	public void setPictureName(String pictureName) {
+		this.pictureName = pictureName;
 	}
 	
 	

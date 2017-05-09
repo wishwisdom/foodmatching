@@ -16,7 +16,7 @@ public interface UserMapper {
 	public User findIdAndPassword(User user);
 	public Set<String> findAutorities(String id);
 	
-	public int saveAuthority(int id, String role);
-	public int insertUser(UserForm user);
+	public int saveAuthority(String id, String role);
+	public int save(UserForm user);
 	public int deleteUser(User user);
 }

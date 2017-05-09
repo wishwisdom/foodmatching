@@ -15,7 +15,7 @@ public class UserForm extends User{
 	}
 	public void setPictureFile(MultipartFile pictureFile) {
 		this.pictureFile = pictureFile;
-		this.setPicture(pictureFile.getName());
+		//this.setPicture(pictureFile.getName());
 	}
 	
 	

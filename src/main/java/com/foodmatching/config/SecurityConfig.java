@@ -10,7 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.foodmatching.handler.LoginHandler;
 import com.foodmatching.serviceimpl.UserServiceImpl;
 
 @Configuration
@@ -34,7 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.formLogin()
 			.loginPage("/login")
-				.usernameParameter("email").permitAll()			
+				.usernameParameter("email").permitAll()
+			.successHandler(successHandler())
 			.defaultSuccessUrl("/")
 			.and()
 			.logout().permitAll();
@@ -47,7 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
+	@Bean
+	public AuthenticationSuccessHandler successHandler(){
+		return new LoginHandler();
+	}
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userService).passwordEncoder(passwordEncoder());

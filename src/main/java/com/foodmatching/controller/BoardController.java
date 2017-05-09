@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -42,7 +43,9 @@ public class BoardController {
 	
 	@Autowired
 	private LikeMapper likeMapper;
-
+	
+	@Value("${board.img.path}")
+	private String SAVE_PATH;
 	
 	/**
 	 * Returns a view page title which let a client be able to write a board.
@@ -89,7 +92,7 @@ public class BoardController {
 
 		b.setOwner(user.getNickName());
 
-		boardService.save(b, fuf);
+		boardService.save(b, fuf,SAVE_PATH);
 
 		return "redirect:/matches/" + b.getId();
 	}
@@ -124,7 +127,7 @@ public class BoardController {
 			//model.addAttribute("boardlist", boardList);
 			logger.info("StartNum : "+startNum);
 			List<ThumbNail> thumbNailList = boardService.findAll(start,offset);
-
+			logger.info(""+thumbNailList.get(0).getBoard().getCreatedDate().getTime());
 			logger.info("board num : "+thumbNailList.size());
 			model.addAttribute("startNum",startNum+offset);
 			model.addAttribute("thumbNailList",thumbNailList);
@@ -229,7 +232,9 @@ public class BoardController {
 	@RequestMapping(value = "/img/{filename:.+}", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> getFile(@PathVariable("filename") String fileName) {
 		logger.info("FILE ID: " +fileName);
-		byte[] media = FileUtil.getFile(fileName);
+		logger.info("SAVE_PATH : "+SAVE_PATH);
+		
+		byte[] media = FileUtil.getFile(SAVE_PATH, fileName);
 		HttpHeaders headers = new HttpHeaders();
 		
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());

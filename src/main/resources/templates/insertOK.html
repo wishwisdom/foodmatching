@@ -3,10 +3,23 @@
 <head>
 <meta charset="UTF-8"></meta>
 <title>insert OK</title>
+<script>
+	
+	function loadFile(event){
+		var reader = new FileReader();
+		reader.onload =function(){
+			var output = document.getElementById('preview');
+			output.height=200;
+			output.widht=200;
+			output.src = reader.result,200,200;
+		};
+		reader.readAsDataURL(event.target.files[0])
+	}
+</script>
 </head>
 <body>
 
-<form action="#" th:action="@{/user/create}" th:object="${user}" method="post">
+<form action="#" th:action="@{/register}" th:object="${user}" method="post" enctype="multipart/form-data" >
 	<table>
 	<tr>
 	    <td><label>email:</label><input type="text" th:field="*{email}" /></td>
@@ -14,23 +27,31 @@
     </tr>
     <tr>
 	    <td>
-	    	<input type="password" th:field="*{password}" />
+	    	<span>PW : </span><input type="password" th:field="*{password}" />
 	    </td>
 	    <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
     </tr>
     <tr>
 	    <td>
-	    	<input type="password" th:field="*{repassword}" />
+	    	<span>RE-PW : </span><input type="password" th:field="*{repassword}" />
 	    </td>
 	    <td th:if="${#fields.hasErrors('repassword')}" th:errors="*{repassword}">Name Error</td>
     </tr>
     <tr>
 	    <td>
-	    	<input type="text" th:field="*{nickName}" />
+	    	<span>NickName : </span><input type="text" th:field="*{nickName}" />
 	    </td>
     </tr>
     <tr>
-    	<td><input type="date" th:field="*{birth}" /></td>
+    	<td>
+    		<span>Birth : </span><input type="date" th:field="*{birth}" />
+    	</td>
+    </tr>
+    <tr>
+    	<td><input th:field="*{pictureFile}" type="file"  onchange="loadFile(event)" /></td>
+    	<td><img id="preview" src="#" alt="Your Image" /></td>
+    	<td th:if="${#fields.hasErrors('pictureFile')}" th:errors="*{pictureFile}"></td>
+    
     </tr>
     <tr>
     	<td><input type="submit" value="OK"/></td>

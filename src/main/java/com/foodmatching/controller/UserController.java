@@ -2,8 +2,9 @@ package com.foodmatching.controller;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +32,7 @@ import com.foodmatching.utils.UserFormValidator;
 
 @Controller
 public class UserController {
-	
+	private final Logger logger = LoggerFactory.getLogger(UserController.class);
 	private UserService userService;
 	private UserFormValidator userFormValidator;
 	
@@ -63,12 +64,16 @@ public class UserController {
 	@PostMapping("/register")
 	public String registerUser(@Valid @ModelAttribute(value = "user")  UserForm userForm, BindingResult bindingResult) {
 		// email,nickname,password,birth,joinDay
-		
+		logger.info("ENTER register post");
+		logger.info("File : "+(userForm.getPictureFile()==null));
 		if(bindingResult.hasErrors()){
+			logger.info(bindingResult.getFieldError().getField());
 			return "insertOK";
 		}
 		try{
+			logger.info("SAVE USER ");
 			userService.save(userForm);
+			
 		}catch(DataIntegrityViolationException e){
 			bindingResult.reject("email.exists", "Email already exists");
             return "insertOK";

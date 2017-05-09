@@ -2,13 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.foodmatching.mapper.UserMapper">
+	
 	<select id="findUserByEmail" parameterType="String" resultType="User">
 		SELECT 
-		u.*,
-		a.authority as "role"
-		FROM users as u INNER JOIN authority as a 
-			ON u.email = a.user_id
-		WHERE u.email =#{email}
+			id,
+			email,
+			nickname as nickName,
+			password,
+			birth,
+			join_day as joinDay,
+			picture,
+			picture_name as pictureName,
+			isAccountNonExpired,
+			isAccountNonLocked,
+			isCredentialsNonExpired,
+			isEnabled
+		FROM users 
+		WHERE 
+			email =#{email}
 	</select>
 	<select id="readAuthority" parameterType="int" resultType="String">
 		SELECT authority_name FROM authority WHERE id = #{id}
@@ -18,12 +29,25 @@
 		SELECT * FROM users WHERE id=#{id} AND password=#{password}
 	</select>
 	
-	<insert id="insertUser" parameterType="UserForm" flushCache="true"
+	<select id="findAutorities" resultType="string">
+		SELECT
+		authority
+		FROM authority
+		WHERE user_id = #{id}
+	</select>
+	
+	<insert id="save" parameterType="UserForm" flushCache="true"
 		statementType="PREPARED" useGeneratedKeys="false" timeout="20">
 		INSERT INTO
-		users(email,nickname,password,birth,join_day)
-		VALUES(#{email},#{nickName},#{password},#{birth},now())
+		users(email,nickname,password,birth,join_day,picture,picture_name)
+		VALUES(#{email},#{nickName},#{password},#{birth},now(),#{picture},#{pictureName})
 	</insert>
+	
+	<insert id="saveAuthority" >
+		INSERT INTO
+		authority(user_id, authority) values(#{param1},#{param2})
+	</insert>
+	
 	<delete id="deleteUser" parameterType="User">
 		DELETE FROM users where id = #{id}
 	</delete>

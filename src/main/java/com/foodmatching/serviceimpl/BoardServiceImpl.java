@@ -8,6 +8,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,6 +45,7 @@ public class BoardServiceImpl implements BoardService{
 	
 	@Autowired
 	private ReplyMapper replyMapper;
+	
 	
 	/**
 	 * Returns a BoardDetail which includes a board, food images related the board, replies. 
@@ -118,7 +120,7 @@ public class BoardServiceImpl implements BoardService{
 	 */
 	
 	@Transactional
-	public void save(Board b, FileUploadForm fuf){
+	public void save(Board b, FileUploadForm fuf, final String SAVE_PATH){
 		List<Food> foodList = new ArrayList<Food>();
 		Map<String,MultipartFile> fileMap = new HashMap<>();
 		
@@ -150,7 +152,7 @@ public class BoardServiceImpl implements BoardService{
 		
 		
 		// save Files
-		FileUtil.saveFileMap(fileMap);
+		FileUtil.saveFileMap(SAVE_PATH,fileMap);
 		
 	}
 	

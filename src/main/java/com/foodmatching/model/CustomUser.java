@@ -83,7 +83,7 @@ public class CustomUser implements UserDetails{
 	}
 
 	
-	// imsi
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
