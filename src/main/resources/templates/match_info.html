@@ -13,18 +13,19 @@
   	<link rel="stylesheet" th:href="@{/css/commons.css}"></link>	
 	<link rel="stylesheet" th:href="@{/css/match_info.css}"></link>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
 	<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$('#test').click(function(){
-			alert($("#comment" ).val());
-			console.log($("#comment" ).val());
+			alert($("#comment").val());
+			console.log($("#comment").val());
 			$.ajax({
 		            
 		            type : "POST",
 		            url : "/matches/"+1+"/reply",
 		            data : {
-		            	comment:$("#comment" ).val()
+		            	comment:$("#comment").val()
 		            },
 		            error : function(){
 		                alert('통신실패!!');
@@ -32,23 +33,36 @@
 		            success : function(data){
 		                /* alert("통신데이터 값 : " + data.comment) ; */
 		                $('.each-box').append(data)
-		            }
-		             
+		            }          
 		     });
 		});
-	 		
 	 })
 	
 	</script>
 </head>
 <body>
 	<div id="header" class="fm-head">
-		<div class="fm-head-left"><div class="btn-on"><a class="link">푸드매칭</a></div></div>
-		<div class="fm-head-left"><a class="link">조합 공유</a></div>
-		<div class="fm-head-left"><a class="link">조합 원정대</a></div>
-		<div class="fm-head-search"><div class="icon"><img src="@{/images/search_m.svg}" /></div></div>
-		<div class="fm-head-right"><a class="link">로그인</a></div>
-		<div class="fm-head-right"><div class="btn-on"><a class="link">회원가입</a></div></div>
+		<div class="fm-head-left"><a class="link" th:href="@{/}">푸드매칭</a></div>
+		<div class="fm-head-left"><a class="link" href="#">조합 공유</a></div>
+		<div class="fm-head-left"><a class="link" href="#">조합 원정대</a></div>
+		<div class="fm-head-search"><div class="icon"><img th:src="@{/images/search_m.svg}" /></div></div>
+		<div class="fm-head-right dropdown">
+			<a class="link" th:href="@{/login}" sec:authorize="isAnonymous()">로그인</a>
+			<a class="dropdown-toggle" sec:authorize="isAuthenticated()" data-toggle="dropdown">
+				<img th:src="@{/images/profile_icon.png}" />
+			</a>
+				<div class="dropdown-menu dropdown-menu-right">
+					<a class="dropdown-item">프로필 수정</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" th:href="@{/logout}">로그아웃</a>
+				</div>
+		</div>
+		<div class="fm-head-right">
+			<div class="btn-on">
+				<a class="link" th:href="@{/register}" sec:authorize="isAnonymous()">회원가입</a>
+				<a class="link" sec:authorize="isAuthenticated()">조합 추가</a>
+			</div>
+		</div>
 	</div>
 	<section class="fm-main-container container">
 		<div>
@@ -59,37 +73,36 @@
 						<div class="summary-ct-info">
 							<div class="title">계란 볶음밥 &#38;<br/>연어 칠리 구이</div>
 							<div>
-								<div class="writer-photo"><img id="user-photo" src="@{/images/profile_icon.png}" /></div>
+								<div class="writer-photo"><img id="user-photo" th:src="@{/images/profile_icon.png}" /></div>
 								<div class="writer-name">by 구슬씨</div>
 							</div>
 							<div class="point">"입에 착착 감기는 매콤 고소한 맛이에요"</div>
-							<div class="posts-ct-info">
-								<div class="each-info"><img th:src="@{/images/heart.svg}" /> 721</div>
-								<div class="each-info"><img th:src="@{/images/scrap.png}" /> 스크랩</div>
-								<div class="each-info-last"><img th:src="@{/images/share.png}" /> 공유하기</div>
+							<div class="posts-ct-container">
+								<div class="posts-ct-info">좋아요 712</div>
+								<div class="posts-react1">
+									<a class="each-info"><img th:src="@{/images/heart_off.svg}" /></a>
+									<a class="each-info"><img th:src="@{/images/scrap_off.svg}" /></a>
+									<a class="each-info-last"><img th:src="@{/images/sending.svg}" /></a>
+								</div>
+								<div class="posts-react2 dropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown"><img th:src="@{/images/more.svg}" /></a>
+									<div class="dropdown-menu dropdown-menu-right">
+										<a class="dropdown-item" href="#">조합 수정</a>
+										<a class="dropdown-item" href="#">조합 삭제</a>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="summary-photo-container col-md-8">
-						<div class="inner">
-							<div class="sum-food1" id="sum-food1">
+						<div class="inner" >
+							<div class="sum-food1" th:each="food: ${bd.foodList}" th:style="'background:url(' + @{/img/} + ${food.foodImage} + ');'">
 								<div class="inner">
 									<div class="sum-food-taste">
 										<div>
 											<div>부드럽고 달콤한<br/>계란볶음밥</div>
-											<div class="icon-container"><img th:src="@{/images/spicy.png}" />
-											<img th:src="@{/images/spicy.png}" /></div>
-										</div>
-									</div>
-								</div>
-							</div>			
-							<div class="sum-food2" id="sum-food2">
-								<div class="inner">
-									<div class="sum-food-taste">
-										<div>
-											<div>매콤하고 짭조름한<br/>연어 칠리 구이</div>
-											<div class="icon-container"><img th:src="@{/images/spicy.png}" />
-											<img th:src="@{/images/spicy.png}" /></div>
+											<div class="icon-container"><img th:src="@{/images/spicy_on.svg}" />
+											<img th:src="@{/images/spicy_on.svg}" /></div>
 										</div>
 									</div>
 								</div>
@@ -112,8 +125,8 @@
 					<table>
 						<tr>
 							<td class="taste-icons">
-							<img th:src="@{/images/spicy.png}" /> &#38;
-							<img th:src="@{/images/spicy.png}" />
+							<img th:src="@{/images/spicy_on.svg}" /> &#38;
+							<img th:src="@{/images/spicy_on.svg}" />
 							</td>
 							<td>
 							<p class="taste-name">부드러운 맛 &#38; 매콤한 맛</p>
@@ -122,8 +135,8 @@
 						</tr>
 						<tr class="tr-with-hr">
 							<td class="taste-icons">
-							<img th:src="@{/images/spicy.png}" /> &#38;
-							<img th:src="@{/images/spicy.png}" />
+							<img th:src="@{/images/spicy_on.svg}" /> &#38;
+							<img th:src="@{/images/spicy_on.svg}" />
 							</td>
 							<td>
 							<p class="taste-name">달콤한 맛 &#38; 짭조름한 맛</p>
@@ -133,22 +146,21 @@
 					</table>
 				</div>
 			</div>
-			
 			<div class="explain col-md-12">비슷한 음식 조합</div>
 			<div class="fm-ct-container col-md-12">
 				<div>
 				<!-- Thymeleaf foreach문 작성해서 그림 2개 넣음. -->
-					<div class="container-padding1 col-md-6" th:each="food  : ${bd.foodList}">
+					<div class="sug col-md-6" th:each="food:${bd.foodList}">
 							<div class="half-box">
 								<div class="fm-name">계란 볶음밥</div>
 								<div class="fm-food" id="fm-food1">
 									<img th:src="@{/img/}+${food.foodImage}" />
 								</div>
-								<div class="sug-taste1"><img th:src="@{/images/spicy-black.png}" /></div>
+								<div class="sug-taste1"><img th:src="@{/images/spicy_off.svg}" /></div>
 								<div class="sug-name1">매운 핫 치킨</div>
 								<div class="sug-food1" id="sug-food1"></div>
 								<div class="sug-line1"></div>
-								<div class="sug-taste2"><img th:src="@{/images/spicy-black.png}" /></div>
+								<div class="sug-taste2"><img th:src="@{/images/spicy_off.svg}" /></div> 
 								<div class="sug-name2">포테이토 후라이</div>
 								<div class="sug-food2" id="sug-food2"></div>
 								<div class="sug-line2"></div>
@@ -171,14 +183,14 @@
 					</div>
 					
 					<div class="comment-container">
-						<div class="profile"><img th:src="@{/images/reviewer.png}" /></div>
+						<div class="profile"><img th:src="@{/images/profile.png}" /></div>
 						<div class="comment-view">
 							<div class="comm-report">신고</div>
 							<div class="comm-name">Lisa</div>
 							<div class="comm-contents">평소에 계란 요리 좋아하는데 매콤한 음식이랑 먹으면 잘 어울릴 듯 하네요 ㅎㅎ</div>
 							<div class="comm-time">3일전</div>
-							<div class="comm-inner1"><button type="button" class="btn btn-default" id="reply1">답글 1</button></div>
-							<div class="comm-inner2"><button type="button" class="btn btn-default"><img class="heart" th:src="@{/images/heart.svg}" /> 177</button></div>
+							<div class="comm-inner1"><button type="button" class="btn btn-secondary" id="reply1">답글 1</button></div>
+							<div class="comm-inner2"><button type="button" class="btn btn-secondary"><img class="heart" th:src="@{/images/heart_on.svg}" /> 177</button></div>
 							<div class="reply-container">
 								<div class="reply-box">	
 									<div class="reply-inner">
@@ -207,7 +219,7 @@
 					
 					<!-- foreach reply -->
 					<div class="comment-container" th:each="comment:${bd.commentList}">
-						<div class="profile"><img th:src="@{/images/reviewer.png}" /></div>
+						<div class="profile"><img th:src="@{/images/profile.png}" /></div>
 						<div class="comment-view">
 							<div class="comm-report">신고</div>
 							<div class="comm-name" th:text="${comment.reply.replyer}">Lisa</div>
@@ -262,10 +274,6 @@
 				</div>
 				<div class="fm-foot-ci">© Foodmatching</div>
 				</div>
-			</div>
-			<div th:each="food  : ${bd.foodList}">
-				<img th:src="@{/img/} + ${food.foodImage}" />			
-			
 			</div>
 	</footer>
 

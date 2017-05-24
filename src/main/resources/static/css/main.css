@@ -1,4 +1,8 @@
+/*<<<<<<< HEAD
+@CHARSET "EUC-KR";
+=======
 @CHARSET "utf-8";
+>>>>>>> 924c8538de47ae89a8f70192ee2081cde405c141*/
 
 /* Intro Section */
 .fm-intro { position: relative; height: 400px; background: #2e2e2e }
@@ -8,10 +12,11 @@
 
 /* Contents Section - highlights */
 .fm-ct-highlight { display: inline-block; width: 100%; height: 275px; margin-top: 45px }
+.fm-ct-highlight > div { float: left }
 .fm-ct-highlight > .month { padding-right: 0px }
 .fm-ct-highlight > .month > .explain, .fm-ct-highlight > .best > .explain { color: #251e50; font-weight: bold }
 .fm-ct-highlight > .month > .inner { width: 100%; height: 245px; margin-top: 5px; background-image: url("/images/monthly_img.png") }
-.fm-ct-highlight > .best > .inner { height: 245px; margin-top: 5px; background-image: url("/images/best_img.jpg");
+.fm-ct-highlight > .best > .inner { height: 245px; margin-top: 5px; background-image: url("/images/best_img.png");
 background-repeat: no-repeat; background-size: cover }
 .fm-ct-highlight > .month > .inner > .head { position: absolute; width: 329px; height: 45px; bottom: 0px; justify-content: space-between; 
 color: #ffffff; background-color: rgba(30,30,80,0.8); display: flex; align-items: center }
@@ -23,16 +28,15 @@ color: #ffffff; background-color: rgba(30,30,80,0.8); display: flex; align-items
 
 /* Contents Section - posts */
 
-.fm-ct-posts { width: 100%; margin-top: 15px }
-.row-container { margin: 0 66px 15px 66px; height: 350px }
-.each-post { width: calc(25% - 6px); height: 350px; margin-right: 8px; background: #ffffff; float: left; }
-.each-post-last { width: calc(25% - 6px); height: 350px; margin: 0;  background: #ffffff; float: left; }
+.fm-ct-posts { width: 900px; margin: 15px 66px 0 66px; overflow: auto }
+.each-post { width: 215px; height: 350px; margin: 0 5px 15px 5px; background: #ffffff; float: left; color:inherit }
+.each-post:hover { color:inherit }
 .matching { border: 2px solid #e0e0e0 }
-.vote { border: 6px solid #251e50; padding: 30px 15px; text-align: center }
+.vote { border: 6px solid #251e50; padding: 25px 15px; text-align: center }
 .random { position:relative; padding: 35px 15px; text-align: center; border: 2px solid #e0e0e0 }
 
-.posts-up { padding: 35px 20px 15px 20px; height: 150px }
-.vote-title, .posts-title, .random-title { font-size: 18px; line-height: 1.3em; font-weight: bold; color: #251e50; text-align: center }
+.posts-up { padding: 30px 20px 15px 20px; height: 150px }
+.vote-title, .posts-title, .random-title { height: 46px; font-size: 18px; line-height: 1.3em; font-weight: bold; color: #251e50; text-align: center }
 .vote-sub-title { font-size: 16px; font-weight: bold; color: #251e50 }
 .random-sub-title { position: absolute; left: 30px; font-size: 18px; font-weight: bold; color: #ffffff; text-shadow: 0 2px 3px #000000 } 
 .posts-writer { font-size: 12px; font-weight: bold; text-align: center; margin-top: 10px }
@@ -40,9 +44,9 @@ color: #ffffff; background-color: rgba(30,30,80,0.8); display: flex; align-items
 .posts-like { font-size: 12px; font-weight: bold; flex-direction: row-reverse; display: flex; align-items: center }
 
 .posts-down { height: 196px }
-.half-img-fir { display: inline-block; margin-right: 5px; float: left; width: calc(50% - 2.5px); height: 100% }
-.half-img-sec { display: inline-block; width: calc(50% - 2.5px); height: 100% }
+.half-img:nth-child(1) { display: inline-block; margin-right: 5px; float: left; width: calc(50% - 2.5px); height: 100%; background-repeat: no-repeat !important }
+.half-img:nth-child(2) { display: inline-block; width: calc(50% - 2.5px); height: 100%; background-repeat: no-repeat !important }
 .third-img-fir { height: calc(45% - 1.5px)}
 .third-img-sec { margin-top: 4px; margin-right: 5px; display: inline-block; float: left; width: calc(50% - 2.5px); height: calc(55% - 2px)}
 .third-img-thr { margin-top: 4px; display: inline-block; width: calc(50% - 2.5px); height: calc(55% - 2px)}
-.posts-heart { width:14px; height: 14px; margin-bottom: 1px; margin-right: 3px }
+.posts-heart { width:12px; height: 12px; margin-right: 3px }

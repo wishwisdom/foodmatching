@@ -1,0 +1,152 @@
+<header layout:fragment="header">
+	<div id="header" class="fm-head">
+		<div class="fm-head-left"><div class="btn-on"><a class="link">푸드매칭</a></div></div>
+		<div class="fm-head-left"><a class="link" href="#">조합 공유</a></div>
+		<div class="fm-head-left"><a class="link" href="#">조합 원정대</a></div>
+		<div class="fm-head-search"><div class="icon"><img th:src="@{/images/search_m.svg}" /></div></div>
+		<div class="fm-head-right dropdown">
+			<a class="link" th:href="@{/login}" sec:authorize="isAnonymous()">로그인</a>
+			<a class="dropdown-toggle" sec:authorize="isAuthenticated()" id="userDropdown" data-toggle="dropdown">
+				<img th:src="@{/images/profile_icon.png}" />
+			</a>
+				<ul class="dropdown-menu" aria-labelledby="userDropdown">
+					<li><a>프로필 수정</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a th:href="@{/logout}">로그아웃</a></li>
+				</ul>
+		</div>
+		<div class="fm-head-right">
+			<div class="btn-on">
+				<a class="link" th:href="@{/register}" sec:authorize="isAnonymous()">회원가입</a>
+				<a class="link" sec:authorize="isAuthenticated()" data-toggle="modal" data-target="#match_write">글쓰기</a>
+			</div>
+		</div>
+	</div> 
+	
+	<!--[Upload process]  
+			#step1: Uploading file(s) 
+			#step2: Resizing & cropping a picture of food[1]
+			#step3: Resizing & cropping a picture of food[2]
+			#step4: Filling in a food name & taste(s) info of food[1]
+			#step5: Filling in a food name & taste(s) info of food[2]
+			#step6: Filling in a combination of food info
+						 
+			* a number of photo == 1
+			process: #step1 - #step2 - #step4(same picture) - #step5(same picture) - #step6
+						 
+			* a number of photo == 2
+			process: #step1 - #step2 - #step3 - #step4 - #step5 - #step6  
+	-->
+	<!--Modal: Write -->
+	<div id="match_write" class="modal fade" role="dialog">
+		<div class="modal-dialog" role="document">
+			<!-- Write Modal Content -->
+			<div class="modal-content">
+				<div class="modal-header"><b>음식 조합 작성</b></div>
+				<div class="modal-body">					 
+          			<div id ="step1" class="input-group step">
+						<label class="input-group-btn">
+            	        	<span class="btn btn-fm">
+   							사진 찾기<input type="file" accept="image/*" style="display: none;"  th:multiple="multiple" />
+                    		</span>
+               			</label>
+                	<input type="text" id="fileInput" class="form-control" th:readonly="readonly" />
+           	 	</div>
+         
+           	 		<div id="step2" class="hide step">
+           	 			<div class="overlay">
+           	 				<div class="overlay-inner"></div>
+           	 			</div>
+           	 			<img id="resize-image1" class="resize-image" alt="Image"/>
+           	 		</div>
+           	 		<div id="step3" class="hide step">
+           	 			<div class="overlay">
+           	 				<div class="overlay-inner"></div>
+           	 			</div>
+           	 			<img id="resize-image2" class="resize-image" alt="Image"/>
+           	 		</div>
+           	 		<form id="match_form" action="match_info.jsp" method="post">
+           	 		<div id="step4" class="hide step">
+           	 			<div class="step2-inner">
+           	 				<img id="output1" />
+           	 				<div class="vertical-line"></div>
+           	 				<div class="userInput-container">
+           	 					<div class="form-group">
+								 <input type="text" name="foodname1" id="foodname1" class="form-control" placeholder="첫 번째 음식 이름" data-toggle="tooltip" title="첫 번째 음식 이름을 알려 주세요" />
+								</div>
+								<div class="taste-label">
+									<div id="foodtasteLabel1" class="taste-label-title" data-toggle="tooltip" title="첫 번째 음식의 맛을 골라 주세요">첫 번째 음식 맛</div>
+									<div id="food1-label-explain" class="taste-label-explain1"></div>
+									<div class="taste-label-explain2">개 더 선택 가능</div>
+								</div>
+								<div id="f1t-container" class="taste-container">								
+									<input type="checkbox" name="foodtaste1" id="f1t1" value="t1" /><label for="f1t1"><img id="f1t1i" class="taste-icon" src="./source/sweety_off.svg" />달콤함</label>
+									<input type="checkbox" name="foodtaste1" id="f1t2" value="t2" /><label for="f1t2"><img id="f1t2i" class="taste-icon" src="./source/salty_off.svg" />짭짤함</label>
+									<input type="checkbox" name="foodtaste1" id="f1t3" value="t3" /><label for="f1t3"><img id="f1t3i" class="taste-icon" src="./source/sour_off.svg" />새콤함</label>	
+									<input type="checkbox" name="foodtaste1" id="f1t4" value="t4" /><label for="f1t4"><img id="f1t4i" class="taste-icon" src="./source/spicy_off.svg" />매콤함</label>
+									<input type="checkbox" name="foodtaste1" id="f1t5" value="t5" /><label for="f1t5"><img id="f1t5i" class="taste-icon" src="./source/umami_off.svg" />감칠맛</label>
+									<input type="checkbox" name="foodtaste1" id="f1t6" value="t6" /><label for="f1t6"><img id="f1t6i" class="taste-icon" src="./source/soft_off.svg" />부드러움</label>
+									<input type="checkbox" name="foodtaste1" id="f1t7" value="t7" /><label for="f1t7"><img id="f1t7i" class="taste-icon" src="./source/oily_off.svg" />고소함</label>
+									<input type="checkbox" name="foodtaste1" id="f1t8" value="t8" /><label for="f1t8"><img id="f1t8i" class="taste-icon" src="./source/soft_off.svg" />바삭함</label>
+									<input type="checkbox" name="foodtaste1" id="f1t9" value="t9" /><label for="f1t9"><img id="f1t9i" class="taste-icon" src="./source/chewy_off.svg" />쫄깃함</label>
+           	 					</div>	
+           	 				</div>
+           	 			</div>
+           	 		</div>
+           	 		<div id="step5" class="hide step">
+           	 			<div class="step2-inner">
+           	 				<img id="output2" />
+           	 				<div class="vertical-line"></div>
+           	 				<div class="userInput-container">
+           	 					<div class="form-group">
+									 <input type="text" name="foodname2" id="foodname2" class="form-control" placeholder="두 번째 음식 이름" data-toggle="tooltip" title="두 번째 음식 이름을 알려 주세요" />
+								</div>
+								<div class="taste-label">
+									<div id="foodtasteLabel2" class="taste-label-title" data-toggle="tooltip" title="두 번째 음식의 맛을 골라 주세요">두 번째 음식 맛</div>
+									<div id="food2-label-explain" class="taste-label-explain1"></div>
+									<div class="taste-label-explain2">개 더 선택 가능</div>
+								</div>
+								<div id="f2t-container" class="taste-container">								
+									<input type="checkbox" name="foodtaste2" id="f2t1" value="t1" /><label for="f2t1"><img id="f2t1i" class="taste-icon" src="./source/sweety_off.svg" />달콤함</label>
+									<input type="checkbox" name="foodtaste2" id="f2t2" value="t2" /><label for="f2t2"><img id="f2t2i" class="taste-icon" src="./source/salty_off.svg" />짭짤함</label>
+									<input type="checkbox" name="foodtaste2" id="f2t3" value="t3" /><label for="f2t3"><img id="f2t3i" class="taste-icon" src="./source/sour_off.svg" />새콤함</label>
+									<input type="checkbox" name="foodtaste2" id="f2t4" value="t4" /><label for="f2t4"><img id="f2t4i" class="taste-icon" src="./source/spicy_off.svg" />매콤함</label>
+									<input type="checkbox" name="foodtaste2" id="f2t5" value="t5" /><label for="f2t5"><img id="f2t5i" class="taste-icon" src="./source/umami_off.svg" />감칠맛</label>
+									<input type="checkbox" name="foodtaste2" id="f2t6" value="t6" /><label for="f2t6"><img id="f2t6i" class="taste-icon" src="./source/soft_off.svg" />부드러움</label>
+									<input type="checkbox" name="foodtaste2" id="f2t7" value="t7" /><label for="f2t7"><img id="f2t7i" class="taste-icon" src="./source/oily_off.svg" />고소함</label>
+									<input type="checkbox" name="foodtaste2" id="f2t8" value="t8" /><label for="f2t8"><img id="f2t8i" class="taste-icon" src="./source/soft_off.svg" />바삭함</label>
+									<input type="checkbox" name="foodtaste2" id="f2t9" value="t9" /><label for="f2t9"><img id="f2t9i" class="taste-icon" src="./source/chewy_off.svg" />쫄깃함</label>
+           	 					</div>	
+           	 				</div>
+           	 			</div>
+        			</div>		
+        			<div id="step6" class="hide step">
+        				<img id="output1re" />
+        				<img id="output2re" />
+        				<div class="tag-container">
+        					<div class="form-group">
+        						<input type="text" name="summary" id="summary" class="form-control" placeholder="한줄평" data-toggle="tooltip" title="음식 조합에 대해 평가해 주세요." />	
+							</div>
+							<div class="form-group">
+								<input type="text" name="tag" id="tag" data-role="tagsinput" class="form-control" placeholder="태그" />
+							</div>
+						</div>
+        			</div>
+        			</form>
+           	 	</div>
+				<div id="steps-footer" class="modal-footer hide">
+        			<ul class="pager">
+           	 			<li class="previous">
+           	 				<a id="forward" class="forward">이전</a>
+           	 			</li>
+           	 			<li class="next">
+           	 				<a id="backward" class="backward">다음</a>
+           	 				<button type="button" id="crop1" class="btn-crop js-crop">자르기</button>
+           	 				<button type="button" id="crop2" class="btn-crop js-crop hide">자르기</button>
+           	 			</li>		
+           	 		</ul>
+        		</div>
+			</div>
+		</div>
+	</div>
+</header>

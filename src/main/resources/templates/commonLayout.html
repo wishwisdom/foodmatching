@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+
+	<title>Foodmatching</title>
+	<link rel="stylesheet" th:href="@{/css/commons.css}"></link>
+	<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-tagsinput.css}"></link>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+	<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/bootstrap/js/bootstrap-tagsinput.js}"></script>
+	<script th:src="@{/js/commonHeader.js}"></script>
+</head>
+<body>
+	<header layout:fragment="header">
+	</header>	
+	<section id="content" layout:fragment="content">
+	</section>
+	<footer layout:fragment="footer">
+	</footer>
+</body>
+</html>
