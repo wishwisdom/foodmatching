@@ -59,6 +59,7 @@ public class UserController {
 		return "insertOK";
 	}
 	
+	
 	@PostMapping("/register")
 	public String registerUser(@Valid @ModelAttribute(value = "user")  UserForm userForm, BindingResult bindingResult) {
 		// email,nickname,password,birth,joinDay

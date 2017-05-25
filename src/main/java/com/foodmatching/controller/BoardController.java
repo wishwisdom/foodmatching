@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -208,9 +207,15 @@ public class BoardController {
 		
 		Like isLike = likeMapper.find(like);
 		
-		logger.info("like test :" + (isLike==null));
+		logger.debug("like test :" + (isLike==null));
 		
-		return isLike == null ? likeMapper.save(like) : -likeMapper.delete(like);
+		if(isLike == null){
+			likeMapper.save(like);
+		}else
+			likeMapper.delete(like);
+		
+		
+		return likeMapper.countAll(id);
 	}
 	
 	
