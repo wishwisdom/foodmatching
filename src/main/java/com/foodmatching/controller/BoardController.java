@@ -63,7 +63,7 @@ public class BoardController {
 		model.addAttribute("fileUpload", fuf);
 		model.addAttribute("ok", "Yet");
 
-		return "write_food";
+		return "foods/write_food";
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class BoardController {
 	 * @see        BoardDetail
 	 */
 	@PreAuthorize("hasAuthority('ROLE_ADMIN') AND hasAuthority('ROLE_USER')")
-	@PostMapping("/upload")
+	@PostMapping("/matches/upload")
 	public String saveFile(@ModelAttribute(value = "fileUpload") FileUploadForm fuf,
 			@ModelAttribute("customUser") CustomUser user, Model model) throws IllegalStateException, IOException {
 
@@ -135,7 +135,7 @@ public class BoardController {
 		
 		
 	
-		return "food_content";
+		return "foods/food_content";
 	}
 
 	/**
@@ -156,7 +156,7 @@ public class BoardController {
 		model.addAttribute("reply",new Reply());
 		// 다린 리플 추가 예
 		
-		return "match_info";
+		return "matches/match_info";
 	}
 
 	

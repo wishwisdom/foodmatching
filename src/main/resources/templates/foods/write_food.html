@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>게시</title>
+<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
+<!--[if lt IE 9]>
+  		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  		<![endif]-->
+<link rel="stylesheet" th:href="@{/css/commons.css}"></link>
+<link rel="stylesheet" th:href="@{/css/main.css}"></link>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+						$("#addFile")
+								.click(
+										function() {
+											console.log('test')
+											$("#fileTable")
+													.append(
+															'<tr><td><input name="foodList" id="foodList" type="text" /></td><td><input name="files" id="files" type="file" /></td></tr>');
+										});
+					})
+</script>
+</head>
+<body>
+	<header th:replace="fragments/header"></header>
+	<h1 th:text="${ok}"></h1>
+	<form method="post" th:action="@{/matches/upload}"
+		th:object="${fileUpload}" enctype="multipart/form-data">
+
+		<p>Select files to upload. Press Add button to add more file
+			inputs.</p>
+
+		<table id="fileTable">
+
+			<tr>
+				<td><input th:field="*{foodList}" type="text" /></td>
+				<td><input th:field="*{files}" type="file" /></td>
+			</tr>
+
+			<tr>
+				<td><input th:field="*{foodList}" type="text" /></td>
+				<td><input th:field="*{files}" type="file" /></td>
+			</tr>
+			<tr>
+				<td>조합 정보 추가</td>
+			</tr>
+			<tr>
+				<td><label>조합 평가</label><input th:field="*{evalTaste}"
+					type="text" /></td>
+				<td><label>조합 TAG</label><input th:field="*{tags}" type="text" /></td>
+				<td><label>조합 특성</label><input th:field="*{property}"
+					type="text" /></td>
+			</tr>
+		</table>
+		<br /> <input type="submit" value="Upload" /> <input id="addFile"
+			type="button" value="Add File" />
+	</form>
+	<footer th:replace="fragments/footer"></footer>
+</body>
+</html>

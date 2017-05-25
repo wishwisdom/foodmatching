@@ -29,27 +29,24 @@
 	            success : function(data){
 	                /* alert("통신데이터 값 : " + data.comment) ; */
 	                $('.fm-ct-posts').append(data)
-	                console.log(data+"test")
+	                
 	            }
 	             
 	     });
+		$(document).on('mouseover', function(e) {
+			if(e.target.className == 'posts-time'){
+				console.log(e.target.getAttribute('data-createdday'))
+			}
+		    	
+		});
 	 })
+	 
 	
 	</script>
 </head>
 <body>
 
-	<div id="header" class="fm-head">
-		<div class="fm-head-left"><div class="btn-on"><a class="link">푸드매칭</a></div></div>
-		<div class="fm-head-left"><a class="link">조합 공유</a></div>
-		<div class="fm-head-left"><a class="link">조합 원정대</a></div>
-		<div class="fm-head-search"><div class="icon"><img th:src="@{/images/search_m.svg}" /></div></div>
-		<div class="fm-head-right">
-			<a class="link" th:href="@{/login}" sec:authorize="isAnonymous()">로그인</a>
-			<a class="link" th:href="@{/logout}" sec:authorize="isAuthenticated()">환영해</a>
-		</div>
-		<div class="fm-head-right"><div class="btn-on"><a class="link" >회원가입</a></div></div>
-	</div>
+	<header th:replace="fragments/header :: header"></header>
 	<section class="fm-intro">
 		<img th:src="@{/images/intro.png}" />
 		<div class="title">음식은 더할수록 행복해진다</div>
@@ -150,24 +147,7 @@
 			</div>
 		</div>
 	</section>
-	<footer class="container fm-foot">
-			<div class="fm-foot-container">
-				<hr class="line" />
-				<div class="fm-foot-contents">
-					<div class="fm-foot-link">
-						<ul>
-							<li>회사소개</li>
-							<li>미디어</li>
-							<li>제휴 제안</li>
-							<li>이용약관</li>
-							<li>개인정보처리방침</li>
-							<li>고객센터</li>
-						</ul>
-					</div>
-					<div class="fm-foot-ci">© Foodmatching</div>
-				</div>
-			</div>
-	</footer>
+	<footer th:replace="fragments/footer :: footer" ></footer>
 <script  type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script  type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
 <script>

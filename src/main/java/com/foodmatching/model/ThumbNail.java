@@ -20,6 +20,19 @@ public class ThumbNail{
 		return board;
 	}
 
+	public String getTitle(){
+		String title = "";
+		
+		int size = food.size();
+		
+		for(int i=0; i < size-1; i++ ){
+			title += food.get(i).getFoodName()+" & ";
+		}
+		
+		title += food.get(size-1).getFoodName();
+			
+		return title;
+	}
 	public void setBoard(Board board) {
 		this.board = board;
 	}

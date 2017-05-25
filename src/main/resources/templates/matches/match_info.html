@@ -42,14 +42,7 @@
 	</script>
 </head>
 <body>
-	<div id="header" class="fm-head">
-		<div class="fm-head-left"><div class="btn-on"><a class="link">푸드매칭</a></div></div>
-		<div class="fm-head-left"><a class="link">조합 공유</a></div>
-		<div class="fm-head-left"><a class="link">조합 원정대</a></div>
-		<div class="fm-head-search"><div class="icon"><img src="@{/images/search_m.svg}" /></div></div>
-		<div class="fm-head-right"><a class="link">로그인</a></div>
-		<div class="fm-head-right"><div class="btn-on"><a class="link">회원가입</a></div></div>
-	</div>
+	<div id="header" class="fm-head" th:replace="fragments/header :: header"></div>
 	<section class="fm-main-container container">
 		<div>
 			<div class="explain col-md-12"></div>
@@ -246,28 +239,7 @@
 			</div>
 		</div>
 	</section>
-	<footer class="container fm-foot">
-			<div class="fm-foot-container">
-				<hr class="line" />
-				<div class="fm-foot-contents">
-				<div class="fm-foot-link">
-					<ul>
-						<li>회사소개</li>
-						<li>미디어</li>
-						<li>제휴 제안</li>
-						<li>이용약관</li>
-						<li>개인정보처리방침</li>
-						<li>고객센터</li>
-					</ul>
-				</div>
-				<div class="fm-foot-ci">© Foodmatching</div>
-				</div>
-			</div>
-			<div th:each="food  : ${bd.foodList}">
-				<img th:src="@{/img/} + ${food.foodImage}" />			
-			
-			</div>
-	</footer>
+	<footer class="container fm-foot" th:replace="fragments/footer" ></footer>
 
 <script>
 /* $('#sum-food1').css("background-image", "url(./resources/food1-full.png)");

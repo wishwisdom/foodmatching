@@ -46,23 +46,32 @@ public class Board {
 	public String getTime(){
 		String strCreatedTime = "";
 		long diff = System.currentTimeMillis()-this.createdDate.getTime();
-		 
 		
-		int days =(int)((diff/(1000*60*60*24)));
-				
-		if(days > 0){
-			strCreatedTime = days +"일 이상";
+		int minutes =(int)((diff/(1000*60)));
+		
+		int years = (int)(minutes/(60*24*365));
+		if(years > 0 ){
+			strCreatedTime = years + " 년 ";
 		}else{
-			int hours = (int)((diff/(1000*60*60)));
-			
-			if(hours > 0){
-				strCreatedTime = hours +"시간 이상";
+			int month = (int)(minutes/(60*24*(365/12)));
+			if(month > 0){
+				strCreatedTime = month + "달 전";
 			}else{
-				int minutes = (int)((diff/(1000*60)));
-				if(minutes > 0){
-					strCreatedTime = minutes + "분 이상";
+				int days = (int)(minutes/(60*24));
+				if(days > 0){
+					strCreatedTime += days +"일 전";
 				}else{
-					strCreatedTime = "방금 전";
+					int hours = (int)(minutes/60);
+					
+					if(hours > 0){
+						strCreatedTime = hours +"시간 전";
+					}else{
+						if(minutes > 0){
+							strCreatedTime = minutes + "분 전";
+						}else{
+							strCreatedTime = "방금 전";
+						}
+					}
 				}
 			}
 		}
@@ -74,9 +83,7 @@ public class Board {
 	}
 
 	public Timestamp getCreatedDate() {
-		Long time = System.currentTimeMillis() - createdDate.getTime();
-
-		return new Timestamp(time / (1000 * 60 * 60 * 24));
+		return this.createdDate;
 	}
 
 	public void setCreatedDate(Timestamp createdDate) {

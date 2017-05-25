@@ -90,32 +90,13 @@ public class UserController {
 
 	
 	
-	@RequestMapping("/login")
-	public String loginForm(Model model){
-		
-		User user = new User();
-		
-		model.addAttribute("user", user);
-		model.addAttribute("test", "start");
-		
-		
-		return "login";
-	}
-	
-	
-	@GetMapping("/user/{id}")
-	public ModelAndView getUserPage(@PathVariable("id") Long id){
-		// ID  내용을 넣을 예
-		return new ModelAndView("","userInfo","test");
-	}
-	
 	/*
 	 * check loginform
 	 * @param User user loginform infomation
 	 * 
 	 * 
 	 */
-	@RequestMapping(value="/login", method=RequestMethod.POST)
+/*	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String loginPost(User user,Model model){
 		
 		model.addAttribute("user", user);
@@ -124,7 +105,7 @@ public class UserController {
 		
 		return "loginform";
 	}
-	
+	*/
 	
 	
 	@RequestMapping(value="/users/{id}",method=RequestMethod.GET)

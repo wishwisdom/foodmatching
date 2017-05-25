@@ -1,0 +1,11 @@
+<div th:fragment="header" class="fm-head">
+		<div class="fm-head-left"><div class="btn-on"><a class="link">푸드매칭</a></div></div>
+		<div class="fm-head-left"><a class="link">조합 공유</a></div>
+		<div class="fm-head-left"><a class="link">조합 원정대</a></div>
+		<div class="fm-head-search"><div class="icon"><img th:src="@{/images/search_m.svg}" /></div></div>
+		<div class="fm-head-right">
+			<a class="link" th:href="@{/login}" sec:authorize="isAnonymous()">로그인</a>
+			<a class="link" th:href="@{/logout}" sec:authorize="isAuthenticated()">환영해</a>
+		</div>
+		<div class="fm-head-right"><div class="btn-on"><a class="link" >회원가입</a></div></div>
+	</div>
