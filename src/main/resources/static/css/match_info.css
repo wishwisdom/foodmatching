@@ -11,24 +11,31 @@
 .each-box { width: 100%; border: 2px solid #e0e0e0; background: #fff }
 .summary { height: 300px }
 .summary-ct-info, .summary-photo-container > .inner, .sum-food1, .sum-food2 { height: 100% }
+.summary-photo-container > .inner { display: flex; align-items: center }
 
 /* Summary - post information */
-.title { height: 50px; margin: 30px 0 10px 0; text-align: center; font-size: 16px; font-weight: bold }
+.title { height: 50px; margin: 22px 0 10px 0; text-align: center; font-size: 18px }
 .writer-photo { display: flex; justify-content: center; align-items: center }
-.writer-photo > img { width: 80px; height: 80px; overflow: hidden; border-radius: 50% }
-.writer-name { margin-top: 10px; color: #8e8e8e; font-size: 10px; font-weight: bold; text-align: center }
-.point { margin: 15px 0; font-size: 12px; font-weight: bold; text-align: center }
-.posts-ct-info { display: flex; justify-content: center; align-items: center; }
+.writer-photo > img { width: 70px; height: 70px; overflow: hidden; border-radius: 50% }
+.writer-name { margin: 3px 0 5px 0; color: #9e9e9e; font-size: 10.5px; text-align: center }
+.point { margin: 12px 0 5px 0; font-weight: bold; font-size: 15px; text-align:center }
+.posts-ct-container { padding: 10px 15px }
+.posts-ct-info { padding-bottom: 4px; border-bottom: 1px solid #b3b3b3; font-size: 10.5px; color: #9e9e9e } 
+.posts-react1, .posts-react2 { padding: 7px 0; display: flex; align-items: center; float: left}
+.posts-react1 { width: 90% }
 .each-info, .each-info-last { float: left; font-size: 10px; font-weight: bold }
 .each-info { margin-right: 15px }
-.each-info > img, .each-info-last > img, .comm-inner2 > button > img { width:14px; height: 14px; margin-bottom: 2px; margin-right: 3px }
+.each-info > img, .each-info-last > img { width:20px; height:20px; margin-bottom: 2px; margin-right: 3px }
+.posts-react2 > a > img { width:20px; height:20px; margin-left:5px }
+.comm-inner2 > button > img { width:14px; height: 14px; margin-bottom: 2px; margin-right: 3px }
 
 /* Summary - food information */
+.summary > div { float: left }
 .summary-photo-container { height: 100%; padding-left: 0 }
-.sum-food1, .sum-food2 { width: calc(50% - 5px); height:calc(100% - 20px); display: flex; align-items: center }
-.sum-food1 { float: left; margin-right: 10px }
-.sum-food2, .icon-container { margin-top:10px }
-.sum-food1 > .inner, .sum-food2 > .inner { position:relative; width:100%; height: 100% }
+.sum-food1 { width: calc(50% - 5px); height:calc(100% - 20px); display: flex; align-items: center; background-repeat: no-repeat !important}
+.sum-food1:nth-child(1) { float: left; margin-right: 10px }
+.icon-container { margin-top:10px }
+.sum-food1 > .inner { position:relative; width:100%; height: 100% }
 .sum-food-taste { position: absolute; bottom: 0; width: 100%; height: 120px; color: #ffffff; font-weight:bold; text-align: center; background-color: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center}
 .icon-container > img { width: 50px; height: 50px }
 
@@ -41,13 +48,13 @@ tr { height: 100px }
 .tr-with-hr { border-top: 2px solid #e0e0e0 }
 
 .taste-icons { width: 20%; text-align: center; font-size: 16px; font-weight: bold }
-.taste-icons > img {  } /* 아이콘 제작 후 수정 */
-.taste-name { font-weight: bold }
-.taste-explain { color: #5d5d5d; font-size: 11px; font-weight: bold; }
+.taste-icons > img { width:55px }
+.taste-name { font-weight: bold; margin: 0 0 10px 0 }
+.taste-explain { color: #5d5d5d; font-size: 13px; margin: 0 }
 
 /* Suggest foodmatching */
-.container-padding1 { padding: 0 7.5px 0 0 }
-.container-padding2 { padding: 0 0 0 7.5px }
+.sug:nth-child(1) { padding: 0 7.5px 0 0; display: inline-flex }
+.sug:nth-child(2) { padding: 0 0 0 7.5px; float: right}
 .half-box { position: relative; width:100%; height: 450px; border: 2px solid #e0e0e0; background: #fff }
 
 .fm-name { color:#5d5d5d; font-size: 12px; font-weight: bold; position: absolute; top: 40px; width:100%; text-align:center }
@@ -71,6 +78,7 @@ position: absolute; top: 70px; left: 50%; margin-left: -75px; z-index: 1}
 .write-container { display: flex; padding: 40px 0 20px 0 } 
 .comment-container { display: flex; padding: 20px 0 40px 0 }
 
+.comment-container > .profile { display: flex; align-items: flex-start; margin-top: 30px; justify-content: flex-end } 
 .write-container > .profile, .comment-container > .profile, .reply-inner > .profile { width: 20% }
 .write-container > .profile > img, .comment-container > .profile > img { float: right; padding-right: 15px }
 .write-container > .text { width: 60% }

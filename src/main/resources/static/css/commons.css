@@ -16,8 +16,79 @@ a, a:hover {cursor: pointer; text-decoration: none; }
 .fm-head-right > .btn-on { width: 80px; height: 40px; margin: auto; border: 1px solid #6752e9; display: flex; justify-content: center; align-items: center }
 .fm-head-search > .icon { width: 18px; height: 18px }
 .fm-head-search > .icon > img { vertical-align: inherit }
-.fm-head-left > .link, .fm-head-left > .btn-on > .link, .fm-head-right > .link, .fm-head-right > .btn-on > .link { color:#ffffff; font-size: 12px }
+.fm-head-left > .link, .fm-head-left > .btn-on > .link, .fm-head-right > .link, .fm-head-right > .btn-on > .link { color:#ffffff; font-size: 12.5px }
 .fm-head-left > .link:hover, .fm-head-left > .btn-on > .link:hover, .fm-head-right > .link:hover, .fm-head-right > .btn-on > .link:hover { color:#D3CCFF }
+.fm-head-right > a > img { width: 35px; height: 35px }
+
+/* Dropdown menu */
+.dropdown-toggle { font-size: 0 }
+.dropdown-menu > a { font-size: small }
+
+/* Match - Writing */
+.modal { text-align: center }
+@media screen and (min-width: 768px) { 
+  .modal:before { display: inline-block; vertical-align: middle; content: " "; height: 100% }
+}
+.modal-dialog { display: inline-block; text-align: left; vertical-align: middle }
+.modal-body { padding: 0 }
+.hide{ display:none }
+.pager { margin: 5px }
+.forward{ color:#5A62AB }
+.btn-fm, .backward {background: #5A62AB !important; color: #fff;}
+.btn-fm:hover, .backward:hover, #crop:hover { color:#D3CCFF }
+
+#step1 { margin: 15px }
+#step2, #step3 { height: 400px; overflow:hidden }
+#step4, #step5 { height: 350px; overflow:hidden }
+#resize-image1, #resize-image2 { max-width:100%; max-height:100% }
+
+/* → step2, 3 */
+/* Crop and resize images */
+.resize-container { position: relative; display: inline-block; cursor: move; margin: 0 auto; top: 100px; left: 150px }
+.resize-container img { display: block }
+.resize-container:hover img, .resize-container:active img { outline: 1.5px dashed #D3CCFF }
+
+/* → handler */
+.resize-handle-ne, .resize-handle-se, .resize-handle-nw, .resize-handle-sw { position: absolute; display: block; width: 10px; height: 10px; background: #D3CCFF }
+.resize-handle-nw { top: -5px; left: -5px; cursor: nw-resize}
+.resize-handle-sw { bottom: -5px; left: -5px; cursor: sw-resize }
+.resize-handle-ne { top: -5px; right: -5px; cursor: ne-resize }
+.resize-handle-se { bottom: -5px; right: -5px; cursor: se-resize } 
+
+/* → frame making */
+.overlay { position: absolute; left: 40%; top: 35%; margin-left: -100px; margin-top: -100px; z-index: 999; width: 320px; height: 276px; border: solid 2px #5A62AB; box-sizing: content-box; pointer-events: none}
+.overlay:after, .overlay:before { content: ''; position: absolute; display: block; width: 324px; height: 40px; border-left: dashed 2px #5A62AB; border-right: dashed 2px #5A62AB }
+.overlay:before{ top: 0; margin-left: -2px; margin-top: -40px }
+.overlay:after{ bottom: 0; margin-left: -2px; margin-bottom: -40px }
+.overlay-inner:after, .overlay-inner:before { content: ''; position: absolute; display:block; width: 40px; height: 280px; border-top: dashed 2px #5A62AB; border-bottom: dashed 2px #5A62AB }
+.overlay-inner:before { left:0; margin-left: -40px; margin-top: -2px }
+.overlay-inner:after { right:0; margin-right: -40px; margin-top: -2px }
+.btn-crop { position: absolute; vertical-align: bottom; right: 15px; padding: 6px 10px; z-index: 999; background-color: #5A62AB; border: none; border-radius: 15px; color: #fff }
+  
+/* → step4,5 */  
+.step-inner { width: 598.67px; height:350px }  
+#output1, #output2 { float: left; width: 320px; height: 276px; margin: 35px 0 35px 15px }
+.vertical-line { width: 0.5px; height: 350px; float: left; margin-left: 15px; background-color: #e5e5e5 }
+.userInput-container { width: 245px; height: 250px; float:left; padding: 25px 15px}
+.taste-label { margin-bottom: 5px; display: flex; align-items:center }
+.taste-label-title { font-size: 13px; font-weight: bold; color: #5d5d5d }
+.taste-label-explain1, .taste-label-explain2 { margin-bottom: 1px; font-size: 10px; font-weight: bold; color: #8e8e8e }
+.taste-label-explain1 { margin-left: 15px; display: flex; justify-content: center; align-items: center; width: 10px; height: 10px; background-color: #2F3F5E; border-radius: 10px;color: #fff }
+.taste-label-explain2 { margin-left: 3px }
+.taste-container { display: table; border-collapse: collapse; padding: 2.5px }
+input[type=checkbox] { display:none }
+input[type=checkbox] + label { display: inline-block; width:72px; height: 72px; margin: -1px -1px -1px 0; padding: 5px 10px; margin-bottom: 0; line-height: 20px;
+color:#a6a6a5; text-align: center; vertical-align: middle; cursor: pointer; background-color: #fff; border: 1px solid #ccc; border-color: #e6e6e6 #e6e6e6 #bfbfbf; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+border-bottom-color: #e6e6e6; font-size: 11px }
+input[type=checkbox]:checked + label{ background-image: none; outline: 0; color: #2F3F5E}
+.taste-icon { display: block; width:45px; margin: auto }
+
+/* → step6 */  
+#output1re { float: left; width: 320px; height: 276px; margin: 10px 14.5px 10px 14.5px }
+#output2re { float: left; width: 320px; height: 276px; margin: 10px 14.5px 10px 0px }
+.tag-container { padding: 15px }
+.bootstrap-tagsinput { width: 100% }
+.label-info { background-color: #2f3f5e }
 
 /* Footer */
 .fm-foot { margin-top: 30px }
