@@ -36,38 +36,48 @@
 		            }          
 		     });
 		});
+		$('.like').click(function(){
+			/*  $.ajax({
+		            
+		            type : "GET",
+		            url : "/matches/like/",
+		            data : {
+		            	comment:$("#comment").val()
+		            },
+		            error : function(){
+		                alert('통신실패!!');
+		            },
+		            success : function(data){
+		               
+		                $('.each-box').append(data)
+		            }          
+		     }); */
+		   
+		     url = window.location.href.replace("#","")
+		     last = url.lastIndexOf('/')
+		     id = url.substring(last+1,url.size)
+		     
+		     $.ajax({
+		            
+		            type : "GET",
+		            url : "/matches/like/"+id,
+		            error : function(){
+		                alert('통신실패!!');
+		            },
+		            success : function(data){
+		               console.log(data)
+		            }          
+		     });
+		     
+		})
 	 })
 	
 	</script>
 </head>
 <body>
-<<<<<<< HEAD:src/main/resources/templates/matches/match_info.html
+
 	<div id="header" class="fm-head" th:replace="fragments/header :: header"></div>
-=======
-	<div id="header" class="fm-head">
-		<div class="fm-head-left"><a class="link" th:href="@{/}">푸드매칭</a></div>
-		<div class="fm-head-left"><a class="link" href="#">조합 공유</a></div>
-		<div class="fm-head-left"><a class="link" href="#">조합 원정대</a></div>
-		<div class="fm-head-search"><div class="icon"><img th:src="@{/images/search_m.svg}" /></div></div>
-		<div class="fm-head-right dropdown">
-			<a class="link" th:href="@{/login}" sec:authorize="isAnonymous()">로그인</a>
-			<a class="dropdown-toggle" sec:authorize="isAuthenticated()" data-toggle="dropdown">
-				<img th:src="@{/images/profile_icon.png}" />
-			</a>
-				<div class="dropdown-menu dropdown-menu-right">
-					<a class="dropdown-item">프로필 수정</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" th:href="@{/logout}">로그아웃</a>
-				</div>
-		</div>
-		<div class="fm-head-right">
-			<div class="btn-on">
-				<a class="link" th:href="@{/register}" sec:authorize="isAnonymous()">회원가입</a>
-				<a class="link" sec:authorize="isAuthenticated()">조합 추가</a>
-			</div>
-		</div>
-	</div>
->>>>>>> 3469abd873132abc5266ef394aca669366cf67dd:src/main/resources/templates/match_info.html
+
 	<section class="fm-main-container container">
 		<div>
 			<div class="explain col-md-12"></div>
@@ -84,7 +94,7 @@
 							<div class="posts-ct-container">
 								<div class="posts-ct-info">좋아요 712</div>
 								<div class="posts-react1">
-									<a class="each-info"><img th:src="@{/images/heart_off.svg}" /></a>
+									<a class="each-info like" href='javascript:void(0)'><img th:src="@{/images/heart_off.svg}" /></a>
 									<a class="each-info"><img th:src="@{/images/scrap_off.svg}" /></a>
 									<a class="each-info-last"><img th:src="@{/images/sending.svg}" /></a>
 								</div>
@@ -262,28 +272,9 @@
 			</div>
 		</div>
 	</section>
-<<<<<<< HEAD:src/main/resources/templates/matches/match_info.html
+
 	<footer class="container fm-foot" th:replace="fragments/footer" ></footer>
-=======
-	<footer class="container fm-foot">
-			<div class="fm-foot-container">
-				<hr class="line" />
-				<div class="fm-foot-contents">
-				<div class="fm-foot-link">
-					<ul>
-						<li>회사소개</li>
-						<li>미디어</li>
-						<li>제휴 제안</li>
-						<li>이용약관</li>
-						<li>개인정보처리방침</li>
-						<li>고객센터</li>
-					</ul>
-				</div>
-				<div class="fm-foot-ci">© Foodmatching</div>
-				</div>
-			</div>
-	</footer>
->>>>>>> 3469abd873132abc5266ef394aca669366cf67dd:src/main/resources/templates/match_info.html
+
 
 <script>
 /* $('#sum-food1').css("background-image", "url(./resources/food1-full.png)");

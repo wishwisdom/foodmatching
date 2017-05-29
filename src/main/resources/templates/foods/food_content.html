@@ -1,10 +1,12 @@
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
 
-<a th:href="@{'/matches/' + ${thumbNail.board.id}}" class="each-post matching" th:each="thumbNail,iterationStatus  : ${thumbNailList}">
-	<div class="posts-up">
+
+<div class="each-post matching" th:each="thumbNail,iterationStatus  : ${thumbNailList}" >
+	<div class="posts-up" >
+	<a th:href="@{'/matches/' + ${thumbNail.board.id}}" >
 		<div class="posts-title" th:text="${thumbNail.title}">
 			라멘, 돈카츠 &#38;<br />캘리포니아 롤
 		</div>
+		</a>
 		<div class="posts-writer" th:text="${startNum+iterationStatus.index}">구슬씨</div>
 		<div class="posts-time" th:attr="data-createdday=${thumbNail.board.createdDate}" th:text="${thumbNail.board.time}">1시간 전</div>
 		<div class="posts-like">
@@ -21,4 +23,5 @@
 	<div class="posts-down">
 		<div class="half-img" th:each="food,iterationStatus : ${thumbNail.food}" th:style="'background:url(' + @{/img/} + ${food.foodImage} + ');'"></div>
 	</div>
-</a>
+</div>
+
