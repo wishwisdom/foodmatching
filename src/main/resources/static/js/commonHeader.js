@@ -6,7 +6,6 @@ $(document).ready(function(){
 	var	numFiles = 0;
 	$("#food1-label-explain").text("3");
 	$("#food2-label-explain").text("3");
-	
 	$('[data-toggle="tooltip"]').tooltip({
     	container: 'body',
     	placement: 'top',
@@ -309,7 +308,7 @@ $(document).ready(function(){
  * Developed by Mike Riethmuller, changed by Seongmi Jeong  
  **/
 
-var resizeableImage = function(image_catarget) {
+var resizeableImage = function(image_target) {
 	
 	var $container,
 	 	orig_src = new Image(),
