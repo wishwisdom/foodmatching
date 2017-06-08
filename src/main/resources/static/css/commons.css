@@ -4,7 +4,7 @@
 html,body { width: 100%; min-height: 100%; margin: 0; padding: 0 }
 body { background: #E8E8E8 }
 
-a, a:hover {cursor: pointer; text-decoration: none; }
+a:link, a:hover, a:visited, a:active {cursor: pointer; text-decoration: none; color:inherit}
 
 /* Header */
 .fm-head { height: 60px; padding: 0 120px; background: #251e50 }

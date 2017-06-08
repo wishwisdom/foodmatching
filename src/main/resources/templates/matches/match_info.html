@@ -176,8 +176,7 @@
 					<div class="sug col-md-6" th:each="food:${bd.foodList}">
 							<div class="half-box">
 								<div class="fm-name">계란 볶음밥</div>
-								<div class="fm-food" id="fm-food1">
-									<img th:src="@{/img/}+${food.foodImage}" />
+								<div class="fm-food" th:style="'background:url(' + @{/img/} + ${food.foodImage} + '); background-position:center center'">
 								</div>
 								<div class="sug-taste1"><img th:src="@{/images/spicy_off.svg}" /></div>
 								<div class="sug-name1">매운 핫 치킨</div>

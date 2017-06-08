@@ -36,7 +36,7 @@ color: #ffffff; background-color: rgba(30,30,80,0.8); display: flex; align-items
 .random { position:relative; padding: 35px 15px; text-align: center; border: 2px solid #e0e0e0 }
 
 .posts-up { padding: 30px 20px 15px 20px; height: 150px }
-.vote-title, .posts-title, .random-title { height: 46px; font-size: 18px; line-height: 1.3em; font-weight: bold; color: #251e50; text-align: center }
+.vote-title, .posts-title, .random-title { height: 46px; font-size: 18px; line-height: 1.3em; font-weight: bold; color: #251e50; text-align: center; display:flex; align-items:center; justify-content:center}
 .vote-sub-title { font-size: 16px; font-weight: bold; color: #251e50 }
 .random-sub-title { position: absolute; left: 30px; font-size: 18px; font-weight: bold; color: #ffffff; text-shadow: 0 2px 3px #000000 } 
 .posts-writer { font-size: 12px; font-weight: bold; text-align: center; margin-top: 10px }

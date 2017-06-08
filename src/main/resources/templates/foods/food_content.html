@@ -1,27 +1,14 @@
 
-
 <div class="each-post matching" th:each="thumbNail,iterationStatus  : ${thumbNailList}" >
-	<div class="posts-up" >
 	<a th:href="@{'/matches/' + ${thumbNail.board.id}}" >
-		<div class="posts-title" th:text="${thumbNail.title}">
-			라멘, 돈카츠 &#38;<br />캘리포니아 롤
+		<div class="posts-up" >
+			<div class="posts-title" th:text="${thumbNail.title}"></div>
+		<div class="posts-writer" th:text="${thumbNail.board.owner}">구슬씨</div>
+		<div class="posts-time" th:attr="data-createdday=${thumbNail.board.createdDate}" th:text="${thumbNail.board.time}"></div>
+		<div class="posts-like">927<img class="posts-heart" th:src="@{/images/heart.svg}" /></div>
 		</div>
-		</a>
-		<div class="posts-writer" th:text="${startNum+iterationStatus.index}">구슬씨</div>
-		<div class="posts-time" th:attr="data-createdday=${thumbNail.board.createdDate}" th:text="${thumbNail.board.time}">1시간 전</div>
-		<div class="posts-like">
-			927<img class="posts-heart" th:src="@{/images/heart.svg}" />
+		<div class="posts-down">
+			<div class="half-img" th:each="food,iterationStatus : ${thumbNail.food}" th:style="'background:url(' + @{/img/} + ${food.foodImage} + '); background-position:center center'"></div>
 		</div>
-		<div >
-			<a th:href="@{'/matches/' + ${thumbNail.board.id}}" >board</a>
-			<div th:each="food,iterationStatus : ${thumbNail.food}" >
-				<img th:src="@{'/img/' +${food.foodImage}}" />
-			</div>
-			
-		</div>
-	</div>
-	<div class="posts-down">
-		<div class="half-img" th:each="food,iterationStatus : ${thumbNail.food}" th:style="'background:url(' + @{/img/} + ${food.foodImage} + ');'"></div>
-	</div>
+	</a>	
 </div>
-
