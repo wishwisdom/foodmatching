@@ -18,7 +18,7 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 		function imageChange(name, data){
-			var myObject=$(name).children();
+			var myObject=$(name).children(),
     			objectSrc=myObject.attr("src");
     		if(data==0){
     			objectSrc=objectSrc.replace("on", "off");	
@@ -26,6 +26,12 @@
     			objectSrc=objectSrc.replace("off", "on");	
     		}
     		myObject.attr("src", objectSrc); 
+		}
+		function getUrl(){
+			var url = window.location.href.replace("#",""),
+     			last = url.lastIndexOf('/'),
+     			id = url.substring(last+1,url.size);
+     		return id;
 		}
 		
 		$('#test').click(function(){
@@ -47,40 +53,34 @@
 		            }          
 		     });
 		});
-		    $('.like').click(function(){
-				var url = window.location.href.replace("#","");
-		     		last = url.lastIndexOf('/');
-		     		id = url.substring(last+1,url.size);
-			 
-		    	$.ajax({
-		            type : "GET",
-		            url : "/matches/like/"+id,
-		            error : function(){
-		                alert('like 통신실패!!');
-		            },
-		            success : function(data){
-		            	imageChange('.like', data);
-		            	$('.likeAll').html(data);
-		            }          
-		     	});
-		    });
-		    $('.scrap').click(function(){
-				var url = window.location.href.replace("#","");
-		     		last = url.lastIndexOf('/');
-		     		id = url.substring(last+1,url.size);
-			 
-		    	$.ajax({
-		            type : "GET",
-		            url : "/matches/scrap/"+id,
-		            error : function(){
-		                alert('scrap 통신실패!!');
-		            },
-		            success : function(data){
-		            	imageChange('.scrap', data);
-		            }          
-		     	});
-		    });
+		$('.like').click(function(){
+			var id=getUrl();
+		    $.ajax({
+		    	type : "GET",
+		        url : "/matches/like/"+id,
+		        error : function(){
+		        	alert('like 통신실패!!');
+		        },
+		        success : function(data){
+		        	imageChange('.like', data);
+		            $('.likeAll').html(data);
+		        }          
+		     });
 		});
+		$('.scrap').click(function(){
+			var id=getUrl();
+		    $.ajax({
+		    	type : "GET",
+		        url : "/matches/scrap/"+id,
+		        error : function(){
+		        	alert('scrap 통신실패!!');
+		       	},
+		        success : function(data){
+		            imageChange('.scrap', data);
+		        }          
+		     });
+		});
+	});
 	</script>
 </head>
 <body>
