@@ -18,6 +18,8 @@
 <script th:src="@{/js/commonHeader.js}"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		  $(".dropdown-toggle").dropdown();
+		
 		$.ajax({
 			type : "GET",
 			url : "/matches",

@@ -26,9 +26,9 @@ facebook:
   
 board:
   img:
-    path: /Users/shin/Documents/imsiImages
+    path: imapgePath
     user:
-      path: /Users/shin/Documents/imsiImages/profiles
+      path: userimagepath
 user:
   target:
     preurl: preURL

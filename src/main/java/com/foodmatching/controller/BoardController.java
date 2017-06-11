@@ -27,11 +27,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.foodmatching.mapper.LikeMapper;
+import com.foodmatching.mapper.ScrapMapper;
 import com.foodmatching.model.Board;
 import com.foodmatching.model.BoardDetail;
 import com.foodmatching.model.CustomUser;
 import com.foodmatching.model.FileUploadForm;
 import com.foodmatching.model.Like;
+import com.foodmatching.model.Scrap;
 import com.foodmatching.model.Reply;
 import com.foodmatching.model.ThumbNail;
 import com.foodmatching.serviceimpl.BoardServiceImpl;
@@ -47,6 +49,9 @@ public class BoardController {
 	@Autowired
 	private LikeMapper likeMapper;
 
+	@Autowired
+	private ScrapMapper scrapMapper;
+	
 	@Value("${board.img.path}")
 	private String SAVE_PATH;
 
@@ -248,6 +253,34 @@ public class BoardController {
 		return likeInfo;
 	}
 
+	
+	/**
+	 * Save 'scrap' if not exists in a table or delete it.
+	 * 
+	 * @param id board id for user's scrap or unscrap
+	 * @param currentUser login user 
+	 * 
+	 * @return total like number of the board {id}
+	 */
+	@GetMapping(value = "/matches/scrap/{id}")
+	@ResponseBody
+	public int updateScrap(@PathVariable("id") Integer id, @ModelAttribute("customUser") CustomUser user){
+		
+		Scrap scrap = new Scrap(id,user.getUserEmail());
+		
+		Scrap isScrap = scrapMapper.find(scrap);
+		
+		logger.info("scrap test :" + (isScrap==null));
+		
+		if(isScrap == null){
+			scrapMapper.save(scrap);
+		}else
+			scrapMapper.delete(scrap);
+		
+		return scrapMapper.count(scrap);
+	}
+	
+	
 	/**
 	 * Return a binary image file
 	 * 
