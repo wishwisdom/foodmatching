@@ -2,6 +2,9 @@ package com.foodmatching.model;
 
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * ThumbNail for a board including board and food pictures
  * 
@@ -14,6 +17,8 @@ public class ThumbNail{
 	}
 	
 	Board board;
+	
+	@Getter @Setter
 	List<Food> food;
 
 	public Board getBoard() {
@@ -36,13 +41,7 @@ public class ThumbNail{
 	public void setBoard(Board board) {
 		this.board = board;
 	}
-	public List<Food> getFood() {
-		return food;
-	}
-
-	public void setFood(List<Food> food) {
-		this.food = food;
-	}
+	
 
 
 }

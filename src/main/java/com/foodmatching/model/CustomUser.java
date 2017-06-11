@@ -8,11 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.social.security.SocialUserDetails;
 
-public class CustomUser implements UserDetails{
+public class CustomUser implements SocialUserDetails{
 	private Logger logger = LoggerFactory.getLogger(CustomUser.class);
 	private User user;
+	private String id;
 	
 	public CustomUser(User user){
 		this.user = user;
@@ -93,6 +94,15 @@ public class CustomUser implements UserDetails{
 		});;
 		
 		return auth;
+	}
+
+	@Override
+	public String getUserId() {
+		// TODO Auto-generated method stub
+		return this.id;
+	}
+	public void setUserId(String id){
+		this.id = id;
 	}
 
 }

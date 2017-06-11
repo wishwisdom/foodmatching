@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.foodmatching.model.CustomUser;
+import com.foodmatching.model.User;
 
 /*
  * URL 접근할 때마다 불려지는 것.
@@ -16,9 +17,17 @@ import com.foodmatching.model.CustomUser;
 public class CurrentControllerAdvice {
 	private final Logger logger = LoggerFactory.getLogger(CurrentControllerAdvice.class);
 	@ModelAttribute("customUser")
-	public CustomUser getCurrentUser(Authentication authentication) {
-		if(authentication != null)
-			logger.info("Come Advice : "+(CustomUser) authentication.getPrincipal());
-        return (authentication == null) ? null : (CustomUser) authentication.getPrincipal();
+	public CustomUser getCurrentUser(Authentication auth) {
+		CustomUser user = null;
+		if(auth != null){
+			if( auth.getPrincipal() instanceof CustomUser){
+				user = (CustomUser) auth.getPrincipal();
+			}else{
+				user = new CustomUser(new User());
+				user.setUserId( (String) auth.getPrincipal());
+			}
+		}
+			
+        return user;
 	}
 }

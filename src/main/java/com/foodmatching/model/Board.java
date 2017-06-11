@@ -10,6 +10,16 @@ public class Board {
 	private int id;
 	private String summary;
 	private String owner;
+	private int likes;
+
+	
+	public int getLikes() {
+		return likes;
+	}
+
+	public void setLikes(int likes) {
+		this.likes = likes;
+	}
 
 	private Timestamp createdDate;
 

@@ -21,6 +21,7 @@ import com.foodmatching.model.BoardDetail;
 import com.foodmatching.model.Comment;
 import com.foodmatching.model.FileUploadForm;
 import com.foodmatching.model.Food;
+import com.foodmatching.model.Like;
 import com.foodmatching.model.Reply;
 import com.foodmatching.model.ThumbNail;
 import com.foodmatching.service.BoardService;
@@ -192,6 +193,13 @@ public class BoardServiceImpl implements BoardService{
 		});
 		
 		return commentList;
+	}
+	
+	public void updateLike(Like like){
+		
+		
+		
+		
 	}
 	
 

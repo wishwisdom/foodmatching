@@ -13,5 +13,10 @@
     "name": "user.target.preurl",
     "type": "java.lang.String",
     "description": "A Pre-URL before a user logins"
+  },
+  {
+    "name": "facebook.client.client-id",
+    "type": "java.lang.String",
+    "description": "A description for 'facebook.client.client-id'"
   }
 ]}

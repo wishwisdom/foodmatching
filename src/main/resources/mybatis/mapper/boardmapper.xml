@@ -26,6 +26,7 @@
 			b.summary as summary,
 			b.owner as owner,
 			b.createdDate as createdDate,
+			b.likes as likes,
 			f.food_id as food_id,
 			f.board_id as board_id,
 			f.food_name as bood_name,
@@ -69,6 +70,14 @@
 		SELECT count(*)
 		from boards;
 	</select>
+	
+	<update id="update" parameterType="Board">
+		UPDATE
+			boards
+			set summary=#{summary},
+			set like=#{like}
+		where id=#{id}
+	</update>
 	
 
 </mapper>

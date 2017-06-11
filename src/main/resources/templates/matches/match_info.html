@@ -33,6 +33,7 @@
 		            success : function(data){
 		                /* alert("통신데이터 값 : " + data.comment) ; */
 		                $('.each-box').append(data)
+		                
 		            }          
 		     });
 		});
@@ -65,7 +66,7 @@
 		                alert('통신실패!!');
 		            },
 		            success : function(data){
-		               console.log(data+'test')
+		               console.log(data)
 		               $('.posts-ct-info .like').html(data)
 		            }          
 		     });
@@ -93,7 +94,7 @@
 							</div>
 							<div class="point">"입에 착착 감기는 매콤 고소한 맛이에요"</div>
 							<div class="posts-ct-container">
-								<div class="posts-ct-info">좋아요  <span class="like" >712</span></div>
+								<div class="posts-ct-info">좋아요  <span class="like" th:text="${bd.likes}">712</span></div>
 								<div class="posts-react1">
 									<a class="each-info like" href='javascript:void(0)'><img th:src="@{/images/heart_off.svg}" /></a>
 									<a class="each-info"><img th:src="@{/images/scrap_off.svg}" /></a>
