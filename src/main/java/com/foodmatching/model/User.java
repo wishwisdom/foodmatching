@@ -1,6 +1,7 @@
 package com.foodmatching.model;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.constraints.Size;
@@ -108,6 +109,9 @@ public class User {
 		this.isEnabled = isEnabled;
 	}
 	public Set<String> getRoles() {
+		if( this.roles == null){
+			roles = new HashSet<String>();
+		}
 		return roles;
 	}
 	public void setRoles(Set<String> roles) {

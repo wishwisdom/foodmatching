@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.foodmatching.mapper.UserMapper;
 import com.foodmatching.model.CustomUser;
@@ -36,6 +37,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		User user = null;
 		try{
 			user = this.find(email);
+			logger.info("USER : "+user.getId());
 		}catch(Exception e){
 			logger.info("loadUserByUsername\n"+e.getClass());
 		}
@@ -47,25 +49,17 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		return new CustomUser(user);
 	}
 	
-	@Override
-	public User findUserByIdAndPassword(User user) {
-		// TODO Auto-generated method stub
-		
-		
-		return userMapper.findIdAndPassword(user);
-	}
-
 	
-
 	
 
 	@Override
-	public User find(String id) {
-		// TODO Auto-generated method stub
-		User user = userMapper.findUserByEmail(id);
+	public User find(String email) {
+		User user = new User();
+		user.setEmail(email);
+		user = userMapper.find(user);
 		
 		if(user != null){
-			Set<String> roles = userMapper.findAutorities(id);
+			Set<String> roles = userMapper.findAutorities(email);
 			logger.info("authotiry : " +roles.size());
 			user.setRoles(roles);
 		}
@@ -73,7 +67,12 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		return user;
 	}
 
+	/**
+	 * Join our service
+	 * @param UserForm sign up form model
+	 */
 	
+	@Transactional
 	@Override
 	public int save(UserForm form) {
 		String passwd = (new BCryptPasswordEncoder().encode(form.getPassword()));
@@ -89,7 +88,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		
 		logger.info("Save : " + form.getEmail());
 		
-		return userMapper.save(form);
+		return userMapper.saveForm(form);
 	}
 
 	@Override
@@ -101,20 +100,21 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	@Override
 	public User getUserById(int id) {
 		// TODO Auto-generated method stub
-		User user = userMapper.findUserById(id);
+		User user = userMapper.findById(id);
 		return user;
 	}
 
+	// Update
 	@Override
 	public int save(User t) {
 		// TODO Auto-generated method stub
-		return 0;
+		return userMapper.save(t);
 	}
 
 	@Override
 	public int delete(User t) {
 		// TODO Auto-generated method stub
-		return 0;
+		return userMapper.delete(t);
 	}
 
 	@Override

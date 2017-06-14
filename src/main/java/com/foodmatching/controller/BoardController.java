@@ -277,7 +277,7 @@ public class BoardController {
 		}else
 			scrapMapper.delete(scrap);
 		
-		return scrapMapper.count(scrap);
+		return scrapMapper.countAll(scrap);
 	}
 	
 	

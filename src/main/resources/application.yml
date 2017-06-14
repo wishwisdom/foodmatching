@@ -1,10 +1,10 @@
 spring:
   datasource:
     type: org.apache.tomcat.jdbc.pool.DataSource
-    url: 
+    url: jd
     driver-class-name: com.mysql.jdbc.Driver
-    username: 
-    password: 
+    username: r
+    password: t
   thymeleaf:
     cache: false
 mybatis:
@@ -14,8 +14,8 @@ mybatis:
     
 facebook:
   client:
-    clientId: 
-    clientSecret: 
+    clientId: 4
+    clientSecret: 9
     accessTokenUri: https://graph.facebook.com/oauth/access_token
     userAuthorizationUri: https://www.facebook.com/dialog/oauth
     tokenName: oauth_token

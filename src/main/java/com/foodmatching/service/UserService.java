@@ -7,7 +7,6 @@ import com.foodmatching.model.UserForm;
 	
 public interface UserService extends Service<User>{
 	
-    public User findUserByIdAndPassword(User user);
     public User readUserByEmail(String email);
 	public User getUserById(int email);
     public void createUser(UserForm user);

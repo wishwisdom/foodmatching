@@ -8,22 +8,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.social.security.SocialUserDetails;
+import org.springframework.security.core.userdetails.UserDetails;
 
-public class CustomUser implements SocialUserDetails{
+public class CustomUser implements UserDetails{
 	private Logger logger = LoggerFactory.getLogger(CustomUser.class);
 	private User user;
 	private String id;
 	
 	public CustomUser(User user){
 		this.user = user;
+		
+		if(user.getRoles().isEmpty()){
+			user.getRoles().add(Role.ROEL_GUEST.name());
+		}
 	}
 
 	public String getUserEmail(){
 		return user.getEmail();
 	}
 	
-		
+	// For socail login users
+	public void setUserEmail(String email){
+		user.setEmail(email);
+	}
     
 
 	public void setAccountNonExpired(boolean isAccountNonExpired) {
@@ -95,14 +102,4 @@ public class CustomUser implements SocialUserDetails{
 		
 		return auth;
 	}
-
-	@Override
-	public String getUserId() {
-		// TODO Auto-generated method stub
-		return this.id;
-	}
-	public void setUserId(String id){
-		this.id = id;
-	}
-
 }

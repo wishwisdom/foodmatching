@@ -22,4 +22,5 @@ public interface FoodMapper {
 	
 	void update(Food f, int id);
 	
+	
 }

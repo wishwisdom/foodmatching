@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import com.foodmatching.model.CustomUser;
 import com.foodmatching.model.User;
 
-/*
- * URL 접근할 때마다 불려지는 것.
- * 로그인 사용자 확인하기 위해 필요한 부
+/**
+ * Check if a user is signed or not, and make authoritis.
+ * 
+ * @author shin
+ * @since 2017.06.14
  */
 @ControllerAdvice
 public class CurrentControllerAdvice {
@@ -22,10 +24,13 @@ public class CurrentControllerAdvice {
 		if(auth != null){
 			if( auth.getPrincipal() instanceof CustomUser){
 				user = (CustomUser) auth.getPrincipal();
-			}else{
+			}else{ // need authority
 				user = new CustomUser(new User());
-				user.setUserId( (String) auth.getPrincipal());
+				user.setUserEmail( (String) auth.getPrincipal() );
 			}
+		}else if(auth == null){
+			user = new CustomUser(new User());
+			
 		}
 			
         return user;

@@ -3,7 +3,7 @@
 
 <mapper namespace="com.foodmatching.mapper.UserMapper">
 	
-	<select id="findUserByEmail" parameterType="String" resultType="User">
+	<select id="find" parameterType="String" resultType="User">
 		SELECT 
 			id,
 			email,
@@ -21,12 +21,27 @@
 		WHERE 
 			email =#{email}
 	</select>
-	<select id="readAuthority" parameterType="int" resultType="String">
-		SELECT authority_name FROM authority WHERE id = #{id}
+	<select id="findById" parameterType="int" resultType="User">
+		SELECT 
+			id,
+			email,
+			nickname as nickName,
+			password,
+			birth,
+			join_day as joinDay,
+			picture,
+			picture_name as pictureName,
+			isAccountNonExpired,
+			isAccountNonLocked,
+			isCredentialsNonExpired,
+			isEnabled
+		FROM users 
+		WHERE 
+			id =#{id}
 	</select>
 	
-	<select id="findIdAndPassword" parameterType="User" resultType="User">
-		SELECT * FROM users WHERE id=#{id} AND password=#{password}
+	<select id="readAuthority" parameterType="int" resultType="String">
+		SELECT authority_name FROM authority WHERE id = #{id}
 	</select>
 	
 	<select id="findAutorities" resultType="string">
@@ -36,7 +51,25 @@
 		WHERE user_id = #{id}
 	</select>
 	
-	<insert id="save" parameterType="UserForm" flushCache="true"
+	<update id="update" parameterType="User">
+		UPDATE
+			users
+		SET
+			email=#{email}
+			birth=#{birth}
+			picture=#{picture}
+			pictureName=#{picturename}
+			isAccountNonExpired=#{isAccountNonExpired}
+			isAccountNonLocked=#{isAccountNonLocked}
+			isCredentialsNonExpired=#{isCredentialsNonExpired}
+			isEnabled=#{isCredentialsNonExpired}
+		WHERE
+				email=#{email}
+			AND
+				id=#{id}
+	</update>
+	
+	<insert id="saveForm" parameterType="UserForm" flushCache="true"
 		statementType="PREPARED" useGeneratedKeys="false" timeout="20">
 		INSERT INTO
 		users(email,nickname,password,birth,join_day,picture,picture_name)
@@ -48,7 +81,7 @@
 		authority(user_id, authority) values(#{param1},#{param2})
 	</insert>
 	
-	<delete id="deleteUser" parameterType="User">
+	<delete id="delete" parameterType="User">
 		DELETE FROM users where id = #{id}
 	</delete>
 </mapper>
