@@ -9,10 +9,7 @@ $(document).ready(function(){
 	$('[data-toggle="tooltip"]').tooltip({
     	container: 'body',
     	placement: 'top',
-    	template: '<div class="tooltip" role="tooltip">'
-    			+ '<div class="tooltip-arrow" style="color: #808080; border-top-color:#808080; margin-bottom: 2px">'
-    			+'</div><div class="tooltip-inner" style="background-color: #808080;"></div>'
-    			+'</div>'
+    	template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow" style="color: #808080; border-top-color:#808080; margin-bottom: 2px"></div><div class="tooltip-inner" style="background-color: #808080;"></div></div>'
     });
 	
 	$('input').tooltip('disable');
@@ -92,7 +89,7 @@ $(document).ready(function(){
 			$('.modal-dialog').css('width', 'inherit');
 			if($("input#foodname2").val().trim()==""){
 				$('input#foodname2').tooltip('enable');
-				$("input#foodname2").focus(); 
+				$("input#foodname2").focus();
 				$('input#foodname2').tooltip('disable');
 				pass=false;	
 			}else if($("input[name=foodtaste2]:checked").length==0){
@@ -114,11 +111,9 @@ $(document).ready(function(){
 				pass=false;	
 			}else{
 				pass=true;
-				var pic1 = $("#output1re").attr('src');
-				var pic2 = $("#output2re").attr('src');
-				
-				pic1 = dataURItoBlob(pic1)//pic1.replace(/^data:image\/(png|jpg);base64,/, "");
-				
+				var pic1 = $("#output1re").attr('src'),
+					pic2 = $("#output2re").attr('src');
+			
 				var formData = new FormData();
 				var foodtaste1 = [],
 					foodtaste2 = [];
@@ -133,34 +128,45 @@ $(document).ready(function(){
 				var foodpicname = $('#fileInput').val();
 				
 				// image(1/2), foodname(2), taste(2), evaluation(1), tag(1)
-					formData.append("foodname1", $('#foodname1').val());
-					formData.append("foodname2", $('#foodname2').val());
-					formData.append("foodtaste1", foodtaste1);
-					formData.append("foodtaste2", foodtaste2);
+					formData.append("foodname", $('#foodname1').val());
+					formData.append("foodname", $('#foodname2').val());
+					formData.append("foodtaste", foodtaste1);
+					formData.append("foodtaste", foodtaste2);
 					formData.append("summary", $('#summary').val());
 					formData.append("tag", $('#tag').val());
-					formData.append("foodpic", pic1,$('#foodname1').val());
 					
 					if(pic2 === undefined){
-						formData.append("foodpic1name", foodpicname);
+						srcToFile(pic1, foodpicname,'image/png')
+						.then(function(file){
+							formData.append("foodpic", file, foodpicname);
+							download(file, foodpicname, 'image/png')
+						})
 					}else{
-						//pic2 = pic2.replace(/^data:image\/(png|jpg);base64,/, "");
-						pic2 = dataURItoBlob(pic2)
-						formData.append("foodpic", pic2,$('#foodname1').val());
-						
-						foodpicname = foodpicname.split(", "); 
-						for (var i in foodpicname){
-							formData.append("foodpic"+(i*1+1)+"name", foodpicname[i]);
-						}
-						
+						var fpnSplit = foodpicname.split(", ");
+						console.log(fpnSplit[0]+"+"+fpnSplit[1])
+						srcToFile(pic1, fpnSplit[0],'image/png')
+						.then(function(file){
+							formData.append("foodpic", file, fpnSplit[0]);
+							//download(file, fpnSplit[0], 'image/png')
+						})
+						srcToFile(pic2, fpnSplit[1],'image/png')
+						.then(function(file){
+							formData.append("foodpic", file, fpnSplit[1]);
+							//download(file, fpnSplit[1], 'image/png')
+						})					
 					}
+					for (var pair of formData.entries()) {
+			                console.log(pair[0]+ ', ' + pair[1]);
+			            }
+			        	
+			/*
 				$.ajax({
 					type: 'POST',
 					url: '/matches/upload',
 					contentType: false,
 					processData: false,
 					data: formData,
-					enctype: 'multipart/form-data',
+					enctype: "multipart/form-data",
 					success: function(data){
 			            for (var pair of formData.entries()) {
 			                console.log(pair[0]+ ', ' + pair[1]);
@@ -170,7 +176,7 @@ $(document).ready(function(){
 			        }
 				});	
 					
-			
+			*/
 			}
 		} else {
 			$("#steps-footer").removeClass('hide');		
@@ -304,7 +310,30 @@ $(document).ready(function(){
 	});	
 });
 
+function srcToFile(src, fileName, mimeType){
+    return (fetch(src)
+        .then(function(res){return res.arrayBuffer();})
+        .then(function(buf){return new File([buf], fileName, {type:mimeType});})
+    );
+}
 
+function download(data, filename, type) {
+    var file = new Blob([data], {type: type});
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+    else { // Others
+        var a = document.createElement("a"),
+                url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        }, 0); 
+    }
+}
 
 /**
  * Foodmatching Resize and Cropping 1.0.0
@@ -524,19 +553,3 @@ var cropImage = function(imageId, image, reimage, reimage2){
 	$(reimage).attr('src', crop_canvas.toDataURL("image/png"));
 	$(reimage2).attr('src', crop_canvas.toDataURL("image/png"));
 };
-
-function dataURItoBlob(dataURI)
-{
-    var byteString = atob(dataURI.split(',')[1]);
-    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-    var ab = new ArrayBuffer(byteString.length);
-    var ia = new Uint8Array(ab);
-    
-    for (var i = 0; i < byteString.length; i++)
-    {
-        ia[i] = byteString.charCodeAt(i);
-    }
-
-    var bb = new Blob([ia], { "type": mimeString });
-    return bb;
-}
