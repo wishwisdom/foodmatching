@@ -9,7 +9,10 @@ $(document).ready(function(){
 	$('[data-toggle="tooltip"]').tooltip({
     	container: 'body',
     	placement: 'top',
-    	template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow" style="color: #808080; border-top-color:#808080; margin-bottom: 2px"></div><div class="tooltip-inner" style="background-color: #808080;"></div></div>'
+    	template: '<div class="tooltip" role="tooltip">'
+    			+ '<div class="tooltip-arrow" style="color: #808080; border-top-color:#808080; margin-bottom: 2px">'
+    			+'</div><div class="tooltip-inner" style="background-color: #808080;"></div>'
+    			+'</div>'
     });
 	
 	$('input').tooltip('disable');
@@ -89,7 +92,7 @@ $(document).ready(function(){
 			$('.modal-dialog').css('width', 'inherit');
 			if($("input#foodname2").val().trim()==""){
 				$('input#foodname2').tooltip('enable');
-				$("input#foodname2").focus();
+				$("input#foodname2").focus(); 
 				$('input#foodname2').tooltip('disable');
 				pass=false;	
 			}else if($("input[name=foodtaste2]:checked").length==0){
@@ -114,8 +117,8 @@ $(document).ready(function(){
 				var pic1 = $("#output1re").attr('src');
 				var pic2 = $("#output2re").attr('src');
 				
-				pic1 = pic1.replace(/^data:image\/(png|jpg);base64,/, "");
-			
+				pic1 = dataURItoBlob(pic1)//pic1.replace(/^data:image\/(png|jpg);base64,/, "");
+				
 				var formData = new FormData();
 				var foodtaste1 = [],
 					foodtaste2 = [];
@@ -136,13 +139,14 @@ $(document).ready(function(){
 					formData.append("foodtaste2", foodtaste2);
 					formData.append("summary", $('#summary').val());
 					formData.append("tag", $('#tag').val());
-					formData.append("foodpic1", pic1);
+					formData.append("foodpic", pic1,$('#foodname1').val());
 					
 					if(pic2 === undefined){
 						formData.append("foodpic1name", foodpicname);
 					}else{
-						pic2 = pic2.replace(/^data:image\/(png|jpg);base64,/, "");
-						formData.append("foodpic2", pic2);
+						//pic2 = pic2.replace(/^data:image\/(png|jpg);base64,/, "");
+						pic2 = dataURItoBlob(pic2)
+						formData.append("foodpic", pic2,$('#foodname1').val());
 						
 						foodpicname = foodpicname.split(", "); 
 						for (var i in foodpicname){
@@ -150,14 +154,13 @@ $(document).ready(function(){
 						}
 						
 					}
-			
 				$.ajax({
 					type: 'POST',
-					url: 'match_info.jsp',
+					url: '/matches/upload',
 					contentType: false,
 					processData: false,
 					data: formData,
-					enctype: "multipart/form-data",
+					enctype: 'multipart/form-data',
 					success: function(data){
 			            for (var pair of formData.entries()) {
 			                console.log(pair[0]+ ', ' + pair[1]);
@@ -521,3 +524,19 @@ var cropImage = function(imageId, image, reimage, reimage2){
 	$(reimage).attr('src', crop_canvas.toDataURL("image/png"));
 	$(reimage2).attr('src', crop_canvas.toDataURL("image/png"));
 };
+
+function dataURItoBlob(dataURI)
+{
+    var byteString = atob(dataURI.split(',')[1]);
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    
+    for (var i = 0; i < byteString.length; i++)
+    {
+        ia[i] = byteString.charCodeAt(i);
+    }
+
+    var bb = new Blob([ia], { "type": mimeString });
+    return bb;
+}

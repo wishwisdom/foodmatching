@@ -5,9 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.foodmatching.model.Like;
 
 @Mapper
-public interface LikeMapper {
-	int save(Like like);
-	int delete(Like like);
-	Like find(Like like);
+public interface LikeMapper extends CommonMapper<Like>{
 	int countAll(int id);
+	
 }

@@ -26,4 +26,8 @@
 		DELETE FROM likes where id = #{id} AND email=#{email}
 	</delete>
 	
+	<delete id="deleteAll">
+		DELETE FROM likes
+	</delete>
+	
 </mapper>

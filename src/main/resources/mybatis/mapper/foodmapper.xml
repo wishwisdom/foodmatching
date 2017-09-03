@@ -4,8 +4,8 @@
 <mapper namespace="com.foodmatching.mapper.FoodMapper">
 	<insert id="save" parameterType="Food" flushCache="true"
 		statementType="PREPARED"  timeout="20">
-		INSERT INTO foods(board_id,food_name,food_image,location)
-			VALUES(#{boardId},#{foodName},#{foodImage}, #{location})
+		INSERT INTO foods(board_id,food_name,food_image,location,food_save_location)
+			VALUES(#{boardId},#{foodName},#{foodImage}, #{location},#{foodSavedLocation})
 		
 	</insert>
 	
@@ -14,10 +14,16 @@
 	</delete>
 	
 	<select id="find" parameterType="int" resultType="Food">
-		SELECT food_id as foodId, board_id as boardId, food_name as foodname, food_image as foodimage, location FROM foods WHERE board_Id=#{id}
+		SELECT food_id as foodId, board_id as boardId, food_name as foodname, food_image as foodimage, 
+			location, food_save_location as foodSavedLocation 
+		FROM foods WHERE board_Id=#{id}
+	</select>
+	<select id="findByFoodName" parameterType="map" resultType="string">
+		SELECT distinct food_save_location from foods where board_id = #{boardId} AND food_image = #{foodName}; 
 	</select>
 	<select id="findAll" resultType="Food">
-		SELECT food_id as foodId, board_id as boardId, food_name as foodname, food_image as foodimage, location FROM foods
+		SELECT food_name as foodname, food_image as foodimage, 
+			location, food_save_location as foodSavedLocation FROM foods
 		WHERE id IN
 		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
     		#{item.value}

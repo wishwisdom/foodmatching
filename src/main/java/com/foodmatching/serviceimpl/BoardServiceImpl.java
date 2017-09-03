@@ -18,6 +18,7 @@ import com.foodmatching.mapper.FoodMapper;
 import com.foodmatching.mapper.ReplyMapper;
 import com.foodmatching.model.Board;
 import com.foodmatching.model.BoardDetail;
+import com.foodmatching.model.BoardForm;
 import com.foodmatching.model.Comment;
 import com.foodmatching.model.FileUploadForm;
 import com.foodmatching.model.Food;
@@ -47,6 +48,8 @@ public class BoardServiceImpl implements BoardService{
 	@Autowired
 	private ReplyMapper replyMapper;
 	
+	@Value("${board.img.path}")
+	public String SAVE_PATH;
 	
 	/**
 	 * Returns a BoardDetail which includes a board, food images related the board, replies. 
@@ -121,26 +124,34 @@ public class BoardServiceImpl implements BoardService{
 	 */
 	
 	@Transactional
-	public void save(Board b, FileUploadForm fuf, final String SAVE_PATH){
+	public void save(Board b, BoardForm bf){
 		List<Food> foodList = new ArrayList<Food>();
 		Map<String,MultipartFile> fileMap = new HashMap<>();
 		
-		int fileSize = fuf.getFiles().size();
-		for(int i=0; i < fileSize; i++){			
-			MultipartFile m = fuf.getFiles().get(i);
-			String destinationFileName = FileUtil.extractDestinationFileName(m);
-			
+		
+		int foodNum = bf.getFoodNames().length;
+		String destinationFileName = "";
+		String foodImageName = "";
+		for(int i=0; i < foodNum; i++){			
 			Food f = new Food();
 			
-			f.setFoodName(fuf.getFoodList().get(i));
+			f.setFoodName(bf.getFoodNames()[i]);
 			
+			if(bf.getPictures().size() > i){
+				MultipartFile m = bf.getPictures().get(i);
+				foodImageName=bf.getFoodImageNames().get(i);
+				String[] nameSplites = foodImageName.split("\\.");
+				
+				
+				// length가 0일 경우 문제가 발생함.
+				destinationFileName = FileUtil.extractDestinationFileName(m,nameSplites[nameSplites.length-1]);
+				
+				fileMap.put(destinationFileName, m);
+			}
+			f.setFoodImage(foodImageName);
+			f.setFoodSavedLocation(destinationFileName);
 			f.setLocation("test");
-			
-			f.setFoodImage(destinationFileName);
-			
 			foodList.add(f);
-			
-			fileMap.put(f.getFoodImage(), m);
 		}
 		// Insert Board
 		save(b);
@@ -227,6 +238,9 @@ public class BoardServiceImpl implements BoardService{
 		return 0;
 	}
 
+	public int countTotalNum(){
+		return boardMapper.countTotalRow();
+	}
 	
 
 }

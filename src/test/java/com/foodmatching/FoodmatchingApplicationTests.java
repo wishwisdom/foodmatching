@@ -1,30 +1,43 @@
 package com.foodmatching;
 
-import javax.annotation.Resource;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.foodmatching.service.UserService;
+import com.foodmatching.mapper.ScrapMapper;
+import com.foodmatching.model.Scrap;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@ActiveProfiles(profiles = "test")
+@SpringBootTest
 public class FoodmatchingApplicationTests {
 	@Autowired
+	private ScrapMapper scrapMapper;
 
-    @Resource(name = "anotherService")
-    private UserService userService;
+	
 
+	@Test
+	public void saveTest() {
+		scrapMapper.deleteAll();
+		
+		Scrap s = new Scrap();
 
-    @Test
-    public void aTest() {
-        
-    }
+		s.setEmail("test");
+		s.setId(1);
 
+		Integer result = scrapMapper.save(s);
+		
+		Scrap s2 = scrapMapper.find(s);
+		
+		assertEquals(Integer.valueOf("1"), result);
+		
+		assertTrue(s.getId()==s2.getId());
+		assertTrue(s.getEmail()==s2.getEmail());
+		
+		scrapMapper.deleteAll();
+	}
 }

@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class CustomUser implements UserDetails{
 	private Logger logger = LoggerFactory.getLogger(CustomUser.class);
 	private User user;
-	private String id;
 	
 	public CustomUser(User user){
 		this.user = user;

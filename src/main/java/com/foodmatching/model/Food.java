@@ -9,5 +9,6 @@ public class Food {
 	private int boardId;
 	private String foodName;
 	private String foodImage;
+	private String foodSavedLocation;
 	private String location;
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.foodmatching.mapper.UserMapper;
 import com.foodmatching.model.User;
@@ -31,6 +32,12 @@ public class LoginController {
 		String preURI = request.getHeader("Referer");
 		model.addAttribute(preURL,preURI);
 		
+		return "login";
+	}
+	
+	@GetMapping("/auth/facebook/callback")
+	public String getFacebookInf(@RequestParam("code") String authorizationCode,Model model){
+		LOGGER.info("CODE : {}",authorizationCode);
 		return "login";
 	}
 	

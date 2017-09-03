@@ -79,8 +79,8 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		form.setPassword(passwd);
 		logger.info("SAVE PATH :"+ SAVE_PROFILE_PATH);
 		// If file uploaded, then insert user
-		String imageName = FileUtil.extractDestinationFileName(form.getPictureFile());
-		FileUtil.saveFile(SAVE_PROFILE_PATH, imageName, form.getPictureFile());
+		String imageName = FileUtil.extractDestinationFileName(form.getPictureFile(),form.getPictureFile().getOriginalFilename());
+		//FileUtil.saveFile(SAVE_PROFILE_PATH, imageName, form.getPictureFile());
 		form.setPicture(form.getPictureFile().getName());
 		form.setPictureName(imageName);
 		

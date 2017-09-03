@@ -11,11 +11,10 @@ import com.foodmatching.model.UserForm;
 public interface UserMapper extends CommonMapper<User>{
 	//@Select("SELECT * FROM users WHERE nickname=#{nickname}")
 	//public User findUserByEmail(String email);
-	public User findByNickName(String nickName);
-	public User findById(int id);
-	public Set<String> findAutorities(String id);
-	
-	public int saveAuthority(String id, String role);
-	public int saveForm(UserForm user);
+	User findByNickName(String nickName);
+	User findById(int id);
+	Set<String> findAutorities(String id);
+	int saveAuthority(String id, String role);
+	int saveForm(UserForm user);
 	
 }

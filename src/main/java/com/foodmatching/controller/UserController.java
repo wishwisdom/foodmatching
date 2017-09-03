@@ -1,5 +1,7 @@
 package com.foodmatching.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -17,9 +19,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.foodmatching.model.User;
+import com.foodmatching.mapper.ScrapMapper;
+import com.foodmatching.model.CustomUser;
+import com.foodmatching.model.Scrap;
 import com.foodmatching.model.UserForm;
 import com.foodmatching.service.UserService;
 /*
@@ -33,14 +37,14 @@ import com.foodmatching.utils.UserFormValidator;
 @Controller
 public class UserController {
 	private final Logger logger = LoggerFactory.getLogger(UserController.class);
-	private UserService userService;
-	private UserFormValidator userFormValidator;
-	
 	@Autowired
-	public UserController(UserService userService, UserFormValidator userFormValidator){
-		this.userService = userService;
-		this.userFormValidator = userFormValidator;
-	}
+	private UserService userService;
+	@Autowired
+	private UserFormValidator userFormValidator;
+
+	@Autowired
+	private ScrapMapper scrapMapper;
+	
 	
 	@InitBinder("user")
 	public void initBinder(WebDataBinder binder){
@@ -113,6 +117,44 @@ public class UserController {
 		
 		
 		return "myinfo";
+	}
+	
+	@GetMapping("/user/scraps")
+	public String myScrap(Model model,CustomUser user,int start, int end){
+		Scrap scrap = new Scrap();
+		scrap.setEmail(user.getUserEmail());
+		List<Scrap> list = scrapMapper.findAll(scrap, start, end);
+		
+		model.addAttribute("scrapList", list);
+		model.addAttribute("start",start);
+		model.addAttribute("end",end);
+		
+		return "scaplist";
+	}
+	/**
+	 * Save 'scrap' if not exists in a table or delete it.
+	 * 
+	 * @param id board id for user's scrap or unscrap
+	 * @param currentUser login user 
+	 * 
+	 * @return total like number of the board {id}
+	 */
+	@PostMapping(value = "/user/scrap/{id}")
+	@ResponseBody
+	public int updateScrap(@PathVariable("id") Integer id, @ModelAttribute("customUser") CustomUser user){
+		
+		Scrap scrap = new Scrap(id,user.getUserEmail());
+		
+		Scrap isScrap = scrapMapper.find(scrap);
+		
+		logger.info("scrap test :" + (isScrap==null));
+		
+		if(isScrap == null){
+			scrapMapper.save(scrap);
+		}else
+			scrapMapper.delete(scrap);
+		
+		return scrapMapper.countAll(scrap);
 	}
 
 }

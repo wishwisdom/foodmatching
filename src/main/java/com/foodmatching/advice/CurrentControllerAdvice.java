@@ -18,6 +18,7 @@ import com.foodmatching.model.User;
 @ControllerAdvice
 public class CurrentControllerAdvice {
 	private final Logger logger = LoggerFactory.getLogger(CurrentControllerAdvice.class);
+	
 	@ModelAttribute("customUser")
 	public CustomUser getCurrentUser(Authentication auth) {
 		CustomUser user = null;
@@ -25,10 +26,16 @@ public class CurrentControllerAdvice {
 			if( auth.getPrincipal() instanceof CustomUser){
 				user = (CustomUser) auth.getPrincipal();
 			}else{ // need authority
+				String accessToken = auth.getPrincipal().toString();
+				logger.info("Token:"+accessToken);
+//				Facebook fb = new FacebookTemplate(accessToken);
+//				org.springframework.social.facebook.api.User users = fb.userOperations().getUserProfile();
+//				
+//				logger.info("Facebook Email:"+users.getEmail());
 				user = new CustomUser(new User());
 				user.setUserEmail( (String) auth.getPrincipal() );
 			}
-		}else if(auth == null){
+		}else if(auth == null){ // Guest
 			user = new CustomUser(new User());
 			
 		}

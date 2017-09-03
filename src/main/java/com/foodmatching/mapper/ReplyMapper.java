@@ -7,11 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import com.foodmatching.model.Reply;
 
 @Mapper
-public interface ReplyMapper {
-	int save(Reply f);
-	Reply find(int id);
+public interface ReplyMapper extends CommonMapper<Reply>{
 	List<Reply> findReply(int id);
 	List<Reply> findChildren(int parentId);
-	void delete(int id);
 	void update(Reply f, int id);
 }

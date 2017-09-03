@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.foodmatching.mapper.FoodTasteMapper">
+
+	<insert id="save" parameterType="FoodTaste" useGeneratedKeys="true"
+		timeout="20">
+		INSERT INTO foodtaste(foodName,fk_code)
+		values(#{foodName},#{code})
+	</insert>
+	<delete id="delete" parameterType="FoodTaste">
+		DELETE FROM foodtaste where
+		id=#{id}
+	</delete>
+	<select id="find" parameterType="FoodTaste">
+		SELECT id, foodName, fk_code as
+		code FROM foodtaste WHERE foodName = #{foodName} and id = #{id}
+	</select>
+	<select id="findAll" parameterType="FoodTaste">
+		SELECT id,
+		foodName, fk_code as code FROM foodtaste WHERE foodName = #{foodName}
+	</select>
+	<select id="countAll" parameterType="FoodTaste">
+		SELECT count(*) FROM foodtaste
+		<where>
+			<if test="code != null">
+				code = #{code}
+			</if>
+		</where>
+	</select>
+	<delete id="deleteAll">
+		DELETE FROM foodtaste
+	</delete>
+
+
+</mapper>

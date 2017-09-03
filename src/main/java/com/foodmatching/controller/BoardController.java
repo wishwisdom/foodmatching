@@ -1,10 +1,13 @@
 package com.foodmatching.controller;
 
-import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,15 +28,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.foodmatching.mapper.FoodMapper;
 import com.foodmatching.mapper.LikeMapper;
-import com.foodmatching.mapper.ScrapMapper;
 import com.foodmatching.model.Board;
 import com.foodmatching.model.BoardDetail;
+import com.foodmatching.model.BoardForm;
 import com.foodmatching.model.CustomUser;
 import com.foodmatching.model.FileUploadForm;
 import com.foodmatching.model.Like;
-import com.foodmatching.model.Scrap;
 import com.foodmatching.model.Reply;
 import com.foodmatching.model.ThumbNail;
 import com.foodmatching.serviceimpl.BoardServiceImpl;
@@ -43,14 +47,15 @@ import com.foodmatching.utils.FileUtil;
 public class BoardController {
 	private final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	private int pageOffset = 6;
+	private String regex = ",";
 	@Autowired
 	private BoardServiceImpl boardService;
 
 	@Autowired
 	private LikeMapper likeMapper;
-
 	@Autowired
-	private ScrapMapper scrapMapper;
+	private FoodMapper foodMapper;
+
 	
 	@Value("${board.img.path}")
 	private String SAVE_PATH;
@@ -90,26 +95,48 @@ public class BoardController {
 	 */
 	@PreAuthorize("hasAuthority('ROLE_ADMIN') AND hasAuthority('ROLE_USER')")
 	@PostMapping("/matches/upload")
-	public String saveFile(@ModelAttribute(value = "fileUpload") FileUploadForm fuf,
-			@ModelAttribute("customUser") CustomUser user, Model model) throws IllegalStateException, IOException {
-
-		String filename = fuf.getFiles().get(0).getOriginalFilename();
-
-		model.addAttribute("ok", filename);
-
-		logger.info("Files : " + fuf.getFiles().size());
-
-		fuf.getFoodList().forEach(f -> logger.info(f));
-
+	public @ResponseBody String saveFile( HttpServletRequest req,MultipartHttpServletRequest msr,
+			@ModelAttribute("customUser") CustomUser user, Model model) {
+		
+		logger.info("multipartfile size : {}",req.getParameter("foodpic1name"));
+		logger.info("multipartfile size : {}",req.getParameter("foodpic2name"));
+		logger.info("file : {}",msr.getFiles("foodpic").size());
+		logger.info("foodtaste1 :" +req.getParameter("foodtaste1"));
+		logger.info("foodtaste2 :" +req.getParameter("foodtaste2"));
+		logger.info("foodname1 : {}",req.getParameter("foodname1"));
+		logger.info("foodname2 : {}",req.getParameter("foodname2"));
+		logger.info("summary : {}",req.getParameter("summary"));
+		logger.info("tag : {}",req.getParameter("tag"));
+		
+		BoardForm bf = new BoardForm();
+		
+		bf.setPictures(msr.getFiles("foodpic"));
+		bf.setTastes1(Arrays.asList(req.getParameter("foodtaste1").split(regex)));
+		bf.setTastes2(Arrays.asList(req.getParameter("foodtaste2").split(regex)));
+		String[] foodNames = {req.getParameter("foodname1"),req.getParameter("foodname2")};
+		List<String> foodImageNames = new ArrayList<>();
+		foodImageNames.add(req.getParameter("foodpic1name"));
+		if(req.getParameter("foodpic2name")!=null){
+			foodImageNames.add(req.getParameter("foodpic2name"));
+		}
+		bf.setFoodNames(foodNames);
+		bf.setFoodImageNames(foodImageNames);
+		bf.setSummary(req.getParameter("summary"));
+		bf.setTags(Arrays.asList(req.getParameter("tag").split(regex)));
+		
+		logger.info("toString : {}",bf);
+		logger.info("food name : {}", msr.getFile("foodpic").getOriginalFilename());
+		
 		Board b = new Board();
 
 		b.setOwner(user.getNickName());
 
-		boardService.save(b, fuf, SAVE_PATH);
+		boardService.save(b, bf);
 
-		return "redirect:/matches/" + b.getId();
+		return "redirect:/matches/1"; //+ b.getId();
 	}
-
+	
+	
 	/**
 	 * Return thumbnail list.
 	 *
@@ -132,7 +159,7 @@ public class BoardController {
 		offset = offset == 0 ? this.pageOffset : offset;
 
 		// board의 total number를 확
-		int total = 100;
+		int total = boardService.countTotalNum();
 
 		/*
 		 * 서버에 있는 데이터에 따라 쿼리를 다르게 한다.
@@ -142,8 +169,6 @@ public class BoardController {
 			// model.addAttribute("boardlist", boardList);
 			logger.info("StartNum : " + startNum);
 			List<ThumbNail> thumbNailList = boardService.findAll(start, offset);
-			logger.info("" + thumbNailList.get(0).getBoard().getCreatedDate().getTime());
-			logger.info("board num : " + thumbNailList.size());
 			model.addAttribute("startNum", startNum + offset);
 			model.addAttribute("thumbNailList", thumbNailList);
 		}
@@ -254,31 +279,7 @@ public class BoardController {
 	}
 
 	
-	/**
-	 * Save 'scrap' if not exists in a table or delete it.
-	 * 
-	 * @param id board id for user's scrap or unscrap
-	 * @param currentUser login user 
-	 * 
-	 * @return total like number of the board {id}
-	 */
-	@GetMapping(value = "/matches/scrap/{id}")
-	@ResponseBody
-	public int updateScrap(@PathVariable("id") Integer id, @ModelAttribute("customUser") CustomUser user){
-		
-		Scrap scrap = new Scrap(id,user.getUserEmail());
-		
-		Scrap isScrap = scrapMapper.find(scrap);
-		
-		logger.info("scrap test :" + (isScrap==null));
-		
-		if(isScrap == null){
-			scrapMapper.save(scrap);
-		}else
-			scrapMapper.delete(scrap);
-		
-		return scrapMapper.countAll(scrap);
-	}
+	
 	
 	
 	/**
@@ -288,12 +289,13 @@ public class BoardController {
 	 *            a file name which a client requests
 	 * @return Image The image file titled fileName
 	 */
-	@RequestMapping(value = "/img/{filename:.+}", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> getFile(@PathVariable("filename") String fileName) {
+	@RequestMapping(value = "/img/{boardId}/{filename:.+}", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> getFile(@PathVariable("boardId") Integer boardId,@PathVariable("filename") String fileName) {
 		logger.info("FILE ID: " + fileName);
 		logger.info("SAVE_PATH : " + SAVE_PATH);
-
-		byte[] media = FileUtil.getFile(SAVE_PATH, fileName);
+		logger.info("board id: {}",boardId);
+		String foodImageName = foodMapper.findByFoodName(boardId,fileName);
+		byte[] media = FileUtil.getFile(SAVE_PATH,foodImageName);
 		HttpHeaders headers = new HttpHeaders();
 
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());

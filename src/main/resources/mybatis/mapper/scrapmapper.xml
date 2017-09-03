@@ -11,7 +11,15 @@
 		WHERE id = #{id} AND email = #{email}
 	</select>
 	
-	<select id="count" parameterType="scrap" resultType="int">
+	<select id="findAll" parameterType="int" resultType="scrap">
+		SELECT 
+			id,
+			email
+		FROM scraps
+		WHERE id = #{id} AND email = #{email}
+	</select>
+	
+	<select id="countAll" parameterType="hashmap" resultType="int">
 		select count(*) from scraps where id = #{id} AND email = #{email};
 	</select>
 
@@ -24,6 +32,10 @@
 	
 	<delete id="delete" parameterType="scrap">
 		DELETE FROM scraps where id = #{id} AND email=#{email}
+	</delete>
+	
+	<delete id="deleteAll">
+		DELETE FROM scraps;
 	</delete>
 	
 </mapper>
