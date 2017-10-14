@@ -1,0 +1,14 @@
+<div class="each-post matching" th:each="board,iterationStatus  : ${boards}"
+	 xmlns:th="http://www.w3.org/1999/xhtml">
+	<a th:href="@{'/matches/' + ${board.id}}" >
+		<div class="posts-up" >
+			<div class="posts-title" th:text="${board.title}"></div>
+		<div class="posts-writer" th:text="${board.owner}">구슬씨</div>
+		<div class="posts-time" th:attr="data-createdday=${board.createdDate}" th:text="${board.time}"></div>
+		<div class="posts-like">927<img class="posts-heart" th:src="@{/images/heart.svg}" /></div>
+		</div>
+		<div class="posts-down">
+			<div class="half-img" th:each="food,iterationStatus : ${board.foods}" th:style="'background:url(' + @{/img/} +${food.board.id}+'/'+${food.foodImage} + '); background-position:center center'"></div>
+		</div>
+	</a>	
+</div>

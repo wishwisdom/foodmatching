@@ -6,8 +6,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import com.foodmatching.model.CustomUser;
-import com.foodmatching.model.User;
+import com.foodmatching.domain.model.CustomUser;
+import com.foodmatching.domain.model.user.User;
 
 /**
  * Check if a user is signed or not, and make authoritis.
@@ -29,9 +29,9 @@ public class CurrentControllerAdvice {
 				String accessToken = auth.getPrincipal().toString();
 				logger.info("Token:"+accessToken);
 //				Facebook fb = new FacebookTemplate(accessToken);
-//				org.springframework.social.facebook.api.User users = fb.userOperations().getUserProfile();
+//				org.springframework.social.facebook.api.User user = fb.userOperations().getUserProfile();
 //				
-//				logger.info("Facebook Email:"+users.getEmail());
+//				logger.info("Facebook Email:"+user.getEmail());
 				user = new CustomUser(new User());
 				user.setUserEmail( (String) auth.getPrincipal() );
 			}

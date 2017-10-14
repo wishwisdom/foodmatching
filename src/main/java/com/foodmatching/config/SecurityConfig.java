@@ -1,5 +1,6 @@
 package com.foodmatching.config;
 
+import com.foodmatching.domain.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,22 +12,20 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import com.foodmatching.handler.LoginHandler;
 import com.foodmatching.handler.LogoutHandler;
-import com.foodmatching.serviceimpl.UserServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
+//	@Autowired
+//	OAuth2ClientContext oauth2ClientContext;
 	@Autowired
-	OAuth2ClientContext oauth2ClientContext;
-	@Autowired
-	UserServiceImpl userService;
+UserService userService;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

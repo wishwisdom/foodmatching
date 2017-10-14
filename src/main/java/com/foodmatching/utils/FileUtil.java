@@ -16,10 +16,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.foodmatching.serviceimpl.BoardServiceImpl;
 
 public class FileUtil {
-	private final static Logger logger = LoggerFactory.getLogger(BoardServiceImpl.class);
+	private final static Logger logger = LoggerFactory.getLogger(FileUtil.class);
 
 	private final static int RANDOM_NAME_LENGTH = 32;
 	

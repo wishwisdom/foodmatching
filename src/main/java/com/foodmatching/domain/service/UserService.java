@@ -1,0 +1,50 @@
+package com.foodmatching.domain.service;
+
+import com.foodmatching.database.UserRepository;
+import com.foodmatching.domain.model.CustomUser;
+import com.foodmatching.domain.model.user.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+
+/**
+ * Created by shin on 2017. 9. 13..
+ */
+@Service
+public class UserService implements UserDetailsService{
+    @Autowired
+    UserRepository userRepository;
+
+    @Transactional
+    public void save(User user){
+        userRepository.save(user);
+    }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(username);
+
+        if(user == null){
+            throw new RuntimeException("존재하지 않는 id입니다");
+        }
+
+        CustomUser u = new CustomUser(user);
+
+        return u;
+    }
+
+    public User findBy(String email){
+        User user = userRepository.findByEmail(email);
+
+        if(user == null){
+            throw new RuntimeException("존재하지 않는 id입니다");
+        }
+
+        return user;
+    }
+}

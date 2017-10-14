@@ -119,7 +119,7 @@
 					</div>
 					<div class="summary-photo-container col-md-8">
 						<div class="inner" >
-							<div class="sum-food1" th:each="food: ${bd.foodList}" th:style="'background:url(' + @{/img/} +${food.boardId}+'/'+${food.foodImage} + ');'">
+							<div class="sum-food1" th:each="food: ${bd.foods}" th:style="'background:url(' + @{/img/} +${food.board.id}+'/'+${food.foodImage} + ');'">
 								<div class="inner">
 									<div class="sum-food-taste">
 										<div>
@@ -173,10 +173,10 @@
 			<div class="fm-ct-container col-md-12">
 				<div>
 				<!-- Thymeleaf foreach문 작성해서 그림 2개 넣음. -->
-					<div class="sug col-md-6" th:each="food:${bd.foodList}">
+					<div class="sug col-md-6" th:each="food:${bd.foods}">
 							<div class="half-box">
 								<div class="fm-name">계란 볶음밥</div>
-								<div class="fm-food" th:style="'background:url(' + @{/img/} + ${food.foodImage} + '); background-position:center center'">
+								<div class="fm-food" th:style="'background:url(' + @{/img/} + ${food.id} +@{/} + ${food.foodImage} + '); background-position:center center'">
 								</div>
 								<div class="sug-taste1"><img th:src="@{/images/spicy_off.svg}" /></div>
 								<div class="sug-name1">매운 핫 치킨</div>
@@ -240,11 +240,11 @@
 					</div>
 					
 					<!-- foreach reply -->
-					<div class="comment-container" th:each="comment:${bd.commentList}">
+					<div class="comment-container" th:each="comment:${reply}">
 						<div class="profile"><img th:src="@{/images/profile.png}" /></div>
 						<div class="comment-view">
 							<div class="comm-report">신고</div>
-							<div class="comm-name" th:text="${comment.reply.replyer}">Lisa</div>
+							<div class="comm-name" th:text="${comment.user.nickname}">Lisa</div>
 							<div class="comm-contents" th:text="comment.reply.comment"></div>
 							<div class="comm-time">3일전</div>
 							<div class="comm-inner1"><button type="button" class="btn btn-default" id="reply1">답글 1</button></div>
@@ -261,15 +261,15 @@
 										</div>
 									</div>
 									<hr/>
-									<div class="reply-inner" th:each="repl:${comment.replyList}">	
-										<div class="profile"><img th:src="@{/images/profile.png}" /></div>
-										<div class="comment">
-											<div class="comm-report">신고</div>
-											<div class="comm-name">Alwayscooking</div>
-											<div class="comm-contents" th:text="#{repl.comment}">나도 계란 요리 좋아하는데 내 생각도 그래요 ㅎㅎ</div>
-											<div class="comm-time">3일전</div>
-										</div>
-									</div>
+									<!--<div class="reply-inner" th:each="repl:${comment.replyList}">	-->
+										<!--<div class="profile"><img th:src="@{/images/profile.png}" /></div>-->
+										<!--<div class="comment">-->
+											<!--<div class="comm-report">신고</div>-->
+											<!--<div class="comm-name">Alwayscooking</div>-->
+											<!--<div class="comm-contents" th:text="#{repl.comment}">나도 계란 요리 좋아하는데 내 생각도 그래요 ㅎㅎ</div>-->
+											<!--<div class="comm-time">3일전</div>-->
+										<!--</div>-->
+									<!--</div>-->
 								</div>
 							</div>		
 						</div>

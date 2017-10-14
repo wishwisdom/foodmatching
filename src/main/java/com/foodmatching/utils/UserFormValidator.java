@@ -1,12 +1,12 @@
 package com.foodmatching.utils;
 
+import com.foodmatching.domain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import com.foodmatching.model.UserForm;
-import com.foodmatching.service.UserService;
+import com.foodmatching.domain.model.user.UserForm;
 
 @Component
 public class UserFormValidator implements Validator {
@@ -40,9 +40,9 @@ public class UserFormValidator implements Validator {
 			errors.reject("password.no_match", "Passwords do not match");
 		}
 	}
-	
+
 	private void validateEmail(UserForm form, Errors errors){
-		if (userService.find(form.getEmail()) != null) {
+		if (userService.findBy(form.getEmail()) != null) {
 			errors.reject("email.exists", "User with this email already exists");
 		}
 	}
