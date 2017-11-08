@@ -22,10 +22,9 @@ import com.foodmatching.handler.LogoutHandler;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
-//	@Autowired
-//	OAuth2ClientContext oauth2ClientContext;
+
 	@Autowired
-UserService userService;
+	UserService userService;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -41,7 +40,7 @@ UserService userService;
 			.successHandler(successHandler())
 			.defaultSuccessUrl("/")
 			.and()
-			.logout().logoutUrl("/logout").logoutSuccessHandler(successLogoutHadnler())
+			.logout().logoutUrl("/logout").logoutSuccessHandler(successLogoutHandler())
 			.permitAll();
 			
 
@@ -49,7 +48,7 @@ UserService userService;
 
 	}
 	
-	
+
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -61,7 +60,7 @@ UserService userService;
 	}
 	
 	@Bean
-	public LogoutSuccessHandler successLogoutHadnler(){
+	public LogoutSuccessHandler successLogoutHandler(){
 		return new LogoutHandler();
 	}
 	@Autowired

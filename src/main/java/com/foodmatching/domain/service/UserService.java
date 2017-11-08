@@ -1,8 +1,12 @@
 package com.foodmatching.domain.service;
 
+import com.foodmatching.database.AuthorityRepository;
 import com.foodmatching.database.UserRepository;
 import com.foodmatching.domain.model.CustomUser;
+import com.foodmatching.domain.model.user.Authority;
 import com.foodmatching.domain.model.user.User;
+import com.foodmatching.domain.model.user.UserRole;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,14 +18,20 @@ import javax.transaction.Transactional;
 /**
  * Created by shin on 2017. 9. 13..
  */
+@Slf4j
 @Service
 public class UserService implements UserDetailsService{
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    AuthorityRepository authorityRepository;
 
     @Transactional
     public void save(User user){
         userRepository.save(user);
+        Authority authority = new Authority(user, UserRole.ROLE_USER);
+
+        authorityRepository.save(authority);
     }
 
 

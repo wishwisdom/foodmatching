@@ -1,6 +1,7 @@
 package com.foodmatching.utils;
 
 import com.foodmatching.domain.service.UserService;
+import com.foodmatching.presentation.controller.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -8,7 +9,7 @@ import org.springframework.validation.Validator;
 
 import com.foodmatching.domain.model.user.UserForm;
 
-@Component
+//@Component
 public class UserFormValidator implements Validator {
 
 	private UserService userService;
@@ -20,12 +21,12 @@ public class UserFormValidator implements Validator {
 	@Override
 	public boolean supports(Class<?> clazz) {
 		// TODO Auto-generated method stub
-		return clazz.equals(UserForm.class);
+		return clazz.equals(UserController.UserCreateRequest.class);
 	}
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		UserForm form = (UserForm) target;
+		UserController.UserCreateRequest form = (UserController.UserCreateRequest) target;
 
 		// check password
 		checkPassowrd(form, errors);
@@ -35,15 +36,15 @@ public class UserFormValidator implements Validator {
 
 	}
 
-	private void checkPassowrd(UserForm form, Errors errors) {
+	private void checkPassowrd(UserController.UserCreateRequest form, Errors errors) {
 		if (!form.getPassword().equals(form.getRepassword())) {
-			errors.reject("password.no_match", "Passwords do not match");
+			errors.rejectValue("password", "Passwords do not match");
 		}
 	}
 
-	private void validateEmail(UserForm form, Errors errors){
+	private void validateEmail(UserController.UserCreateRequest form, Errors errors){
 		if (userService.findBy(form.getEmail()) != null) {
-			errors.reject("email.exists", "User with this email already exists");
+			errors.rejectValue("email", "User with this email already exists");
 		}
 	}
 

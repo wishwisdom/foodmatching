@@ -1,70 +1,60 @@
 <!DOCTYPE html>
 <html lang="en-US" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8"></meta>
-<title>insert OK</title>
-<script>
-	
-	function loadFile(event){
-		var reader = new FileReader();
-		reader.onload =function(){
-			var output = document.getElementById('preview');
-			output.height=200;
-			output.widht=200;
-			output.src = reader.result,200,200;
-		};
-		reader.readAsDataURL(event.target.files[0])
-	}
-</script>
+    <meta charset="UTF-8"></meta>
+    <title>insert OK</title>
+    <script>
+
+        function loadFile(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('preview');
+                output.height = 200;
+                output.widht = 200;
+                output.src = reader.result, 200, 200;
+            };
+            reader.readAsDataURL(event.target.files[0])
+        }
+    </script>
 </head>
 <body>
 
-<form action="#" th:action="@{/register}" th:object="${user}" method="post" enctype="multipart/form-data" >
-	<table>
-	<tr>
-	    <td><label>email:</label><input type="text" th:field="*{email}" /></td>
-	    <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</td>
-    </tr>
-    <tr>
-	    <td>
-	    	<span>PW : </span><input type="password" th:field="*{password}" />
-	    </td>
-	    <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
-    </tr>
-    <tr>
-	    <td>
-	    	<span>RE-PW : </span><input type="password" th:field="*{repassword}" />
-	    </td>
-	    <td th:if="${#fields.hasErrors('repassword')}" th:errors="*{repassword}">Name Error</td>
-    </tr>
-    <tr>
-	    <td>
-	    	<span>NickName : </span><input type="text" th:field="*{nickName}" />
-	    </td>
-    </tr>
-    <tr>
-    	<td>
-    		<span>Birth : </span><input type="date" th:field="*{birth}" />
-    	</td>
-    </tr>
-    <tr>
-    	<td><input th:field="*{pictureFile}" type="file"  onchange="loadFile(event)" /></td>
-    	<td><img id="preview" src="#" alt="Your Image" /></td>
-    	<td th:if="${#fields.hasErrors('pictureFile')}" th:errors="*{pictureFile}"></td>
-    
-    </tr>
-    <tr>
-    	<td><input type="submit" value="OK"/></td>
-    </tr>
+<form action="#" th:action="@{/register}" th:object="${userCreateRequest}" method="post" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td><label>email:</label><input type="text" th:field="*{email}"/></td>
+            <td><label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red"></label></td>
+        </tr>
+        <tr>
+            <td><span>PW : </span><input type="password" th:field="*{password}"/></td>
+            <td><label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red"></label></td>
+        </tr>
+        <tr>
+            <td>
+                <span>RE-PW : </span><input type="password" th:field="*{repassword}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>NickName : </span><input type="text" th:field="*{nickname}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>Birth : </span><input type="date" th:field="*{birthday}"/>
+            </td>
+        </tr>
+        <tr>
+            <td><input th:field="*{profile}" type="file" onchange="loadFile(event)"/></td>
+            <td><img id="preview" src="#" alt="Your Image"/></td>
+
+
+        </tr>
+        <tr>
+            <td><input type="submit" value="OK"/></td>
+        </tr>
     </table>
 </form>
-
-<div>
-	<p th:text="${test}"></p>
-	<p th:text="${email}"></p>
-	<p th:text="${password}"></p>
-	<p th:text="${nickname}"></p>
-</div>
 
 </body>
 </html>

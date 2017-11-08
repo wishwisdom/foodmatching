@@ -88,7 +88,7 @@ public class BoardController {
 	@PostMapping("/matches/upload")
 	public @ResponseBody String saveFile( HttpServletRequest req,MultipartHttpServletRequest msr,
 			@ModelAttribute("customUser") CustomUser user, Model model) {
-		
+
 		logger.info("multipartfile size : {}",req.getParameter("foodpic1name"));
 		logger.info("multipartfile size : {}",req.getParameter("foodpic2name"));
 		logger.info("file : {}",msr.getFiles("foodpic").size());
@@ -114,7 +114,7 @@ public class BoardController {
 		//bf.setFoodImageNames(foodImageNames);
 		//bf.setSummary(req.getParameter("summary"));
 		//bf.setTags(Arrays.asList(req.getParameter("tag").split(regex)));
-		
+
 		logger.info("toString : {}",bf);
 		logger.info("food name : {}", msr.getFile("foodpic").getOriginalFilename());
 		
@@ -127,7 +127,7 @@ public class BoardController {
 
 		return "redirect:/matches/1"; //+ b.getId();
 	}
-	
+
 	
 	/**
 	 * Return thumbnail list.

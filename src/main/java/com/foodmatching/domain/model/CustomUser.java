@@ -7,19 +7,19 @@ import java.util.List;
 import com.foodmatching.domain.model.user.Authority;
 import com.foodmatching.domain.model.user.User;
 import com.foodmatching.domain.model.user.UserRole;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+@Slf4j
 public class CustomUser implements UserDetails{
 	private Logger logger = LoggerFactory.getLogger(CustomUser.class);
 	private User user;
 	
 	public CustomUser(User user){
 		this.user = user;
-		
 		if(user.getRoles().isEmpty()){
 			user.getRoles().add(new Authority(user,UserRole.ROLE_USER));
 		}
