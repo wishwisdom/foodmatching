@@ -21,8 +21,6 @@ import com.foodmatching.handler.LogoutHandler;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	private Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
-
 	@Autowired
 	UserService userService;
 	
@@ -30,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 		.authorizeRequests()
-		.antMatchers("/images/**","/img/**","/css/**","/bootstrap/**","/js/**","/register", "/login/**","/*").permitAll()
+		.antMatchers("/images/**","/img/**","/css/**","/bootstrap/**","/js/**","/register", "/login/**","/*","/matches/*").permitAll()
 		.anyRequest().authenticated();
 
 		http

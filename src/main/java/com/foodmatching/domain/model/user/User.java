@@ -1,13 +1,12 @@
 package com.foodmatching.domain.model.user;
 
+import com.foodmatching.domain.model.Scrap;
+import com.foodmatching.domain.model.board.Board;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.ToString;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -15,28 +14,24 @@ import java.util.Set;
 
 @Setter
 @Getter
+@ToString(exclude = "pocket")
 @Entity
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@Email(message="must be email form!")
 	private String email;
-	
-	
 	private String nickname;
-
-	@NotEmpty
-	@Size(min = 6, message = "must be at least 6 characters")
 	private String password;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birth;
 	
 	private LocalDateTime joinDay;
 
+	@Embedded
+	private Pocket pocket;
 
-	@OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user",fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Set<Authority> roles;
 	
 	private String image;
@@ -50,6 +45,10 @@ public class User {
 
     public User(){
     	this.joinDay = LocalDateTime.now();
+    	isAccountNonExpired = true;
+    	isAccountNonLocked = true;
+    	isCredentialsNonExpired = true;
+    	isEnabled = true;
 	}
 
 	public Set<Authority> getRoles() {
@@ -60,4 +59,11 @@ public class User {
 	}
 
 
+	public void addScrap(Scrap s){
+		this.pocket.add(s);
+	}
+
+	public void removeScrap(Scrap s){
+		this.pocket.remove(s);
+	}
 }

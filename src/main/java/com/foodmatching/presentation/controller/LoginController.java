@@ -38,7 +38,7 @@ public class LoginController {
 		return "login";
 	}
 	
-	@GetMapping("/auth/facebook/callback")
+	//@GetMapping("/auth/facebook/callback")
 	public String getFacebookInf(@RequestParam("code") String authorizationCode,Model model){
 		log.info("CODE : {}",authorizationCode);
 		return "login";

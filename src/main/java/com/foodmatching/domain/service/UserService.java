@@ -1,8 +1,12 @@
 package com.foodmatching.domain.service;
 
 import com.foodmatching.database.AuthorityRepository;
+import com.foodmatching.database.BoardRepository;
+import com.foodmatching.database.ScrapRepository;
 import com.foodmatching.database.UserRepository;
 import com.foodmatching.domain.model.CustomUser;
+import com.foodmatching.domain.model.Scrap;
+import com.foodmatching.domain.model.board.Board;
 import com.foodmatching.domain.model.user.Authority;
 import com.foodmatching.domain.model.user.User;
 import com.foodmatching.domain.model.user.UserRole;
@@ -25,6 +29,11 @@ public class UserService implements UserDetailsService{
     UserRepository userRepository;
     @Autowired
     AuthorityRepository authorityRepository;
+
+    @Autowired
+    private ScrapRepository scrapRepository;
+    @Autowired
+    private BoardRepository boardRepository;
 
     @Transactional
     public void save(User user){
@@ -56,5 +65,16 @@ public class UserService implements UserDetailsService{
         }
 
         return user;
+    }
+
+    @Transactional
+    public void saveScrap(User user, Long boardId){
+        Board b = boardRepository.findOne(boardId);
+
+        Scrap s = new Scrap(user, b);
+
+        scrapRepository.save(s);
+
+        user.addScrap(s);
     }
 }

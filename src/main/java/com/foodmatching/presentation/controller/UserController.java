@@ -33,7 +33,6 @@ import java.time.LocalDate;
 
 @Controller
 public class UserController {
-    private final Logger logger = LoggerFactory.getLogger(UserController.class);
     private UserService userService;
     private final BCryptPasswordEncoder ENCODER;
     private AWSUploader awsUploader;
@@ -73,15 +72,14 @@ public class UserController {
             return "insertOK";
         }
 
-        // 다른 곳으로 보낼 페이지 만들어야 함
-        //String image = awsUploader.upload(request.getProfile(),"profiles");
+        String image = awsUploader.upload(request.getProfile(),"profiles");
 
         User user = new User();
         user.setEmail(request.getEmail());
         user.setNickname(request.getNickname());
         user.setPassword(ENCODER.encode(request.getPassword()));
         user.setBirth(request.getBirthday());
-        //user.setImage(image);
+        user.setImage(image);
         userService.save(user);
 
         return "redirect:/login";
@@ -95,45 +93,7 @@ public class UserController {
         return "myinfo";
     }
 
-    @GetMapping("/user/scraps")
-    public String myScrap(Model model, CustomUser user, int start, int end) {
-        Scrap scrap = new Scrap();
-        scrap.setEmail(user.getUserEmail());
-//		List<Scrap> list = scrapMapper.findAll(scrap, start, end);
-//
-//		model.addAttribute("scrapList", list);
-//		model.addAttribute("start",start);
-//		model.addAttribute("end",end);
 
-        return "scaplist";
-    }
-
-    /**
-     * Save 'scrap' if not exists in a table or delete it.
-     *
-     * @param id   board id for user's scrap or unscrap
-     * @param user login user
-     * @return total like number of the board {id}
-     */
-    @PostMapping(value = "/user/scrap/{id}")
-    @ResponseBody
-    public int updateScrap(@PathVariable("id") Integer id, @ModelAttribute("customUser") CustomUser user) {
-
-        Scrap scrap = new Scrap(id, user.getUserEmail());
-
-//		Scrap isScrap = scrapMapper.find(scrap);
-//
-//		logger.info("scrap test :" + (isScrap==null));
-//
-//		if(isScrap == null){
-//			scrapMapper.save(scrap);
-//		}else
-//			scrapMapper.delete(scrap);
-//
-//		return scrapMapper.countAll(scrap);
-        // TODO scrap count 정보를 반환하는 것을 만들어줄 것
-        return 1;
-    }
 
     @NoArgsConstructor
     @Data
