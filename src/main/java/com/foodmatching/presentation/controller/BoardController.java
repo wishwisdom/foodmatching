@@ -1,35 +1,23 @@
 package com.foodmatching.presentation.controller;
 
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.foodmatching.domain.model.Food;
+import com.foodmatching.domain.model.CustomUser;
+import com.foodmatching.domain.model.FileUploadForm;
+import com.foodmatching.domain.model.Reply;
+import com.foodmatching.domain.model.board.Board;
+import com.foodmatching.domain.model.board.BoardDetail;
+import com.foodmatching.domain.model.board.BoardForm;
 import com.foodmatching.domain.service.BoardService;
-import com.foodmatching.utils.FileUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.CacheControl;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.foodmatching.domain.model.board.Board;
-import com.foodmatching.domain.model.board.BoardDetail;
-import com.foodmatching.domain.model.board.BoardForm;
-import com.foodmatching.domain.model.CustomUser;
-import com.foodmatching.domain.model.FileUploadForm;
-import com.foodmatching.domain.model.Reply;
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.util.Iterator;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -38,14 +26,6 @@ public class BoardController {
 	private String regex = ",";
 	@Autowired
 	private BoardService boardService;
-
-	//@Autowired
-	//private LikeMapper likeMapper;
-	//@Autowired
-	//private FoodMapper foodMapper;
-
-	
-
 
 	/**
 	 * Returns a view page title which let a client be able to write a board.
@@ -56,7 +36,6 @@ public class BoardController {
 	 *            page
 	 * @return string Return a view page title excluding '.html'.
 	 */
-	@PreAuthorize("hasAuthority('ROLE_ADMIN') AND hasAuthority('ROLE_USER')")
 	@GetMapping("/matches/upload")
 	public String uploadFile(Model model) {
 
@@ -76,14 +55,12 @@ public class BoardController {
 	 *             IOException
 	 * @see BoardDetail
 	 */
-	@PreAuthorize("hasAuthority('ROLE_ADMIN') AND hasAuthority('ROLE_USER')")
 	@PostMapping("/matches/upload")
-	public @ResponseBody String saveFile( @ModelAttribute BoardForm bf,
-			CustomUser user, Model model) {
+	public @ResponseBody String saveFile( BoardForm bf,
+			 CustomUser user) {
 
+		log.info("multipart : {}",bf);
 
-		log.info("multi size : {}",bf.getFoodpic().length);
-		
 
 
 		return "redirect:/matches/1"; //+ b.getId();
@@ -230,31 +207,6 @@ public class BoardController {
 //		return likeInfo;
 //	}
 
-	
-	
-	
-//
-//	/**
-//	 * Return a binary image file
-//	 *
-//	 * @param fileName
-//	 *            a file name which a client requests
-//	 * @return Image The image file titled fileName
-//	 */
-//	@RequestMapping(value = "/img/{foodId}/{filename:.+}", method = RequestMethod.GET)
-//	public ResponseEntity<byte[]> getFile(@PathVariable("foodId") Long foodId, @PathVariable("filename") String fileName) {
-//		logger.info("FILE ID: " + fileName);
-//		logger.info("SAVE_PATH : " + SAVE_PATH);
-//		logger.info("food id: {}",foodId);
-//		Food food= boardService.findBy(foodId,fileName);//foodMapper.findByFoodName(boardId,fileName);
-//		byte[] media = FileUtil.getFile(SAVE_PATH,food.getFoodSavedLocation());
-//		HttpHeaders headers = new HttpHeaders();
-//
-//		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-//
-//		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
-//		return responseEntity;
-//
-//	}
+
 
 }

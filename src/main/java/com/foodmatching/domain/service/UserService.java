@@ -60,15 +60,16 @@ public class UserService implements UserDetailsService{
     public User findBy(String email){
         User user = userRepository.findByEmail(email);
 
-        if(user == null){
-            throw new RuntimeException("존재하지 않는 id입니다");
-        }
+//        if(user == null){
+//            throw new RuntimeException("존재하지 않는 id입니다");
+//        }
 
         return user;
     }
 
     @Transactional
-    public void saveScrap(User user, Long boardId){
+    public void saveScrap(User u, Long boardId){
+        User user = userRepository.findByEmail(u.getEmail());
         Board b = boardRepository.findOne(boardId);
 
         Scrap s = new Scrap(user, b);

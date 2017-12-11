@@ -11,11 +11,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * Created by shin on 2017. 9. 10..
  */
-//@Configuration
-//@EnableSwagger2
+@Configuration
+@EnableSwagger2
 public class SwaggerConfig {
 
-//    @Bean
+    @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()

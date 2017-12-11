@@ -15,7 +15,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 @Slf4j
 public class CustomUser implements UserDetails{
-	private Logger logger = LoggerFactory.getLogger(CustomUser.class);
 	private User user;
 	
 	public CustomUser(User user){

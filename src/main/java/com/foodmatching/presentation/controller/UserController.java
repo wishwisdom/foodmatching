@@ -1,7 +1,5 @@
 package com.foodmatching.presentation.controller;
 
-import com.foodmatching.domain.model.CustomUser;
-import com.foodmatching.domain.model.Scrap;
 import com.foodmatching.domain.model.user.User;
 import com.foodmatching.domain.service.UserService;
 import com.foodmatching.utils.AWSUploader;
@@ -9,8 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -122,5 +118,6 @@ public class UserController {
         public Boolean checkPassword() {
             return this.password.equals(this.repassword);
         }
+
     }
 }

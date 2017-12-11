@@ -2,13 +2,10 @@ package com.foodmatching.domain.model.board;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import lombok.Getter;
-import lombok.Setter;
-
+@ToString
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,7 +19,10 @@ public class BoardForm {
 //	logger.info("foodname2 : {}",req.getParameter("foodname2"));
 //	logger.info("summary : {}",req.getParameter("summary"));
 //	logger.info("tag : {}",req.getParameter("tag"));
-	MultipartFile[] foodpic;
+	private List<MultipartFile> foodPictures;
+	private List<String> foodNames;
+	private List<String> foodTastes;
+	private String summary;
 //	List<String> tastes1;
 //	List<String> tastes2;
 //	List<String> foodImageNames;

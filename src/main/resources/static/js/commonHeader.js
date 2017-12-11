@@ -134,12 +134,12 @@ $(document).ready(function () {
                 formData.append("foodtaste", foodtaste2);
                 formData.append("summary", $('#summary').val());
                 formData.append("tag", $('#tag').val());
-
                 if (pic2 === undefined) {
                     srcToFile(pic1, foodpicname, 'image/png')
                         .then(function (file) {
-                            formData.append("foodpic", file, foodpicname);
-                            download(file, foodpicname, 'image/png')
+                            //formData.append("foodpic", file, foodpicname);
+                            formData.append('foodpic',pic1);
+                            //download(file, foodpicname, 'image/png')
                         })
                 } else {
                     var fpnSplit = foodpicname.split(", ");
@@ -155,9 +155,7 @@ $(document).ready(function () {
                             //download(file, fpnSplit[1], 'image/png')
                         })
                 }
-                for (var pair of formData.entries()) {
-                    console.log(pair[0] + ', ' + pair[1]);
-                }
+
 
                 $.ajax({
                     type: 'POST',

@@ -23,9 +23,7 @@ public class LoginController {
 
 	@Value("${user.target.preurl}")
 	private String preURL;
-	
-	@Autowired
-	private UserService userService;
+
 	@GetMapping("/login")
 	public String getLoginPage(HttpServletRequest request, Model model){
 		log.info("Login");
@@ -37,12 +35,5 @@ public class LoginController {
 
 		return "login";
 	}
-	
-	//@GetMapping("/auth/facebook/callback")
-	public String getFacebookInf(@RequestParam("code") String authorizationCode,Model model){
-		log.info("CODE : {}",authorizationCode);
-		return "login";
-	}
-	
-	
+
 }
