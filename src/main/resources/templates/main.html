@@ -24,15 +24,14 @@
 			type : "GET",
 			url : "/matches",
 			data : {
-				startNum : 0,
-				offset : 3
+				page:0
 			},
 			error : function() {
 				alert('통신실패!!');
 			},
 			success : function(data) {
 				/* alert("통신데이터 값 : " + data.comment) ; */
-				$('.fm-ct-posts').append(data)
+				$('.fm-ct-posts').append(data.content)
 
 			}
 

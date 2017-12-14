@@ -7,6 +7,8 @@ import com.foodmatching.domain.model.Food;
 import com.foodmatching.domain.model.Reply;
 import com.foodmatching.domain.model.board.Board;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -32,6 +34,10 @@ public class BoardService {
     @Transactional
     public void save(Board board){
         boardRepository.save(board);
+    }
+
+    public Page<Board> findAll(Pageable pageable){
+        return boardRepository.findAll(pageable);
     }
 
     public List<Board> findAll(){

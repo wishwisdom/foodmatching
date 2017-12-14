@@ -128,32 +128,20 @@ $(document).ready(function () {
                 var foodpicname = $('#fileInput').val();
 
                 // image(1/2), foodname(2), taste(2), evaluation(1), tag(1)
-                formData.append("foodname", $('#foodname1').val());
-                formData.append("foodname", $('#foodname2').val());
-                formData.append("foodtaste", foodtaste1);
-                formData.append("foodtaste", foodtaste2);
+                formData.append("foodNames", $('#foodname1').val());
+                formData.append("foodNames", $('#foodname2').val());
+                formData.append("foodTastes", foodtaste1);
+                formData.append("foodTastes", foodtaste2);
                 formData.append("summary", $('#summary').val());
                 formData.append("tag", $('#tag').val());
                 if (pic2 === undefined) {
-                    srcToFile(pic1, foodpicname, 'image/png')
-                        .then(function (file) {
-                            //formData.append("foodpic", file, foodpicname);
-                            formData.append('foodpic',pic1);
-                            //download(file, foodpicname, 'image/png')
-                        })
+                    formData.append('foodPictures',srcToFile(pic1, foodpicname, 'image/png'));
                 } else {
                     var fpnSplit = foodpicname.split(", ");
-                    console.log(fpnSplit[0] + "+" + fpnSplit[1])
-                    srcToFile(pic1, fpnSplit[0], 'image/png')
-                        .then(function (file) {
-                            formData.append("foodpic", file, fpnSplit[0]);
-                            //download(file, fpnSplit[0], 'image/png')
-                        })
-                    srcToFile(pic2, fpnSplit[1], 'image/png')
-                        .then(function (file) {
-                            formData.append("foodpic", file, fpnSplit[1]);
-                            //download(file, fpnSplit[1], 'image/png')
-                        })
+
+                    formData.append('foodPictures',srcToFile(pic1, foodpicname, 'image/png'));
+                    formData.append('foodPictures',srcToFile(pic2, fpnSplit[1], 'image/png'));
+
                 }
 
 
@@ -165,9 +153,7 @@ $(document).ready(function () {
                     data: formData,
                     enctype: "multipart/form-data",
                     success: function (data) {
-                        for (var pair of formData.entries()) {
-                            console.log(pair[0] + ', ' + pair[1]);
-                        }
+                        location.href = data
                         // url 이동하는 코드 삽입 예: 1)document.location.href -> back해서 다시 submit하면 똑같은 게시물 또 업로드 가능... 전단계로 못들어오게 함.
                         // 2) formdata.submit()
                     }
@@ -308,14 +294,12 @@ $(document).ready(function () {
 });
 
 function srcToFile(src, fileName, mimeType) {
-    return (fetch(src)
-            .then(function (res) {
-                return res.arrayBuffer();
-            })
-            .then(function (buf) {
-                return new File([buf], fileName, {type: mimeType});
-            })
-    );
+    var arr = src.split(','), mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], fileName, {type:mime});
 }
 
 function download(data, filename, type) {
