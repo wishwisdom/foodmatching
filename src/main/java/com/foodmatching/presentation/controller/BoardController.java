@@ -7,6 +7,7 @@ import com.foodmatching.domain.model.board.Board;
 import com.foodmatching.domain.model.board.BoardDetail;
 import com.foodmatching.domain.model.board.BoardForm;
 import com.foodmatching.domain.service.BoardService;
+import com.foodmatching.utils.AWSUploader;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.List;
@@ -23,11 +25,11 @@ import java.util.List;
 @Slf4j
 @Controller
 public class BoardController {
-    private int pageOffset = 6;
-    private String regex = ",";
     @Autowired
     private BoardService boardService;
 
+    @Autowired
+    private AWSUploader awsUploader;
 
     /**
      * Create a board including food pictures and tags...
@@ -37,12 +39,16 @@ public class BoardController {
      * IOException
      * @see BoardDetail
      */
-    @PostMapping("/matches/upload")
+    @PostMapping("/matches")
     public @ResponseBody
     String saveFile(BoardForm bf,
                     CustomUser user) {
 
         log.info("multipart : {}", bf);
+
+        for(MultipartFile f : bf.getFoodPictures()){
+            awsUploader.upload(f,"board");
+        }
 
 
         return "redirect:/matches/1"; //+ b.getId();

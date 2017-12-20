@@ -147,7 +147,7 @@ $(document).ready(function () {
 
                 $.ajax({
                     type: 'POST',
-                    url: '/matches/upload',
+                    url: '/matches',
                     contentType: false,
                     processData: false,
                     data: formData,

@@ -9,14 +9,12 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.NoArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -27,10 +25,11 @@ import java.time.format.DateTimeFormatter;
  * Created by shin on 2017. 10. 31..
  */
 @Component
+@Slf4j
 @NoArgsConstructor
 public class AWSUploader {
     private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddhhmmss");
-    private final Logger logger = LoggerFactory.getLogger(AWSUploader.class);
+
 
     @Value("${cloud.aws.access-key}")
     String ACCESS_KEY;
@@ -41,6 +40,9 @@ public class AWSUploader {
 
 
     private final String ENDPOINT = "https://s3-ap-northeast-2.amazonaws.com";
+
+
+
     public String upload(MultipartFile multipartFile, String path){
 
         String extention = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf('.')+1);
@@ -57,18 +59,24 @@ public class AWSUploader {
 
         if (amazonS3 != null) {
             try {
-                File file = new File("/Users/shin/Documents/workspace-sts-3.8.2.RELEASE/foodmatching/" + fileName);
-                multipartFile.transferTo(file);
-                logger.info("file path : {}", file.getAbsolutePath());
+//                File file = new File("/Users/shin/Documents/workspace-sts-3.8.2.RELEASE/foodmatching/" + fileName);
+//                multipartFile.transferTo(file);
+
+                //log.info("file path : {}", file.getAbsolutePath());
+                ObjectMetadata om = new ObjectMetadata();
+
+                Long contentLength = Long.valueOf(IOUtils.toByteArray(multipartFile.getInputStream()).length);
+                om.setContentLength(contentLength);
+
                 PutObjectRequest putObjectRequest =
-                        new PutObjectRequest(BUCKET_NAME+"/"+path+"/"+datePath , file.getName(), file);
+                        new PutObjectRequest(BUCKET_NAME+"/"+path+"/"+datePath , fileName, multipartFile.getInputStream(), om);
                 putObjectRequest.setCannedAcl(CannedAccessControlList.PublicRead); // file permission
 
                 ObjectMetadata objectMetadata = new ObjectMetadata();
                 objectMetadata.setSSEAlgorithm(ObjectMetadata.AES_256_SERVER_SIDE_ENCRYPTION);
                 amazonS3.putObject(putObjectRequest); // upload file
 
-                url+=file.getName();
+                url+=fileName;
 
             } catch (AmazonServiceException ase) {
                 ase.printStackTrace();
@@ -80,6 +88,8 @@ public class AWSUploader {
         }
         return url;
     }
+
+
 
 
 }

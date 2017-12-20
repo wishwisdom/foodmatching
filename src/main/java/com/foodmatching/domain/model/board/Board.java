@@ -1,31 +1,33 @@
 package com.foodmatching.domain.model.board;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.foodmatching.domain.model.Food;
 import com.foodmatching.domain.model.Reply;
+import com.foodmatching.domain.model.user.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
-
 @Getter
 @Entity
 public class Board {
-	private final static Logger logger = LoggerFactory.getLogger(Board.class.getName());
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String summary;
-	private String owner;
+	@ManyToOne
+	private User owner;
 	private int likes;
 	private Timestamp createdDate;
 
@@ -61,11 +63,11 @@ public class Board {
 		this.summary = summary;
 	}
 
-	public String getOwner() {
+	public User getOwner() {
 		return owner;
 	}
 
-	public void setOwner(String owner) {
+	public void setOwner(User owner) {
 		this.owner = owner;
 	}
 

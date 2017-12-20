@@ -3,7 +3,7 @@
 	<a th:href="@{'/matches/' + ${board.id}}" >
 		<div class="posts-up" >
 			<div class="posts-title" th:text="${board.title}"></div>
-		<div class="posts-writer" th:text="${board.owner}">구슬씨</div>
+		<div class="posts-writer" th:text="${board.owner.nickname}">구슬씨</div>
 		<div class="posts-time" th:attr="data-createdday=${board.createdDate}" th:text="${board.time}"></div>
 		<div class="posts-like">927<img class="posts-heart" th:src="@{/images/heart.svg}" /></div>
 		</div>
